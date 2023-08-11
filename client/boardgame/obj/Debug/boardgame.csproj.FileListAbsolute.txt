@@ -1,0 +1,94 @@
+C:\Users\sw_304\Desktop\수강생 101\김영곤\boardgame\boardgame\bin\Debug\boardgame.exe.config
+C:\Users\sw_304\Desktop\수강생 101\김영곤\boardgame\boardgame\bin\Debug\boardgame.exe
+C:\Users\sw_304\Desktop\수강생 101\김영곤\boardgame\boardgame\bin\Debug\boardgame.pdb
+C:\Users\sw_304\Desktop\수강생 101\김영곤\boardgame\boardgame\obj\Debug\boardgame.csprojAssemblyReference.cache
+C:\Users\sw_304\Desktop\수강생 101\김영곤\boardgame\boardgame\obj\Debug\boardgame.Form1.resources
+C:\Users\sw_304\Desktop\수강생 101\김영곤\boardgame\boardgame\obj\Debug\boardgame.Properties.Resources.resources
+C:\Users\sw_304\Desktop\수강생 101\김영곤\boardgame\boardgame\obj\Debug\boardgame.csproj.GenerateResource.cache
+C:\Users\sw_304\Desktop\수강생 101\김영곤\boardgame\boardgame\obj\Debug\boardgame.csproj.CoreCompileInputs.cache
+C:\Users\sw_304\Desktop\수강생 101\김영곤\boardgame\boardgame\obj\Debug\boardgame.exe
+C:\Users\sw_304\Desktop\수강생 101\김영곤\boardgame\boardgame\obj\Debug\boardgame.pdb
+C:\Users\sw4_2\Desktop\수강생 101\김영곤\boardgame\boardgame\bin\Debug\boardgame.exe.config
+C:\Users\sw4_2\Desktop\수강생 101\김영곤\boardgame\boardgame\bin\Debug\boardgame.exe
+C:\Users\sw4_2\Desktop\수강생 101\김영곤\boardgame\boardgame\bin\Debug\boardgame.pdb
+C:\Users\sw4_2\Desktop\수강생 101\김영곤\boardgame\boardgame\obj\Debug\boardgame.csprojAssemblyReference.cache
+C:\Users\sw4_2\Desktop\수강생 101\김영곤\boardgame\boardgame\obj\Debug\boardgame.Form1.resources
+C:\Users\sw4_2\Desktop\수강생 101\김영곤\boardgame\boardgame\obj\Debug\boardgame.Properties.Resources.resources
+C:\Users\sw4_2\Desktop\수강생 101\김영곤\boardgame\boardgame\obj\Debug\boardgame.csproj.GenerateResource.cache
+C:\Users\sw4_2\Desktop\수강생 101\김영곤\boardgame\boardgame\obj\Debug\boardgame.csproj.CoreCompileInputs.cache
+C:\Users\sw4_2\Desktop\수강생 101\김영곤\boardgame\boardgame\obj\Debug\boardgame.exe
+C:\Users\sw4_2\Desktop\수강생 101\김영곤\boardgame\boardgame\obj\Debug\boardgame.pdb
+C:\Users\sw4_2\Desktop\수강생 101\김영곤\boardgame\boardgame\obj\Debug\boardgame.Form2.resources
+C:\Users\sw4_2\Desktop\수강생 101\김영곤\boardgame\boardgame\obj\Debug\boardgame.Form3.resources
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame\boardgame\bin\Debug\boardgame.exe.config
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame\boardgame\bin\Debug\boardgame.exe
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame\boardgame\bin\Debug\boardgame.pdb
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame\boardgame\obj\Debug\boardgame.csproj.AssemblyReference.cache
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame\boardgame\obj\Debug\boardgame.csproj.SuggestedBindingRedirects.cache
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame\boardgame\obj\Debug\boardgame.Form1.resources
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame\boardgame\obj\Debug\boardgame.Form2.resources
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame\boardgame\obj\Debug\boardgame.Form3.resources
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame\boardgame\obj\Debug\boardgame.Properties.Resources.resources
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame\boardgame\obj\Debug\boardgame.csproj.GenerateResource.cache
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame\boardgame\obj\Debug\boardgame.csproj.CoreCompileInputs.cache
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame\boardgame\obj\Debug\boardgame.exe
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame\boardgame\obj\Debug\boardgame.pdb
+C:\Users\sw_306\Desktop\수강생402\김영곤\boardgame (3)\boardgame\bin\Debug\boardgame.exe.config
+C:\Users\sw_306\Desktop\수강생402\김영곤\boardgame (3)\boardgame\bin\Debug\boardgame.exe
+C:\Users\sw_306\Desktop\수강생402\김영곤\boardgame (3)\boardgame\bin\Debug\boardgame.pdb
+C:\Users\sw_306\Desktop\수강생402\김영곤\boardgame (3)\boardgame\obj\Debug\boardgame.csproj.AssemblyReference.cache
+C:\Users\sw_306\Desktop\수강생402\김영곤\boardgame (3)\boardgame\obj\Debug\boardgame.csproj.SuggestedBindingRedirects.cache
+C:\Users\sw_306\Desktop\수강생402\김영곤\boardgame (3)\boardgame\obj\Debug\boardgame.Form1.resources
+C:\Users\sw_306\Desktop\수강생402\김영곤\boardgame (3)\boardgame\obj\Debug\boardgame.Form2.resources
+C:\Users\sw_306\Desktop\수강생402\김영곤\boardgame (3)\boardgame\obj\Debug\boardgame.Form3.resources
+C:\Users\sw_306\Desktop\수강생402\김영곤\boardgame (3)\boardgame\obj\Debug\boardgame.Properties.Resources.resources
+C:\Users\sw_306\Desktop\수강생402\김영곤\boardgame (3)\boardgame\obj\Debug\boardgame.csproj.GenerateResource.cache
+C:\Users\sw_306\Desktop\수강생402\김영곤\boardgame (3)\boardgame\obj\Debug\boardgame.csproj.CoreCompileInputs.cache
+C:\Users\sw_306\Desktop\수강생402\김영곤\boardgame (3)\boardgame\obj\Debug\boardgame.exe
+C:\Users\sw_306\Desktop\수강생402\김영곤\boardgame (3)\boardgame\obj\Debug\boardgame.pdb
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame (3) (4)\boardgame\bin\Debug\boardgame.exe.config
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame (3) (4)\boardgame\bin\Debug\boardgame.exe
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame (3) (4)\boardgame\bin\Debug\boardgame.pdb
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame (3) (4)\boardgame\obj\Debug\boardgame.csproj.AssemblyReference.cache
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame (3) (4)\boardgame\obj\Debug\boardgame.csproj.SuggestedBindingRedirects.cache
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame (3) (4)\boardgame\obj\Debug\boardgame.Form1.resources
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame (3) (4)\boardgame\obj\Debug\boardgame.Form2.resources
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame (3) (4)\boardgame\obj\Debug\boardgame.Form3.resources
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame (3) (4)\boardgame\obj\Debug\boardgame.Properties.Resources.resources
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame (3) (4)\boardgame\obj\Debug\boardgame.csproj.GenerateResource.cache
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame (3) (4)\boardgame\obj\Debug\boardgame.csproj.CoreCompileInputs.cache
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame (3) (4)\boardgame\obj\Debug\boardgame.exe
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame (3) (4)\boardgame\obj\Debug\boardgame.pdb
+C:\Users\sw4_2\Desktop\수강생101\김영곤\boardgame (3) (4)\boardgame\obj\Debug\boardgame.Form4.resources
+C:\Users\D413\Desktop\수강생413\김영곤\boardgame (3) (4) (2)\boardgame\bin\Debug\boardgame.exe.config
+C:\Users\D413\Desktop\수강생413\김영곤\boardgame (3) (4) (2)\boardgame\bin\Debug\boardgame.exe
+C:\Users\D413\Desktop\수강생413\김영곤\boardgame (3) (4) (2)\boardgame\bin\Debug\boardgame.pdb
+C:\Users\D413\Desktop\수강생413\김영곤\boardgame (3) (4) (2)\boardgame\obj\Debug\boardgame.csproj.AssemblyReference.cache
+C:\Users\D413\Desktop\수강생413\김영곤\boardgame (3) (4) (2)\boardgame\obj\Debug\boardgame.csproj.SuggestedBindingRedirects.cache
+C:\Users\D413\Desktop\수강생413\김영곤\boardgame (3) (4) (2)\boardgame\obj\Debug\boardgame.Properties.Resources.resources
+C:\Users\D413\Desktop\수강생413\김영곤\boardgame (3) (4) (2)\boardgame\obj\Debug\boardgame.csproj.GenerateResource.cache
+C:\Users\D413\Desktop\수강생413\김영곤\boardgame (3) (4) (2)\boardgame\obj\Debug\boardgame.csproj.CoreCompileInputs.cache
+C:\Users\D413\Desktop\수강생413\김영곤\boardgame (3) (4) (2)\boardgame\obj\Debug\boardgame.exe
+C:\Users\D413\Desktop\수강생413\김영곤\boardgame (3) (4) (2)\boardgame\obj\Debug\boardgame.pdb
+C:\Users\D413\Desktop\수강생413\김영곤\boardgame (3) (4) (2)\boardgame\obj\Debug\boardgame.GameMain.resources
+C:\Users\D413\Desktop\수강생413\김영곤\boardgame (3) (4) (2)\boardgame\obj\Debug\boardgame.Card.resources
+C:\Users\D413\Desktop\수강생413\김영곤\boardgame (3) (4) (2)\boardgame\obj\Debug\boardgame.information.resources
+C:\Users\D413\Desktop\수강생413\김영곤\boardgame (3) (4) (2)\boardgame\obj\Debug\boardgame.socialfund.resources
+C:\Users\D413\Desktop\수강생413\김영곤\boardgame (3) (4) (2)\boardgame\obj\Debug\boardgame.buildCard.resources
+C:\Users\D413\Desktop\수강생413\김영곤\boardgame (3) (4) (2)\boardgame\obj\Debug\boardgame.Select_build.resources
+C:\Users\sw\Desktop\수강생410\김영곤\boardgame (2022-06-15)\boardgame\obj\Debug\boardgame.csproj.AssemblyReference.cache
+C:\Users\sw\Desktop\수강생410\김영곤\boardgame (2022-06-15)\boardgame\obj\Debug\boardgame.csproj.SuggestedBindingRedirects.cache
+C:\Users\sw\Desktop\수강생410\김영곤\boardgame (2022-06-15)\boardgame\obj\Debug\boardgame.exe
+C:\Users\sw\Desktop\수강생410\김영곤\boardgame (2022-06-15)\boardgame\obj\Debug\boardgame.pdb
+C:\Users\sw\Desktop\수강생410\김영곤\boardgame (2022-06-15)\boardgame\bin\Debug\boardgame.exe.config
+C:\Users\sw\Desktop\수강생410\김영곤\boardgame (2022-06-15)\boardgame\bin\Debug\boardgame.exe
+C:\Users\sw\Desktop\수강생410\김영곤\boardgame (2022-06-15)\boardgame\bin\Debug\boardgame.pdb
+C:\Users\sw\Desktop\수강생410\김영곤\boardgame (2022-06-15)\boardgame\obj\Debug\boardgame.GameMain.resources
+C:\Users\sw\Desktop\수강생410\김영곤\boardgame (2022-06-15)\boardgame\obj\Debug\boardgame.Card.resources
+C:\Users\sw\Desktop\수강생410\김영곤\boardgame (2022-06-15)\boardgame\obj\Debug\boardgame.information.resources
+C:\Users\sw\Desktop\수강생410\김영곤\boardgame (2022-06-15)\boardgame\obj\Debug\boardgame.Select_build.resources
+C:\Users\sw\Desktop\수강생410\김영곤\boardgame (2022-06-15)\boardgame\obj\Debug\boardgame.socialfund.resources
+C:\Users\sw\Desktop\수강생410\김영곤\boardgame (2022-06-15)\boardgame\obj\Debug\boardgame.buildCard.resources
+C:\Users\sw\Desktop\수강생410\김영곤\boardgame (2022-06-15)\boardgame\obj\Debug\boardgame.Properties.Resources.resources
+C:\Users\sw\Desktop\수강생410\김영곤\boardgame (2022-06-15)\boardgame\obj\Debug\boardgame.csproj.GenerateResource.cache
+C:\Users\sw\Desktop\수강생410\김영곤\boardgame (2022-06-15)\boardgame\obj\Debug\boardgame.csproj.CoreCompileInputs.cache

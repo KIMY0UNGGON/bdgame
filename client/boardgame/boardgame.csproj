@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4EA31FFE-166F-4804-8953-9B9ADC2D802E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>boardgame</RootNamespace>
+    <AssemblyName>boardgame</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Area.cs" />
+    <Compile Include="City.cs" />
+    <Compile Include="cityArea.cs" />
+    <Compile Include="GameMain.UI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Card.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Card.Designer.cs">
+      <DependentUpon>Card.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GameMain_Build.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GameMain_Card.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GameMain_Move.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GameMain_Server.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="information.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="information.Designer.cs">
+      <DependentUpon>information.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MySocket.cs" />
+    <Compile Include="Select_build.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Select_build.Designer.cs">
+      <DependentUpon>Select_build.cs</DependentUpon>
+    </Compile>
+    <Compile Include="socialfund.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="socialfund.Designer.cs">
+      <DependentUpon>socialfund.cs</DependentUpon>
+    </Compile>
+    <Compile Include="buildCard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="buildCard.Designer.cs">
+      <DependentUpon>buildCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Money.cs" />
+    <Compile Include="pArrtoV.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="PtoV.cs" />
+    <Compile Include="GameMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GameMain.Designer.cs">
+      <DependentUpon>GameMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GameMain.resx">
+      <DependentUpon>GameMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Card.resx">
+      <DependentUpon>Card.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="information.resx">
+      <DependentUpon>information.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Select_build.resx">
+      <DependentUpon>Select_build.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="socialfund.resx">
+      <DependentUpon>socialfund.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="buildCard.resx">
+      <DependentUpon>buildCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\제목 없음.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\key.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\keycard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\keycard_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\keycard_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\p1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\p1-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\건물카드%28빨간색%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\건물카드%28초록색%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\건물카드%28회색%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\건물카드%28적색%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\사회복지기금.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\areacard3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\areacard2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\areacard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\areacard1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\keycard_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\뒷면카드%28빨간색%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\뒷면카드%28적색%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\뒷면카드%28회색%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\뒷면카드%28녹색%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\keycard_5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\keycard_6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\p3-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\p2-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\p2-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\p4-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\p4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\p3-1.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

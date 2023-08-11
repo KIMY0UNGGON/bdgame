@@ -1,0 +1,16 @@
+C:\Users\D413\Desktop\수강생413\김영곤\SServer\SServer\bin\Debug\SServer.exe.config
+C:\Users\D413\Desktop\수강생413\김영곤\SServer\SServer\bin\Debug\SServer.exe
+C:\Users\D413\Desktop\수강생413\김영곤\SServer\SServer\bin\Debug\SServer.pdb
+C:\Users\D413\Desktop\수강생413\김영곤\SServer\SServer\obj\Debug\SServer.csproj.AssemblyReference.cache
+C:\Users\D413\Desktop\수강생413\김영곤\SServer\SServer\obj\Debug\SServer.csproj.SuggestedBindingRedirects.cache
+C:\Users\D413\Desktop\수강생413\김영곤\SServer\SServer\obj\Debug\SServer.csproj.CoreCompileInputs.cache
+C:\Users\D413\Desktop\수강생413\김영곤\SServer\SServer\obj\Debug\SServer.exe
+C:\Users\D413\Desktop\수강생413\김영곤\SServer\SServer\obj\Debug\SServer.pdb
+C:\Users\sw\Desktop\수강생410\김영곤\SServer (2022-06-15)\SServer\bin\Debug\SServer.exe.config
+C:\Users\sw\Desktop\수강생410\김영곤\SServer (2022-06-15)\SServer\bin\Debug\SServer.exe
+C:\Users\sw\Desktop\수강생410\김영곤\SServer (2022-06-15)\SServer\bin\Debug\SServer.pdb
+C:\Users\sw\Desktop\수강생410\김영곤\SServer (2022-06-15)\SServer\obj\Debug\SServer.csproj.AssemblyReference.cache
+C:\Users\sw\Desktop\수강생410\김영곤\SServer (2022-06-15)\SServer\obj\Debug\SServer.csproj.SuggestedBindingRedirects.cache
+C:\Users\sw\Desktop\수강생410\김영곤\SServer (2022-06-15)\SServer\obj\Debug\SServer.csproj.CoreCompileInputs.cache
+C:\Users\sw\Desktop\수강생410\김영곤\SServer (2022-06-15)\SServer\obj\Debug\SServer.exe
+C:\Users\sw\Desktop\수강생410\김영곤\SServer (2022-06-15)\SServer\obj\Debug\SServer.pdb
