@@ -81,7 +81,7 @@ namespace boardgame
         
         public cityArea(int Area,int count = 10, Graphics DC, Bitmap bt, int x, int y, int num, int margin, List<Bitmap> pl, List<Bitmap> pl2, Graphics GP, Bitmap img,Bitmap img2,Graphics name,List<Bitmap> thispl)
         {
- 
+             //num을 없애는 법 구상중
 
             int x1 = x;
             int y1 = y;
