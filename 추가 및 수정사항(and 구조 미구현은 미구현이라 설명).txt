@@ -35,6 +35,7 @@ city[3].play[9].Add(player) ->
  DC.Clip = rg;
  DC.DrawImage(이미지, play.nowpos) } 생성.
         drawplayer-> public void MovePlayer(Player play){
+
             }
 
 
