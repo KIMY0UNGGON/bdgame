@@ -92,3 +92,18 @@ C:\Users\sw\Desktop\수강생410\김영곤\boardgame (2022-06-15)\boardgame\obj\
 C:\Users\sw\Desktop\수강생410\김영곤\boardgame (2022-06-15)\boardgame\obj\Debug\boardgame.Properties.Resources.resources
 C:\Users\sw\Desktop\수강생410\김영곤\boardgame (2022-06-15)\boardgame\obj\Debug\boardgame.csproj.GenerateResource.cache
 C:\Users\sw\Desktop\수강생410\김영곤\boardgame (2022-06-15)\boardgame\obj\Debug\boardgame.csproj.CoreCompileInputs.cache
+C:\Users\ddd84\Desktop\boardgame(2024(\boardgame\bin\Debug\boardgame.exe.config
+C:\Users\ddd84\Desktop\boardgame(2024(\boardgame\bin\Debug\boardgame.exe
+C:\Users\ddd84\Desktop\boardgame(2024(\boardgame\bin\Debug\boardgame.pdb
+C:\Users\ddd84\Desktop\boardgame(2024(\boardgame\obj\Debug\boardgame.csproj.AssemblyReference.cache
+C:\Users\ddd84\Desktop\boardgame(2024(\boardgame\obj\Debug\boardgame.GameMain.resources
+C:\Users\ddd84\Desktop\boardgame(2024(\boardgame\obj\Debug\boardgame.Card.resources
+C:\Users\ddd84\Desktop\boardgame(2024(\boardgame\obj\Debug\boardgame.information.resources
+C:\Users\ddd84\Desktop\boardgame(2024(\boardgame\obj\Debug\boardgame.Select_build.resources
+C:\Users\ddd84\Desktop\boardgame(2024(\boardgame\obj\Debug\boardgame.socialfund.resources
+C:\Users\ddd84\Desktop\boardgame(2024(\boardgame\obj\Debug\boardgame.buildCard.resources
+C:\Users\ddd84\Desktop\boardgame(2024(\boardgame\obj\Debug\boardgame.Properties.Resources.resources
+C:\Users\ddd84\Desktop\boardgame(2024(\boardgame\obj\Debug\boardgame.csproj.GenerateResource.cache
+C:\Users\ddd84\Desktop\boardgame(2024(\boardgame\obj\Debug\boardgame.csproj.CoreCompileInputs.cache
+C:\Users\ddd84\Desktop\boardgame(2024(\boardgame\obj\Debug\boardgame.exe
+C:\Users\ddd84\Desktop\boardgame(2024(\boardgame\obj\Debug\boardgame.pdb

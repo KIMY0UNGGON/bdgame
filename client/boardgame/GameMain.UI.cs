@@ -115,7 +115,16 @@ namespace boardgame
 
         private void reset()
         {
+            // DC.Clear(Color.DarkSeaGreen);
+
             city[bfblock].PlayerRemove(bfblock, bfcity);
+
+
+            // city[0].drawcity(Color.Red, 0);
+            //  city[1].drawcity(Color.DarkGreen, 1);
+            // city[2].drawcity(Color.Brown, 2);
+            //city[3].drawcity(Color.Gray, 3);
+            //city[4].drawfour();
         }
 
         private void rectcity() //건물

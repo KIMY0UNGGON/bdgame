@@ -161,7 +161,7 @@ namespace boardgame
         private void Form1_Load(object sender, EventArgs e)
         {
          
-            Server_connect();
+            //Server_connect();
 
           
             this.Size = new Size(320, 232);

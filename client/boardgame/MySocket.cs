@@ -19,7 +19,7 @@ namespace boardgame
             sever = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             // (2) 서버에 연결
-            var ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 7000); //실제 배포시 따로 값받아서 사용
+            var ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 7000);
             sever.Connect(ep);
 
             //thread recv

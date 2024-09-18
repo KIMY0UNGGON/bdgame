@@ -56,7 +56,7 @@ namespace boardgame
 
         }
 
-        Rectangle Player_piece; //얘를 기초 말 사각형으로 해서 Draw한다음 좌표를 옮기는 것으로 다시그리는 일 없이 말을 움직일 예정
+
         
         Rectangle areacolor;
         Graphics DC;
@@ -79,9 +79,9 @@ namespace boardgame
         public List<double>[] price = new List<double>[8];
         int Area;
         
-        public cityArea(int Area,int count = 10, Graphics DC, Bitmap bt, int x, int y, int num, int margin, List<Bitmap> pl, List<Bitmap> pl2, Graphics GP, Bitmap img,Bitmap img2,Graphics name,List<Bitmap> thispl)
+        public cityArea(int Area,int count, Graphics DC, Bitmap bt, int x, int y, int num, int margin, List<Bitmap> pl, List<Bitmap> pl2, Graphics GP, Bitmap img,Bitmap img2,Graphics name,List<Bitmap> thispl)
         {
-             //num을 없애는 법 구상중
+ 
 
             int x1 = x;
             int y1 = y;
