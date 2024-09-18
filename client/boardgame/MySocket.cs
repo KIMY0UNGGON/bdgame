@@ -26,22 +26,6 @@ namespace boardgame
             Thread recvTh = new Thread(new ThreadStart(recv));
             recvTh.Start();
 
-
-            //// Q 를 누를 때까지 계속 Echo 실행
-            //while ((cmd = Console.ReadLine()) != "Q")
-            //{
-            //    byte[] buff = Encoding.UTF8.GetBytes(cmd);
-
-            //    // (3) 서버에 데이타 전송
-            //    sever.Send(buff, SocketFlags.None);
-
-            //    // (4) 서버에서 데이타 수신
-            //   
-
-            //    
-            //    Console.WriteLine(data);
-            //}
-
         }
 
 
@@ -60,8 +44,6 @@ namespace boardgame
                     string data = Encoding.UTF8.GetString(receiverBuff, 0, n);
                     gm.sendtomainthread(data);
 
-                    //Thread se = new Thread(() => send(gm.Text));
-                    //se.Start();
                 }
                 catch {
                     break;

@@ -12,49 +12,18 @@ namespace boardgame
 {
     class cityArea
     {
-        public Rectangle[] cities
-        {
-            get;
-            set;
+        public Rectangle[] cities { get; set; }
+        public List<Rectangle>[] cityRect { get; set; }
 
-        }
-        public List<Rectangle>[] cityRect
-        {
-            get;
-            set;
+        public Rectangle[] Rect_Ground { get; set; }
+        public Rectangle[] Rect_Villa { get; set; }
 
-        }
-
-        public Rectangle[] Rect_Ground
-        {
-            get;
-            set;
-        }
-        public Rectangle[] Rect_Villa
-        {
-            get;
-            set;
-        }
-
-        public Rectangle[] Rect_Building
-        {
-            get;
-            set;
-        }
-        public Rectangle[] Rect_Hotel
-        {
-            get;
-            set;
-        }
+        public Rectangle[] Rect_Building { get; set; }
+        public Rectangle[] Rect_Hotel { get; set; }
 
 
 
-        public List<Player>[] play
-        {
-            get;
-            set;
-
-        }
+        public List<Player>[] play{  get;  set; }
 
 
         
@@ -132,14 +101,7 @@ namespace boardgame
 
                     y += margin;
                 }
-                //else if(num == 2)//four
-                //{
-                //    if (i == 1) {  x = 0; } 
-                //    else if (i == 2) { x = 0; y = 0; }
-                //    else if (i == 3) { x = 825; }
-                //    cities[i] = City.four(x, y); // x,y x,0 0,0  y,0
-                    
-                //}
+
                 cityRect[i] = new List<Rectangle>();
                 play[i] = new List<Player>();
             }
@@ -148,7 +110,6 @@ namespace boardgame
                 price[i] = new List<double>();
            
 
-            //name[0] = new List<string>[7];
             this.DC = DC;
             this.bt = bt;
             this.pl = pl;
@@ -160,21 +121,9 @@ namespace boardgame
             this.namegp = name;
             this.Area = Area;
             this.thispl = thispl;
-            //this.namebt = namebt;
 
         }
-        //public List<Player>[] Play2
-        //{
-        //    bool a;
 
-        //}
-        //areacolor = new Rectangle(x, y, 75, 25);
-        //DC.FillRectangle(new SolidBrush(Color.Red), areacolor);
-        //DC.DrawRectangle(Pens.Black, areacolor);
-
-        //areacolor = new Rectangle(x, y, 25, 75);
-        //DC.FillRectangle(new SolidBrush(Color.Gray), areacolor);
-        //DC.DrawRectangle(Pens.Black, areacolor);
         public void drawname(int num)
         {
             buildname();
@@ -405,15 +354,7 @@ namespace boardgame
             sr.Close();
         }
         int namecount;
-        //private void rotate(Graphics gp, int angle, string txt, int x, int y, Font font, Brush brush) 
-        //{
-        //    GraphicsState state = gp.Save();
-        //    gp.ResetTransform();
-        //    gp.RotateTransform(angle);
-        //    gp.TranslateTransform(x, y, MatrixOrder.Append);
-        //    gp.DrawString(txt, font, brush, 0, 0);
-        //    gp.Restore(state);
-        //}
+
 
 
         private void stringrotate(int num, int i)
@@ -460,11 +401,10 @@ namespace boardgame
                     namegp.TranslateTransform(x + 20, y + 3, MatrixOrder.Append);
 
                     namegp.DrawString(name[namecount], font, new SolidBrush(Color.Black), 0, 0);
-                    //rotate(namegp, 90, name[namecount], x + 20, y + 3, font, new SolidBrush(Color.Black));
+
                 }
                 
-                // Point point = new Point(-sz.Width, -sz.Height);//
-                //TextRenderer.DrawText(namegp,name[namecount], font, new Rectangle(new Point(x, y), new Size(40, 75)), Color.Black, TextFormatFlags.WordBreak);
+
                 namecount++;
      
                 }
@@ -497,8 +437,6 @@ namespace boardgame
 
 
 
-
-                //TextRenderer.DrawText(namegp, name[namecount], font, new Point(cities[i].X, cities[i].Y), Color.Black);
                 namecount++;
             }
             if (num == 3)
@@ -554,8 +492,7 @@ namespace boardgame
                     if (i == 9)
                     {
                         areacolor = new Rectangle(cities[i].X, cities[i].Y, 150, 150);
-                        //DC.FillRectangle(new SolidBrush(Color.Salmon), areacolor);
-                        //DC.DrawRectangle(Pens.Black, areacolor);
+
                         Image img4 = Properties.Resources._2;
                         img3 = new Bitmap(img4);
                         DC.DrawImage(img3, areacolor);
@@ -566,14 +503,10 @@ namespace boardgame
                     }
                     else
                     {
-                         //x = ;
-                         //y = ;
                         areacolor = new Rectangle(cities[i].X, cities[i].Y, 75, 25);//75 100
                         GP.FillRectangle(new SolidBrush(color), areacolor);
                         GP.DrawRectangle(Pens.Black, areacolor);
-              
-                        //DC.DrawString(name[namecount], new Font("Bold", 10), new SolidBrush(Color.Black), x, y+ 115);
-                        //namecount++;
+
                     }
                    
                 }
@@ -586,8 +519,7 @@ namespace boardgame
                     if (i == 9)
                     {
                         areacolor = new Rectangle(cities[i].X, cities[i].Y, 150,150);
-                        //DC.FillRectangle(new SolidBrush(Color.SkyBlue), areacolor);
-                        //DC.DrawRectangle(Pens.Black, areacolor);
+
                         DC.DrawImage(img3, areacolor);
                     }
                     else if (i == 1 || i == 6)
@@ -599,7 +531,6 @@ namespace boardgame
                         areacolor = new Rectangle(125, cities[i].Y, 25, 75);
                         GP.FillRectangle(new SolidBrush(color), areacolor);
                         GP.DrawRectangle(Pens.Black, areacolor);
-                        //stringrotate(num, i);
                     }
                 }
                 else if(num == 2)
@@ -612,8 +543,6 @@ namespace boardgame
                     if (i == 9)
                     {
                         areacolor = new Rectangle(cities[i].X, cities[i].Y, 150, 150);
-                        //DC.FillRectangle(new SolidBrush(Color.DarkSlateGray), areacolor);
-                        //DC.DrawRectangle(Pens.Black, areacolor);
                         Image img4 = Properties.Resources._4;
                         img3 = new Bitmap(img4);
                         DC.DrawImage(img3, areacolor);
@@ -627,12 +556,6 @@ namespace boardgame
                         areacolor = new Rectangle(cities[i].X, 125, 75, 25);
                         GP.FillRectangle(new SolidBrush(Color.Brown), areacolor);
                         GP.DrawRectangle(Pens.Black, areacolor);
-
-
-                        //x = cities[i].X;
-                        //y = cities[i].Y;
-                        //DC.DrawString(name[namecount], new Font("Bold", 10), new SolidBrush(Color.Black),x ,y );
-                        //namecount++;
                     }
                 }
                 else if(num == 3)
@@ -655,7 +578,6 @@ namespace boardgame
                         GP.DrawRectangle(Pens.Black, areacolor);
                         
                     }
-                   // stringrotate(num, i);
                
                 }
             }
@@ -720,23 +642,6 @@ namespace boardgame
 
         public void PlayerRemove(int bfblock, int bfcity)
         {
-            //if (bfcity == 9) 
-            //{ 
-            //    if(bfblock == 0)
-            //    {
-            //        areacolor = new Rectangle(cities[bfcity].X, cities[bfcity].Y, 150, 150);
-            //        Image img1 = Properties.Resources._2;
-            //        img3 = new Bitmap(img1);
-            //        DC.DrawImage(img3, areacolor);
-            //    }
-
-
-
-            //}
-            //else
-            //{
-
-
             if (bfblock == 0) 
             {
                 if (bfcity == 1 || bfcity == 6)
@@ -821,13 +726,6 @@ namespace boardgame
                 else
                     DC.FillRectangle(new SolidBrush(Color.DarkSeaGreen), cities[bfcity]);
             }
-            //if (cityRect[bfblock].Count != 0)
-            //        DC.FillRectangle(new SolidBrush(Color.Aquamarine), cities[bfcity]);
-            //    else
-            //        DC.FillRectangle(new SolidBrush(Color.DarkSeaGreen), cities[bfcity]);
-            //}
-
-        
         }
 
         public void updatecity(int nowblock, int nowcity, int count = 0)  //nowblock 이 구역 nowcity : 도시
@@ -836,20 +734,12 @@ namespace boardgame
             {
                 Groundbuy(nowblock, nowcity, Color.Aquamarine);
             }
-
-            //for (int i = 0; i < count; i++)
-            //{
-            //    for (int a = 1; a < cityRect[i].Count; a++)
-            //    {'
-           // if((nowblock == 0 &&(now)))
             if(count == 1)
                 BuildDraw(Rect_Villa[nowcity]);
             if(count == 2)
                 BuildDraw(Rect_Building[nowcity]);
             if (count == 3)
                 BuildDraw(Rect_Hotel[nowcity]); 
-            //    }
-            //} 
         }
 
         public void updatebuild(int nowblock, int nowcity)
@@ -934,11 +824,6 @@ namespace boardgame
             }
             cityRect[city].Add(areacolor);
             DC.FillRectangle(new SolidBrush(color), areacolor);
-            //0 cities[i].X, cities[i].Y-25,100,75
-            //1 0,cities[i].Y 100 75
-            //2 cities[i].X, cities[i].Y,100,75
-            //3 25,cities[i].Y 100 75 
-            //Color.Aquamarine
         }
         public void GroundSell(int nowblock, int city)
         {
@@ -970,16 +855,11 @@ namespace boardgame
                 color = Color.Gray;
             }
             DC.FillRectangle(new SolidBrush(Color.DarkSeaGreen), areacolor);
-            //GP.FillRectangle(new SolidBrush(Color.FromArgb(0, 0, 0, 0)), areacolor);
             GP.FillRectangle(new SolidBrush(color), rect);
-            //GP.FillRectangle(new SolidBrush(Color.FromArgb(0, 0, 0, 0)), rect);
-
             GP.DrawRectangle(Pens.Black, rect);
         }
         public void BuildDraw(Rectangle rect)
         {
-            //GP.DrawRectangle(Pens.Black, rect);
-            
             GP.FillRectangle(new SolidBrush(Color.Blue), rect);
             GP.DrawRectangle(Pens.Black, rect);
         }

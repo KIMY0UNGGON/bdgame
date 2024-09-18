@@ -45,7 +45,7 @@ namespace boardgame
             }
             Invalidate();
         }
-        bool start_b = false;
+        bool start_b = true;
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
             //flatform,  bfk2
@@ -344,7 +344,7 @@ namespace boardgame
         private void sell_buildCount()
         {
             var confirm = new List<KeyValuePair< double , string >>();
-            //MessageBox.Show(city[0].price[0][0].ToString());
+
          
             for(int i  = 0; i< 4; i++)
             {
@@ -354,12 +354,6 @@ namespace boardgame
                     if (city[i].cityRect[j].Count > 0) //Rect_g cityRect[j][0]
                     {
                         price = city[i].price[0][j];
-                        //if (city[i].cityRect[j].Count > 1)  
-                        //{
-                        //    for (int k = 1; k < city[i].cityRect[j].Count; k++)
-                        //        price += city[i].price[k][j];
-                        //    //confirm.Add(new KeyValuePair<double, string>(price,i.ToString()+" "+j.ToString()));
-                        //}
 
                             
                         
@@ -394,13 +388,8 @@ namespace boardgame
                 city[city_b].cityRect[block_b].Clear();
 
 
-
-
-
-                //city[city_b].PlayerRemove(city_b, block_b);
                 city[city_b].GroundSell(city_b, block_b);
-                //city[city_b].update(block_b);
-                //city[city_b].updatecity(city_b, block_b);
+
                 Invalidate();
                 string name = city[city_b].name_str[block_b];
 
@@ -420,7 +409,6 @@ namespace boardgame
                     }
                 }
 
-                //city[city_b].name[] //링크?  (city_b-1)*7+block_b 
         
             }
         } // 1195 1226  21 //현재의 건물가격+땅가격 통행료X

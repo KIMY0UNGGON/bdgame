@@ -164,8 +164,9 @@ namespace boardgame
         }
 
 
-            public void move_write(int dice1)
+            public void move_write(int dice1) //얼마만큼 움직였는지 서버에 전송. 다른 클라이언트들이 this 플레이어의 정보를 확인하기 위한 용도.
             {
+            
                 try
                 {
                     server.send("move/" + nowblock + "|" + nowcity + "|" + dice1);
@@ -174,6 +175,7 @@ namespace boardgame
                 {
 
                 }
+            
             }
 
 

@@ -23,13 +23,14 @@ namespace boardgame
         public GameMain()
         {
             InitializeComponent();
+            this.ResizeRedraw = true;
         }
 
         Bitmap bit;
         Graphics DC, dices, Card, nameGp;
         Bitmap map, dice1, key, cardg, player, player2, nameBt, card_red;
         //Area area;
-        cityArea[] city = new cityArea[4];
+        cityArea[] city = new cityArea[4]; //cityArea 들의 리스트 도시들의 구역들을 지정하고 그리기 위한 클래스 들임.
 
 
         Bitmap areacard, areacard1, areacard2, areacard3;
@@ -49,8 +50,7 @@ namespace boardgame
         List<Button> buttonTravel = new List<Button>();
 
         bool Carddr = false;
-        //Label label = new Label();
-        //public int money = 0;
+
         Money money = new Money();
 
         bool RED = false;
@@ -61,14 +61,14 @@ namespace boardgame
         public int nowblock { get; set; } = 3;
         int bfcity { get; set; } = 9;
         int bfblock { get; set; } = 3;
-        //bool xgt = false;
+
         bool start = true;
 
         public int cardnum;
         public int[] buildnum = new int[36];
         Rectangle[][] playerrect = new Rectangle[4][];
         Rectangle[][][] buildrect = new Rectangle[4][][];
-        //public int flatform = 0;
+
         public int money_so { get; set; } = 100;
         Rectangle[][] buyground = new Rectangle[4][];
 
@@ -81,7 +81,8 @@ namespace boardgame
 
 
 
-        private void ground()
+        private void ground() //구매 가능한 땅에 대해 구역을 지정해 배열로서 표현.
+                              //구매 가능한 땅에 지어질 수 있는 건물의 사각형의 크기를 지정함.
         {
             for (int i = 0; i < 4; i++)
             {
@@ -129,28 +130,28 @@ namespace boardgame
 
 
 
-        public bool confirm_ground(int nowblock, int nowcity)
+        public bool confirm_ground(int nowblock, int nowcity) //땅이 구매 가능한 상태인지 확인. 즉, 건물이 안지어졌는지 확인하는 용도.
         {
             if (city[nowblock].cityRect[nowcity].Count > 0)
                 return true;
             else
                 return false;
         }
-        public bool confirm_Villa(int nowblock, int nowcity)
+        public bool confirm_Villa(int nowblock, int nowcity) //빌라가 지어졌는지 확인. 건물 1개
         {
             if (city[nowblock].Rect_Villa[nowcity].X != 0)
                 return true;
             else
                 return false;
         }
-        public bool confirm_Building(int nowblock, int nowcity)
+        public bool confirm_Building(int nowblock, int nowcity) //빌딩이 지어졌는지 확인. 건물 2개
         {
             if (city[nowblock].Rect_Building[nowcity].X != 0)
                 return true;
             else
                 return false;
         }
-        public bool confirm_Hotel(int nowblock, int nowcity)
+        public bool confirm_Hotel(int nowblock, int nowcity) //호텔이 지어졌는지 확인. 건물 3개.
         {
             if (city[nowblock].Rect_Hotel[nowcity].X != 0)
                 return true;
@@ -160,102 +161,65 @@ namespace boardgame
         Button bt;
         private void Form1_Load(object sender, EventArgs e)
         {
-         
-            //Server_connect();
 
-          
-            this.Size = new Size(320, 232);
+            // Server_connect(); //서버와 연결. 다른 말들의 정보를 받기 위함.
 
-            //button3.Visible = false;
-            button1.Visible = false;
-            initDC();
-
-            //close cl = new close();
-            //cl.Show();
-
-            //timer1.Start();
+            Form_show();
             timer3.Start();
-            //Invalidate();
 
 
+            
         }
 
-        private void Form_show()
+        private void Form_show() //게임 화면을 그림.
         {
             //bt.Visible = false;
-            this.Size = new Size(cityArea.side - 1, cityArea.down - 1);
-            initDC();
-           
-            //Number_ser();
-            //money = 1000;
+         
+            this.Size = new Size(cityArea.side - 1, cityArea.down - 1); //폼의 크기를 보드의 크기만큼 변환.
+  
             
+
+            initDC(); //그래픽들을 할당해 주는 메소드
             init();
-            imagea();
+
+
+            imagea(); //도시들의 좌표, 플레이어의 말 크기 및 좌표.
             //playerimage();
-            image();
-            rectcity();
+            image(); //황금 카드의 좌표 및 주사위의 크기 및 좌표
+            rectcity(); // 구매하면 건설될 건물들의 크기 및 좌표 지정.
             //timer1.Start();
             timer2.Start();
             StreamWriter s1 = new StreamWriter(new FileStream("buildSave.txt", FileMode.Create));
             s1.Close();
 
-            StreamReader sr = new StreamReader(new FileStream("Card.txt", FileMode.Open));
+            StreamReader sr = new StreamReader(new FileStream("Card.txt", FileMode.Open)); //황금 카드들의 내용들을 불러옴.
 
-            while (sr.EndOfStream == false)
+            while (sr.EndOfStream == false) //읽어온 파일들을 끝까지 반복.
             {
-                CardText.Add(sr.ReadLine());
+                CardText.Add(sr.ReadLine());  //읽어온 파일의 내용을 리스트에 저장.
             }
-            //MessageBox.Show(sr.ReadToEnd());
 
             sr.Close();
 
             StreamWriter sw = new StreamWriter(new FileStream("Save.txt", FileMode.Create));
             sw.Close();
-            //StreamWriter sw1 = new StreamWriter(new FileStream("money.txt", FileMode.Create));
-            //sw1.Write("1000");
-            //sw.Close();
-            //la = new Label();
-            //la.AutoSize = true;
-            //la.Location = new System.Drawing.Point(700, 367);
-            //la.Name = "label25";
-            //la.Size = new System.Drawing.Size(38, 20);
-            //la.TabIndex = 1;
-            //la.Text = money.m.ToString();
-            //la.Visible = true;
-            //Controls.Add(la);
 
-
-            //int dr = 45;
-            //Matrix m = new Matrix();
-            //Point[] C = { new Point(500, 300), new Point(400, 200), new Point(300, 500) };
-
-            //m.RotateAt(dr, C);
-            // DC.Transform = m;
-            //Rectangle Card1 = new Rectangle(0, 0, 182, 393); //key
-            //Rectangle Card2 = new Rectangle(200, 0, 182, 393); //Card
             Card.DrawImage(cardg, C, CardList[0], GraphicsUnit.Pixel);
 
-            // DC.DrawImage(pl, new Rectangle(city[4].cities[0].Location, new Size(75, 64)));
-            Player player = players[3][9];
-            city[3].play[9].Add(player);
 
-            city[3].update(nowblock);
+            Player player = players[3][9]; //플레이어 말의 위치 정보를 처음 시작하는 구간으로 저장. 첫번째 배열은 도시들의 구역. 두번째 배열은 도시들의 순서.
+            city[3].play[9].Add(player); //마지막 구역. 보드판에서는 시작 구역에 플레이어 말을 배치.
+
+            city[3].update(nowblock); //도시 구역들을 업데이트하여 수정된 정보들을 다시 그림.
             Invalidate();
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++) //이새끼 뭐야?
             {
                 name[i] = new List<string>();
                 name[i] = city[i].name_str;
             }
-            //city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
 
-
-
-            //DC.FillRectangle(new SolidBrush(Color.Red), a.cities[1][3]);
-
-
-            //button3.Visible = true;
             button1.Visible = true;
-            //color / nowblock,nowcity, money.m
+          
         }
 
 
@@ -275,12 +239,12 @@ namespace boardgame
 
         int loopconfirm = 0;
         bool Turn = false;
-        private void timer3_Tick(object sender, EventArgs e)
+        private void timer3_Tick(object sender, EventArgs e)//자신의 턴이 돌아왔는지 확인하는 용도.
         {
             if (Turn)
                 button1.Enabled = true;
-            else
-                button1.Enabled = false;
+          //  else
+          //      button1.Enabled = false;
             
 
 
@@ -351,12 +315,6 @@ namespace boardgame
 
         }
 
-        // = new Form3();
-
-        //Card frm2;// = new Form2();
-
-
-        //}
 
         private bool containkey(Vector2 point, Vector2[] polygon)
         {
@@ -408,57 +366,7 @@ namespace boardgame
 
         }
 
-        //public Vector2 v2(this Point point)
-        //{
-        //    return new Vector2(point.X, point.Y);
-        //}
-        //public Vector2[] Vect(this Point[] point)
-        //{
-        //    return new Vector2[] { new Vector2(point[0].X, point[0].Y), new Vector2(point[1].X, point[1].Y), new Vector2(point[2].X, point[2].Y) };
-        //}
-
-
-
-
-        //private void te()
-        //{
-        //    //93,69 번호 //70 119 제목 //21 167 내용 // 37,201 행동
-        //    Random rand = new Random();
-        //    int a = rand.Next(0, 30);
-        //    string[] Text = CardText[a].Split(':');
-
-
-        //    //string Test = "1";
-
-
-        //    //this.label1.AutoSize = true;
-        //    //this.label1.Location = new System.Drawing.Point(723, 367);
-        //    //this.label1.Name = "label1";
-        //    //this.label1.Size = new System.Drawing.Size(38, 12);
-        //    //this.label1.TabIndex = 1;
-        //    //this.label1.Text = "label1";
-
-        //    Card.DrawString(Text[0],new Font("Bold",10) , new SolidBrush(Color.Black),  new Point(691, 475)); //번호 85 75     원래 크기 189, 0, 200, 280 120 168    
-        //    Card.DrawString(Text[1], new Font("Bold", 7), new SolidBrush(Color.Black), new Point(655, 520)); //제목 55 120
-        //    Card.DrawString(Text[2], new Font("Bold", 7), new SolidBrush(Color.Black), new Point(634, 558)); //내용 34 164  700, 500, 120, 168 3/5 3/5
-        //                                                                                                     //Card.DrawString(Text[3], new Font("Bold", 7), new SolidBrush(Color.Black), new Point(643, 604)); //설명 43 204
-
-
-        //    label.Name = "label";
-        //    label.Text = "test";
-        //    //label.Visible = false;
-        //    label.AutoSize = true;
-        //    label.TabIndex = 1;
-        //    label.BackColor = Color.White;
-        //    label.Location = new Point(643, 604);
-        //    label.Size = new System.Drawing.Size(38, 12);
-        //    label.Text = Text[3];
-        //    label.Visible = true;
-
-
-
-        //    Invalidate();
-        //}
+ 
         MySocket server;
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -476,10 +384,6 @@ namespace boardgame
 
             for (int i = 0; i < movec; i++)
             {
-
-                // area.Emptyrect();
-
-                //i = nowblock
                 
                 if (nowcity == 0)
                 {
@@ -493,7 +397,7 @@ namespace boardgame
                 {
                     nowcity += 10;
                 }
-                //DC.DrawImage(player, new Rectangle(area.cities[flatform][i].Location, new Size(75, 64))); 
+
                 if (nowblock == 3 && nowcity == 9) money.m += 20;
                 city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
                 

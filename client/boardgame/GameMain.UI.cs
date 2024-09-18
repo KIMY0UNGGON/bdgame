@@ -59,26 +59,26 @@ namespace boardgame
             player_2.Add( new Bitmap(p4_2));
 
             List<Bitmap> thisplayer = new List<Bitmap>();
-            if (BLUE)
-            {
+           //if (BLUE)
+           // {
                 thisplayer.Add(new Bitmap(play));
                 thisplayer.Add(new Bitmap(play1));
-            }
-            if (BLACK)
-            {
-                thisplayer.Add(new Bitmap(p2));
-                thisplayer.Add(new Bitmap(p2_2));
-            }
-            if (RED)
-            {
-                thisplayer.Add(new Bitmap(p3));
-                thisplayer.Add(new Bitmap(p3_2));
-            }
-            if (GRAY)
-            {
-                thisplayer.Add(new Bitmap(p4));
-                thisplayer.Add(new Bitmap(p4_2));
-            }
+           // }
+           // if (BLACK)
+          //  {
+              //  thisplayer.Add(new Bitmap(p2));
+              //  thisplayer.Add(new Bitmap(p2_2));
+           // }
+           // if (RED)
+           // {
+              //  thisplayer.Add(new Bitmap(p3));
+             //   thisplayer.Add(new Bitmap(p3_2));
+           // }
+           // if (GRAY)
+           // {
+             //   thisplayer.Add(new Bitmap(p4));
+             //   thisplayer.Add(new Bitmap(p4_2));
+           // }
 
             Image cardspace = Properties.Resources.areacard;
             areacard = new Bitmap(cardspace);
@@ -90,16 +90,11 @@ namespace boardgame
             areacard3 = new Bitmap(cardspace3);
             Image img = Properties.Resources.사회복지기금;
             social = new Bitmap(img);
-
-
-            //area = new Area(DC, bit);
-            //area.draw();
             
             city[0] = new cityArea(0,10, DC, bit, (City.s2.Height * 10), (City.s1.Width * 9 + City.fours.Width), 0, -City.s1.Width, player_1, player_2, Card, areacard, social, nameGp,thisplayer);
             city[1] = new cityArea(1,10, DC, bit, 0, (City.s2.Height * 10), 1, -City.s2.Height, player_1, player_2, Card, areacard1, social, nameGp, thisplayer);
             city[2] = new cityArea(2,10, DC, bit, City.s1.Width * 2, 0, 2, City.s1.Width, player_1, player_2, Card, areacard2, social, nameGp, thisplayer);
             city[3] = new cityArea(3,10, DC, bit, (City.s2.Height * 9 + City.fours.Height), City.s2.Height * 2, 3, City.s2.Height, player_1, player_2, Card, areacard3, social, nameGp, thisplayer);
-            //city[4] = new cityArea(4, DC, bit, (City.s1.Width * 9 + City.fours.Width), (City.s1.Width * 9 + City.fours.Width), 2, 0, player, player2,Card);
 
             city[0].drawcity(Color.Red, 0);
             city[1].drawcity(Color.DarkGreen, 1);
@@ -110,7 +105,6 @@ namespace boardgame
             {
                 city[i].drawname(i);
             }
-            //city[4].drawfour();
         }
 
         private void reset()
@@ -127,7 +121,7 @@ namespace boardgame
             //city[4].drawfour();
         }
 
-        private void rectcity() //건물
+        private void rectcity() //건물들의 크기및 좌표 지정
         {
             for (int i = 0; i < 4; i++)
             {
@@ -168,7 +162,7 @@ namespace boardgame
             }
         }
 
-        private void imagea()
+        private void imagea() //플레이어의 말 크기와 좌표, 도시의 구역들의 좌표 지정.
         {
             for (int l = 0; l < 4; l++)
             {
@@ -189,12 +183,6 @@ namespace boardgame
 
             for (int i = 0; i < 4; i++)
             {
-                //if (i == 5) 
-                //{ 
-                //    playerrect[i] = new Rectangle[4]; 
-
-                //}
-                //else
                 playerrect[i] = new Rectangle[10];
                 if (i == 0 || i == 2)
                 {
@@ -211,8 +199,6 @@ namespace boardgame
                 {
                     for (int a = 0; a < 10; a++)
                     {
-                        //if (i == 4 && a >= 4) break;
-
                         Rectangle pl = new Rectangle(new Point(city[i].cities[a].X + 30, city[i].cities[a].Y), new Size(64, 75));
                         playerrect[i][a] = pl;
                         Player player = new Player(playerrect, i, a);
@@ -222,7 +208,7 @@ namespace boardgame
                 }
             }
         }
-        private void image()
+        private void image() //주사위와 황금 카드들의 이미지 및 크기 지정.
         {
             const int Dice_X = 98;
             const int DICE_Y = 95;

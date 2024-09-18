@@ -28,29 +28,28 @@ namespace boardgame
             if (h_c)
                 price_toll += city[nowblock].price[7][nowcity];
             return price_toll;
-            //city[nowblock].price[4~7][nowcity]
+
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) //주사위를 던지는 버튼을 클릭.
         {
-            Random dice = new Random();
+            Random dice = new Random(); //주사위의 수를 표현하기위해 랜덤클래스 사용.
 
-            int dicenum1 = dice.Next(1, 7);
-            int dicenum2 = dice.Next(1, 7);
-            button1.Text = dicenum1.ToString() + "|" + dicenum2.ToString();
-            int dicenum = dicenum1 + dicenum2;
-            int saveX = 0, saveY = 0;
-            //int savepos = 0;
+            int dicenum1 = dice.Next(1, 7); //첫번째 주사위의 수.
+            int dicenum2 = dice.Next(1, 7); //두번째 주사위의 수.
+            button1.Text = dicenum1.ToString() + "|" + dicenum2.ToString(); //버튼에 첫번째와 두번째 주사위의 수를 표시.
+            int dicenum = dicenum1 + dicenum2; //말이 움직일 수를 표현.
+            int saveX = 0, saveY = 0; //이동하기 전에 있던 위치를 저장하기 위한 변수.
 
-            Rectangle dicepos = new Rectangle(600, 700, 100, 100);
-            Rectangle dicepos1 = new Rectangle(710, 700, 100, 100);
-            Point x = dicepos.Location;
-            dices.DrawImage(dice1, dicepos, Dicelist[dicenum1 - 1], GraphicsUnit.Pixel);
+            Rectangle dicepos = new Rectangle(600, 700, 100, 100); //첫번째 주사위의 위치. 그림으로 표현되는 주사위.
+            Rectangle dicepos1 = new Rectangle(710, 700, 100, 100); //두번째 주사위의 위치.
+            Point x = dicepos.Location;                             
+            dices.DrawImage(dice1, dicepos, Dicelist[dicenum1 - 1], GraphicsUnit.Pixel); //주사위를 그림. 아래코드도 마찬가지.
             dices.DrawImage(dice1, dicepos1, Dicelist[dicenum2 - 1], GraphicsUnit.Pixel);
-            button1.Enabled = false;
-            skip = 0;
+            button1.Enabled = false; //주사위가 굴러갈때 주사위를 한번더 굴리는 걸 방지.
+            skip = 0; 
             int a = 0;
             cardclick = true;
-            if (nowcity == 9 && nowblock == 2)
+            if (nowcity == 9 && nowblock == 2) //우주여행 칸일 때 버튼들을 생성해 움직일 수 있게 함.
             {
                 for (int i = 0; i < 4; i++)
                 {
@@ -61,7 +60,6 @@ namespace boardgame
                             continue;
                         }
                         buttonTravel.Add(new Button());
-                        //butt[a] = new Button();
                         buttonTravel[a].Location = new System.Drawing.Point(city[i].cities[l].X, city[i].cities[l].Y);
                         buttonTravel[a].Name = "button1";
                         buttonTravel[a].Size = new System.Drawing.Size(75, 23);
@@ -83,7 +81,7 @@ namespace boardgame
             else if (dicenum + nowcity > 9)
             {
                 int movecity = dicenum + nowcity;
-                move_write(dicenum);
+                //move_write(dicenum); //움직인 수를 서버에 보냄.
                 for (int i = bfcity; i <= movecity; i++) //말이 있는 칸부터 주사위 숫자를 더한 칸  
                 {
                     if (i > 9) // 구역 넘어감
@@ -92,36 +90,7 @@ namespace boardgame
                         if (nowblock < 3) nowblock++;
                         else nowblock = 0;
                     }
-                    //else if (i > 9)
-                    //{
-                    //    i = 0; movecity -= 10;
-                    //    if (nowblock < 3) nowblock++;
-                    //    else nowblock = 0;
-                    //}
-                    //if (nowblock == 4)
-                    //{
-                    //    int a = 0;
-                    //    skip++;
-                    //    city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
-                    //    reset();
-                    //    if (bfblock < 3) a = bfblock + 1;
-                    //    else a = 0;
-                    //    city[nowblock].play[a].Add(players[nowblock][a]);
 
-                    //    city[nowblock].update(nowblock);
-                    //    Invalidate();
-                    //    Delay(100);
-                    //    if (bfblock < 3) nowblock = bfblock+1;
-                    //    else nowblock = a;
-                    //    bfcity = a;
-                    //    bfblock = 4;
-                    //    //if (!start)
-                    //    //{ movecity--; dicenum--; }
-                    //    //nowcity++;
-
-                    //}
-                    //else if(nowblock != 4)
-                    //{
                     if (nowblock == 3 && i == 8) money.m += 20;//money += 20; // 월급
 
                     city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
@@ -133,25 +102,11 @@ namespace boardgame
                     bfcity = i;
                     bfblock = nowblock;
 
-                    //}
                 }
-                //nowcity += dicenum;
-                //if (nowcity > 9)
-                //{
-                //    nowcity -= 10;
-                //    nowblock = bfblock;
-                //}
-                //if(nowcity == 10)
-                //{
-                //    nowcity = 0;
-                //    //nowblock++;
-                //    //if (nowblock > 3)
-                //    //    nowblock = 0;
-                //    nowblock = bfblock;
-                //}
+
                 nowblock = bfblock;
                 nowcity = bfcity;
-                //button3.Text = nowblock.ToString() + "|" + nowcity.ToString();
+
                 if (island >= 3)
                 {
                     island = 0;
@@ -160,10 +115,7 @@ namespace boardgame
             }
             else
             {
-                //if (nowblock == 1 || nowblock == 3)
-                //    player = new Bitmap(Properties.Resources.p1_2);
-                //else
-                //    player = new Bitmap(Properties.Resources.p1);
+
 
                 int fq = dicenum + nowcity;
 
@@ -175,35 +127,7 @@ namespace boardgame
                         if (nowblock < 3) nowblock++;
                         else nowblock = 0;
                     }
-                    //else if (i > 9)
-                    //{
-                    //    i =0;
-                    //    fq -= 10;
 
-                    //    if (nowblock < 3) nowblock++;
-                    //    else nowblock = 0;
-
-                    //}
-                    //if (nowblock == 4)
-                    //{
-                    //    skip++;
-                    //    city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
-                    //    reset();
-                    //    int a = 0;
-                    //    if (bfblock < 3) a = bfblock + 1;
-                    //    else a = 0;
-                    //    city[nowblock].play[a].Add(players[nowblock][a]);
-                    //    city[nowblock].update(nowblock);
-                    //    Invalidate();
-                    //    Delay(100);
-                    //    if (bfblock < 3) nowblock = bfblock + 1;
-                    //    else nowblock = a;
-                    //    bfcity = a;
-                    //    bfblock = 4;
-
-                    //}
-                    //else if (nowblock != 4)
-                    //{
                     skip++;
 
                     if (nowblock == 3 && i == 9) money.m += 20;//money += 20;
@@ -216,36 +140,19 @@ namespace boardgame
                     Delay(100);
                     bfcity = i;
                     bfblock = nowblock;
-                    //}
 
 
 
                     savepos = i;
-                    //saveX = city[nowblock].cities[i].X;
-                    //saveY = city[nowblock].cities[i].Y;
+
 
 
                     Invalidate();
-                    //if (i != fq - 1) { reset(); city[nowblock].play[i].Remove(city[nowblock].play[i].Last());  city[nowblock].update(); }
+
                 }
-                //w = test;   
-                //nowcity += dicenum;
-                //if (nowcity > 9)
-                //{
-                //    nowcity -= 10;
-                //    nowblock = bfblock;
-                //}
-                //if (nowcity ==10)
-                //{
-                //    nowcity = 0;
-                //    //nowblock++;
-                //    //if (nowblock > 3)
-                //    //    nowblock = 0;
-                //    nowblock = bfblock;
-                //}
+
                 nowblock = bfblock;
                 nowcity = bfcity;
-                //button3.Text = nowblock.ToString() + "|" + nowcity.ToString();
                 if (island >= 3)
                 {
                     island = 0;
@@ -272,93 +179,20 @@ namespace boardgame
                 MessageBox.Show("무인도에 도착하였습니다. 앞으로 " + n.ToString() + "턴동안 무인도에서 나갈수 없습니다.");
             }
 
-
-
-
-
-
-
-
-            //if (nowblock == 0)
-            //{
-            //    saveY += 130;
-            //    if (buildnum[nowblock * 8 + savepos] == 1)
-            //    {
-            //        saveX += 25;
-            //    }
-            //}
-            //else if (nowblock == 1)
-            //{
-            //    saveX -= 1;
-            //    if (buildnum[nowblock * 8 + savepos] == 1)
-            //    {
-            //        saveY -= saveY;
-            //    }
-            //}
-            //else if (nowblock == 2)
-            //{
-            //    saveY -= 1;
-            //    if (buildnum[nowblock * 8 + savepos] == 1)
-            //    {
-            //        saveX += 30;
-            //    }
-            //}
-            //else
-            //{
-            //    saveX += 130;
-            //    if (buildnum[nowblock * 8 + savepos] == 1)
-            //    {
-            //        saveY += saveY;
-            //    }
-            //}
             Invalidate();
             button1.Enabled = true;
-            //Rectangle build = new Rectangle(new Point(saveX, saveY), new Size(20, 20));
 
-            //if (savepos != 0 && ((flatform == 0 && (nowcity == 1 || nowcity == 6)) || (flatform == 1 && (nowcity == 1 || nowcity == 4)) || (flatform == 2 && (nowcity == 4 || nowcity == 7)) || (flatform == 3 && (nowcity == 1 || nowcity == 7))) == false)
-            //{
-            //if ((nowblock == 0 && (nowcity == 1 || nowcity == 6) || nowblock == 1 && (nowcity == 1 || nowcity == 6) || (nowblock == 2 && nowcity == 1) || (nowblock == 3 && nowcity == 4)) == false)
-            //{
-            //    if (nowcity < 9)
-            //    {
-            //        if (city[nowblock].cityRect[nowcity].Count < 3)
-            //        {
-            //            if (MessageBox.Show("이 땅에 건물을 지으시겠습니까?", "구매", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            //            {
-
-            //                money -= 100;
-            //                city[nowblock].cityRect[nowcity].Add(buildrect[nowblock][nowcity][city[nowblock].cityRect[nowcity].Count]);
-            //                //card.drawrectangle(pens.black, build);
-            //                //card.fillrectangle(new solidbrush(color.skyblue), build);
-
-            //                buildnum[flatform * 8 + savepos]++;
-            //                city[nowblock].updatecity(nowblock);
-            //                Invalidate();
-            //            }
-            //        }
-            //    }
-            //}
-            buildmessage();
-            //}
+            buildmessage(); //건물을 지을것인지 질문.
 
 
             if (nowblock == 3 && nowcity == 7)
             {
-                //money -= 15;
                 money.m -= 15;
                 money_so += 15;
                 MessageBox.Show("사회복지기금(15만원)을 지불하였습니다.");
             }
-
-
-
-
-            //  Card_red();
             start = false;
             cardclick = false;
-
-            //move_write();
-            //next_turn();
         }
 
         public void uninhabit()
@@ -533,7 +367,7 @@ namespace boardgame
             {
                 MessageBox.Show("무인도에 도착하였습니다. 앞으로 3턴동안 무인도에서 나갈수 없습니다.");
             }
-            //button3.Text = nowblock.ToString() + "|" + nowcity.ToString();
+
             button1.Enabled = true;
             //  Card_red();
         }

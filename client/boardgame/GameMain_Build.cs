@@ -121,7 +121,7 @@ namespace boardgame
                                 bclist_all.Add(bcard);
                                 playerfront();
                                 Invalidate();
-                                write_build();
+                                //write_build(); 서버에 건물을 지었다고 전송.
                             }
                         }
                     }
