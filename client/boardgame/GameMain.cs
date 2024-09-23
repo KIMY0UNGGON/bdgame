@@ -36,7 +36,7 @@ namespace boardgame
         Bitmap areacard, areacard1, areacard2, areacard3;
         Bitmap social;
         public List<buildCard> bclist_infor = new List<buildCard>();
-        List<buildCard> bclist_all = new List<buildCard>();
+        List<buildCard> bclist_all = new List<buildCard>(); //건물 카드들이 들어있는 리스트
 
         public int island { get; set; } = 0; //무인도에 들어가있는 턴
 
@@ -53,6 +53,10 @@ namespace boardgame
 
         Money money = new Money();
 
+        public double money_retur()
+        {
+            return money.m;
+        }
         bool RED = false;
         bool BLUE = false;
         bool GRAY = false;
@@ -130,41 +134,16 @@ namespace boardgame
 
 
 
-        public bool confirm_ground(int nowblock, int nowcity) //땅이 구매 가능한 상태인지 확인. 즉, 건물이 안지어졌는지 확인하는 용도.
-        {
-            if (city[nowblock].cityRect[nowcity].Count > 0)
-                return true;
-            else
-                return false;
-        }
-        public bool confirm_Villa(int nowblock, int nowcity) //빌라가 지어졌는지 확인. 건물 1개
-        {
-            if (city[nowblock].Rect_Villa[nowcity].X != 0)
-                return true;
-            else
-                return false;
-        }
-        public bool confirm_Building(int nowblock, int nowcity) //빌딩이 지어졌는지 확인. 건물 2개
-        {
-            if (city[nowblock].Rect_Building[nowcity].X != 0)
-                return true;
-            else
-                return false;
-        }
-        public bool confirm_Hotel(int nowblock, int nowcity) //호텔이 지어졌는지 확인. 건물 3개.
-        {
-            if (city[nowblock].Rect_Hotel[nowcity].X != 0)
-                return true;
-            else
-                return false;
-        }
+
         Button bt;
         private void Form1_Load(object sender, EventArgs e)
         {
 
             // Server_connect(); //서버와 연결. 다른 말들의 정보를 받기 위함.
+            initDC(); //그래픽들을 할당해 주는 메소드
 
-            Form_show();
+            //Form_show();
+            this.Size = new Size(300, 200);
             timer3.Start();
 
 
@@ -179,7 +158,7 @@ namespace boardgame
   
             
 
-            initDC(); //그래픽들을 할당해 주는 메소드
+
             init();
 
 
@@ -237,23 +216,23 @@ namespace boardgame
             //sock.Close();
         }
 
-        int loopconfirm = 0;
+      
         bool Turn = false;
-        private void timer3_Tick(object sender, EventArgs e)//자신의 턴이 돌아왔는지 확인하는 용도.
-        {
-            if (Turn)
-                button1.Enabled = true;
-          //  else
-          //      button1.Enabled = false;
-            
 
-
-        }
 
         private void bu_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
+
+        private void butt_solo_Click_1(object sender, EventArgs e)
+        {
+            butt_solo.Visible = false;
+            butt_multi.Visible = false;
+            start_confirm = true;
+            Form_show();
+        }
+
         private void butt_Click(object sender, EventArgs e)
         {
             loopconfirm++;
@@ -353,10 +332,6 @@ namespace boardgame
                 //timer2.Stop();
             }
         }
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-            Card_red();
-        }
 
         private void button3_Click_1(object sender, EventArgs e)
         {
@@ -368,9 +343,7 @@ namespace boardgame
 
  
         MySocket server;
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-        }
+
         private void backmove(int movec)
         {
             int fq;
@@ -419,23 +392,43 @@ namespace boardgame
             city[0].update(0);
             Invalidate();
         }
-        public void test_data(buildCard bc)
+        public void input_carddata(buildCard bc) //카드 집어 넣는 메소드
         {
             inform.Card_put(bc);
             bclist_infor.Add(bc);
         }
 
-        public void input_bclist(buildCard bc)
-        {
-            bclist_all.Add(bc);
-        }
+       // public void input_bclist(buildCard bc)
+       // {
+       //     bclist_all.Add(bc);
+       // }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e) //삭제한 버튼 이벤트의 잔재.
         {
             // inform = new information();
             inform.money = money.m;
             inform.ShowDialog();
 
+        }
+
+        public void card_sell(buildCard bc)
+        {
+            List<double> price_card = new List<double>();
+            List<bool> build_list = Confirm_ALL_build(bc.color, bc.city_address);//카드의 건물들이 어느것이 있는지 확인. 0부터 땅, 빌라, 빌딩, 호텔 순. enum으로 정해놨음.
+            for(int i = 0; i < 4; i++)
+                price_card.Add(city[bc.color].price[i][bc.city_address]);
+            if (build_list[(int)Build_Confirm.GROUND])
+                money.m += (price_card[0]*0.7);
+            if (build_list[(int)Build_Confirm.VILLA])
+                money.m += price_card[1] * 0.7;
+            if (build_list[(int)Build_Confirm.BUILDING])
+                money.m += price_card[2] * 0.7;
+            if (build_list[(int)Build_Confirm.HOTEL])
+                money.m += price_card[3] * 0.7;
+            MessageBox.Show(money.m.ToString());
+            //건물들을 팔고 얻을 수 있는 돈을 추가.
+            //건물들이 있던 위치를 원상태로 복구.
+            bclist_all.Remove(bc);
         }
     }
 

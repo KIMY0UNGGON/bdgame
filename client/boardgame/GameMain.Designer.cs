@@ -33,6 +33,8 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timer3 = new System.Windows.Forms.Timer(this.components);
+            this.butt_solo = new System.Windows.Forms.Button();
+            this.butt_multi = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -58,6 +60,25 @@
             // 
             this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
             // 
+            // butt_solo
+            // 
+            this.butt_solo.Location = new System.Drawing.Point(86, 70);
+            this.butt_solo.Name = "butt_solo";
+            this.butt_solo.Size = new System.Drawing.Size(75, 23);
+            this.butt_solo.TabIndex = 1;
+            this.butt_solo.Text = "솔로모드";
+            this.butt_solo.UseVisualStyleBackColor = true;
+            this.butt_solo.Click += new System.EventHandler(this.butt_solo_Click_1);
+            // 
+            // butt_multi
+            // 
+            this.butt_multi.Location = new System.Drawing.Point(86, 117);
+            this.butt_multi.Name = "butt_multi";
+            this.butt_multi.Size = new System.Drawing.Size(75, 23);
+            this.butt_multi.TabIndex = 2;
+            this.butt_multi.Text = "멀티플레이";
+            this.butt_multi.UseVisualStyleBackColor = true;
+            // 
             // GameMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -65,6 +86,8 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.ClientSize = new System.Drawing.Size(984, 961);
+            this.Controls.Add(this.butt_multi);
+            this.Controls.Add(this.butt_solo);
             this.Controls.Add(this.button1);
             this.DoubleBuffered = true;
             this.MaximizeBox = false;
@@ -85,6 +108,8 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Timer timer3;
+        private System.Windows.Forms.Button butt_solo;
+        private System.Windows.Forms.Button butt_multi;
     }
 }
 

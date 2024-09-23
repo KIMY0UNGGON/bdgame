@@ -130,7 +130,7 @@ namespace boardgame
 
                     skip++;
 
-                    if (nowblock == 3 && i == 9) money.m += 20;//money += 20;
+                    if (nowblock == 3 && i == 9) money.m += 20;//money += 20; 시작지점 지날시 월급 지급.
 
                     city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
                     reset();

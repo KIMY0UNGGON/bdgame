@@ -13,6 +13,7 @@ namespace boardgame
         public Point[] C = { new Point(500, 300), new Point(400, 200), new Point(300, 500) };
         bool cardclick = false;
         bool card_clicked = false;
+       
 
         public List<Card> cards = new List<Card>();
 
@@ -28,7 +29,7 @@ namespace boardgame
 
         }
 
-        private void Card_red()
+        private void Card_red() //황금 열쇠 카드를 빨갛게 물들임. 카드를 뽑을 수 있는 상태.
         {
 
             if ((nowblock == 0 && (nowcity == 1 || nowcity == 6)) || (nowblock == 1 && (nowcity == 1 || nowcity == 6)) || (nowblock == 2 && nowcity == 1) || (nowblock == 3 && nowcity == 4))
@@ -45,22 +46,22 @@ namespace boardgame
             }
             Invalidate();
         }
-        bool start_b = true;
-        private void Form1_MouseUp(object sender, MouseEventArgs e)
+
+        private void Form1_MouseUp(object sender, MouseEventArgs e) //마우스 클릭이벤트
         {
             //flatform,  bfk2
             //0,1  0,6  1,1 1,4  2,4  2,6  3,1  3,7
             //if (drawcard == false) {
-            if (start_b) { 
+            if (start_confirm) { 
                 for (int i = 0; i < 4; i++)
                 {
-                    if (city[i].cacontain(e.Location))
+                    if (city[i].cacontain(e.Location)) //플레이어의 말 클릭시 플레이어의 정보를 확인할 수 있는 인터페이스를 열음.
                     {
                         information frm3 = new information();
                         //frm3.money = money;
                         frm3.Show();
 
-                        frm3.money = money.m;
+                       // frm3.money = money.m;
                     }
                 }
                 if (city[1].containcity(e.Location, 9))
@@ -105,11 +106,11 @@ namespace boardgame
 
                                 timer2.Start();
 
-                                if (cardnum == 4) //무인도
+                                if (cardnum == 4) //무인도카드
                                 {
                                     cardmove(0, 10);
                                 }
-                                else if (cardnum == 6) //관광여행 제주도
+                                else if (cardnum == 6) //관광여행 제주도 카드
                                 {
                                     Tourmove(0, 5);
                                 }
@@ -118,13 +119,13 @@ namespace boardgame
                                     backmove(backm);
                                     buildmessage();
                                 }
-                                else if (cardnum == 11) // 고속도로 출발지까지 이동
+                                else if (cardnum == 11) // 고속도로 출발지까지 이동 카드
                                 {
                                     cardmove(3, 10);
                                     //money += 20;
                                     money.m += 20;
                                 }
-                                else if (cardnum == 14) //항공여행 타이베이
+                                else if (cardnum == 14) //항공여행 타이베이 카드
                                 {
 
                                     int i = nowcity;

@@ -26,12 +26,13 @@ namespace boardgame
         Bitmap Card1;
         Color co = Color.Aqua;
         SolidBrush sl;
-        Rectangle rect = new Rectangle(0, 0, 540, 500);
-        public List<string> Cardtext = new List<String>();
-        public int color { get; set; }
-        public int loca { get; set; }
+        Rectangle rect = new Rectangle(0, 0, 540, 500); //카드의 사각형.
+        public List<string> Cardtext = new List<String>(); //카드들의 텍스트들을 저장하는 리스트.
+        public int color { get; set; } //건물카드의 구역. 구역의 색깔이 무엇인지를 나타냄.
+        public int loca { get; set; } //건물카드의 위치. 즉 어떤 지역인지를 표시.
+        public int city_address { get; set; }
 
-
+        public string[] Cards;
 
 
         private Point house(int y)
@@ -52,36 +53,26 @@ namespace boardgame
         }
 
 
+        GameMain gm = Application.OpenForms["GameMain"] as GameMain; //열려있는 메인 게임의 폼을 가지고 옴.
 
 
 
-
-        private void test()
+        private void card_input() 
         {
-            GameMain gm = Application.OpenForms["GameMain"] as GameMain;
+            //GameMain gm = Application.OpenForms["GameMain"] as GameMain;
             
             if (gm != null)
             {
-                gm.test_data(this);
+                gm.input_carddata(this);
             }
 
         }
 
-        private void data_add()
+        private void card_sell()
         {
-            GameMain gm = Application.OpenForms["GameMain"] as GameMain;
-
             if (gm != null)
-            {
-                gm.input_bclist(this);
-            }
+               gm.card_sell(this);
         }
-
-
-
-
-
-
 
 
         private void init()
@@ -129,27 +120,16 @@ namespace boardgame
 
         private void Form5_Load(object sender, EventArgs e)
         {
-            init();
-            Image();
+            init(); //그래픽 변수들을 선언해서 카드를 그릴 수 있게 함.
+            Image(); //이미지 파일들을 가지고 옴.
+             
+            locacard(); // 지역 및 건물 카드의 내용들을 txt파일에서 긁어옴.
 
-            //StreamReader sr = new StreamReader(new FileStream("build.txt", FileMode.OpenOrCreate));
-
-            //while (sr.EndOfStream == false)
-            //{
-            //    Cardtext.Add(sr.ReadLine());
-            //}
-            //sr.Close();
-
-
-            //gp.DrawImage(Card1, new Rectangle(0, 0, 381, 370),rect, GraphicsUnit.Pixel);
-            locacard();
-
-            textbuild(loca);
+            textbuild(loca); //카드의 상세 정보들을 적음. loca 변수는 CardMain_Build.cs에서 정해서 form을 열때 값을 줌.
             Invalidate();
-            //data_add();
         }
 
-        private void locacard()
+        private void locacard() // 지역 및 건물 카드의 내용들을 txt파일에서 긁어옴.
         {
 
             StreamReader sr = new StreamReader(new FileStream("build.txt", FileMode.OpenOrCreate));
@@ -181,14 +161,14 @@ namespace boardgame
         {
             if (mouseclick)
             {
-                this.Location = new Point(Cursor.Position.X - ptest.X, Cursor.Position.Y - ptest.Y);
+                this.Location = new Point(Cursor.Position.X - Card_Point.X, Cursor.Position.Y - Card_Point.Y);
             }
         }
         bool mouseclick;
         private void Form5_MouseUp(object sender, MouseEventArgs e)
         {
 
-            mouseclick = false;
+            mouseclick = false; //마우스 클릭시 mouseclick 중이라는 것.
 
             if (MouseButtons.Right == e.Button)
             {
@@ -211,7 +191,8 @@ namespace boardgame
         }
         private void sellToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            card_sell();
+            this.Close();
         }
 
         private void putToolStripMenuItem_Click(object sender, EventArgs e)
@@ -219,7 +200,7 @@ namespace boardgame
             //StreamWriter sw = new StreamWriter(new FileStream("buildSave.txt", FileMode.Append));
             //sw.WriteLine(this.Text + "|" + loca.ToString()+"|"+color.ToString());
             //sw.Close();
-            test();
+            card_input();
             this.Close();
         }
 
@@ -239,23 +220,23 @@ namespace boardgame
             Invalidate();
 
         }
-        Point ptest;
+        Point Card_Point;
         private void Form5_MouseDown(object sender, MouseEventArgs e)
         {
             //if (MouseButtons.Right == e.Button) { }
 
-            if (MouseButtons.Left == e.Button)
+            if (MouseButtons.Left == e.Button) //마우스 버튼을 왼쪽 클릭했을 경우에 왼쪽 클릭중이라고 부울 변수로 표현.
             {
                 mouseclick = true;
-                ptest = e.Location;
+                Card_Point = e.Location; //마우스의 현재 위치. 카드를 클릭했을 때 마우스를 따라가게 하기 위함.
             }
         }
-        private Font Ft(int size)
+        private Font Ft(int size) //카드들의 폰트.
         {
             return new Font("Bold", size);
         }
-        public string[] Cards;
-        private void textbuild(int num)
+
+        private void textbuild(int num) //건물 카드의 텍스트들의 위치들을 설정해서 그림.
         {
             Cards = Cardtext[num].Split(new char[] { ',' });            //28장의 카드에 들어갈 텍스트들 분할 총8개의 텍스트
 

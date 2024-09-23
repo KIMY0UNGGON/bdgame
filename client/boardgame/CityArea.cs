@@ -144,18 +144,19 @@ namespace boardgame
             }
             sr.Close();
         }
-        private void buildname() //이름과 가격
+        private void buildname() //이름과 가격을 txt 파일에서 긁어와 저장.
         {
 
-            StreamReader sr = new StreamReader(new FileStream("build.txt", FileMode.Open));
+            StreamReader sr = new StreamReader(new FileStream("build.txt", FileMode.Open)); //텍스트파일에는 [도시이름, 땅가격, 호텔, 빌딩, 빌라] 순으로 데이터가 저장되어있음
+                                                                                            //price의 0~3번까지는 구매했을 때의 비용이, 5~8번까지는 땅에 도착했을때 지불해야하는 통행료를 저장.
             int countarea = 0;
            
             while (sr.EndOfStream == false)
             {
-                string[] name1 = sr.ReadLine().Split(new char[] { ',' });
+                string[] name1 = sr.ReadLine().Split(new char[] { ',' }); //name1은 txt파일에서 긁어온 내용을 ','에 따라 잘라서 저장한 배열. 
                 name.Add(name1[0]); // 7 7 8 7
 
-                if (Area == 0)
+                if (Area == 0) //구역이 0일떄.
                 {
                     if (countarea > 8)
                     {

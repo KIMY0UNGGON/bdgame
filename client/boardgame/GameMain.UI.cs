@@ -18,8 +18,7 @@ namespace boardgame
 
         public int savepos { get; set; } = 0;
         public int round = 0;
-        private static int size_Width = 1000;
-        private static int size_Height = 1000;
+
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
 
@@ -109,16 +108,9 @@ namespace boardgame
 
         private void reset()
         {
-            // DC.Clear(Color.DarkSeaGreen);
 
             city[bfblock].PlayerRemove(bfblock, bfcity);
 
-
-            // city[0].drawcity(Color.Red, 0);
-            //  city[1].drawcity(Color.DarkGreen, 1);
-            // city[2].drawcity(Color.Brown, 2);
-            //city[3].drawcity(Color.Gray, 3);
-            //city[4].drawfour();
         }
 
         private void rectcity() //건물들의 크기및 좌표 지정

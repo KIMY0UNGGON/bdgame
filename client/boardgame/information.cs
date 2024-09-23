@@ -221,7 +221,7 @@ namespace boardgame
 
         //}
 
-        private int numberconfirm(Button btn)
+        private int numberconfirm(Button btn) //번호 확인. 
         {
             int n = -1;
             for (int i = 0; i < buildsave.Count; i++)
@@ -238,7 +238,7 @@ namespace boardgame
 
 
 
-        private void export_build(object sender)
+        private void export_build(object sender) // 넣어둔 빌드 카드를 다시 꺼냄.
         {
             Button card = sender as Button;
             int b_num = numberconfirm(card);
@@ -363,11 +363,11 @@ namespace boardgame
         }
         private void money_print()
         {
+            GameMain gm = Application.OpenForms["GameMain"] as GameMain; //열려있는 메인 게임의 폼을 가지고 옴.
+            //StreamReader sr1 = new StreamReader(new FileStream("money.txt", FileMode.Open));
 
-            StreamReader sr1 = new StreamReader(new FileStream("money.txt", FileMode.Open));
-
-            textBox1.Text = sr1.ReadLine().ToString() + "만원";
-            sr1.Close();
+            textBox1.Text = gm.money_retur().ToString() + "만원";
+            //sr1.Close();
         }
         private void timer1_Tick(object sender, EventArgs e)
         {

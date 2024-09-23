@@ -21,7 +21,7 @@ namespace boardgame
         //    rect = buildrect[nowblock][nowcity][count];
         //    city[nowblock].updatecity(nowblock, nowcity, rect,count);
         //}
-
+        
 
         private void buildmessage()
         {
@@ -86,8 +86,9 @@ namespace boardgame
 
                                 //playerfront();
                                 buildCard bcard = new buildCard();
-                                bcard.color = nowblock;
-                                if (nowblock < 2)
+                                bcard.color = nowblock; //어느 구역인지 저장.
+                                bcard.city_address = nowcity;
+                                if (nowblock < 2) //여기부터 loca변수에 건물이 어디있는지 loca에 값을 줌. loca값은 타이베이 부터 서울까지의 도시만의 수.
                                 {
                                     if (nowcity > 6)
                                         bcard.loca = nowblock * 7 + nowcity - 2;
@@ -116,6 +117,7 @@ namespace boardgame
                                     }
 
                                 }
+
                                 if (b_ground)
                                     bcard.Show();
                                 bclist_all.Add(bcard);
@@ -130,3 +132,5 @@ namespace boardgame
         }
     }
 }
+
+

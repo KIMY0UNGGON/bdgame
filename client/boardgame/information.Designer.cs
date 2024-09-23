@@ -74,7 +74,7 @@ namespace boardgame
             this.MaximizeBox = false;
             this.Name = "information";
             this.ShowIcon = false;
-            this.Text = "Information";
+            this.Text = "Player_Information";
             this.Load += new System.EventHandler(this.Form3_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
