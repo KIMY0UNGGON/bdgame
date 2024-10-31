@@ -12,6 +12,22 @@ namespace boardgame
 {
     public partial class GameMain
     {
+        private int move_calc(int move_block,int move_city){
+           int result = nowblock - move_block; // 현재 블럭에서 이동할 블럭의 차
+           if(result >0){
+               result = (Math.abs(result)-1)*10+(10-nowcity)+move_city:
+           }
+           else if(result < 0){
+           result = (3-Math.abs(result))*10+(10-nowcity)+move_city:
+}
+else{
+    if(nowcity >= move_city){
+      result = 30+(10- nowcity)+move_city;
+}
+    else result = move_city-nowcity:
+}
+return result;
+}
         private double Toll_fee(int nowblock, int nowcity)
         {
             bool g_c=confirm_ground(nowblock, nowcity);
