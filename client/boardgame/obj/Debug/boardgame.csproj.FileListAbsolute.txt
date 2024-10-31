@@ -122,6 +122,9 @@ C:\Users\yg\OneDrive\바탕 화면\깃허브\bdgame\client\boardgame\obj\Debug\b
 C:\Users\yg\OneDrive\바탕 화면\깃허브\bdgame\client\boardgame\obj\Debug\boardgame.csproj.CoreCompileInputs.cache
 C:\Users\yg\OneDrive\바탕 화면\깃허브\bdgame\client\boardgame\obj\Debug\boardgame.exe
 C:\Users\yg\OneDrive\바탕 화면\깃허브\bdgame\client\boardgame\obj\Debug\boardgame.pdb
+C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\client\boardgame\bin\Debug\boardgame.exe.config
+C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\client\boardgame\bin\Debug\boardgame.exe
+C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\client\boardgame\bin\Debug\boardgame.pdb
 C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\client\boardgame\obj\Debug\boardgame.csproj.AssemblyReference.cache
 C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\client\boardgame\obj\Debug\boardgame.GameMain.resources
 C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\client\boardgame\obj\Debug\boardgame.Card.resources
@@ -134,6 +137,3 @@ C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\client\boardgame\
 C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\client\boardgame\obj\Debug\boardgame.csproj.CoreCompileInputs.cache
 C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\client\boardgame\obj\Debug\boardgame.exe
 C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\client\boardgame\obj\Debug\boardgame.pdb
-C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\client\boardgame\bin\Debug\boardgame.exe.config
-C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\client\boardgame\bin\Debug\boardgame.exe
-C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\client\boardgame\bin\Debug\boardgame.pdb

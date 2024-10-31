@@ -84,11 +84,11 @@ namespace boardgame
 
                                 if (cardnum == 4) //무인도카드
                                 {
-                                    cardmove(0, 10);
+                                    onemove(move_calc(0, 9));
                                 }
                                 else if (cardnum == 6) //관광여행 제주도 카드
                                 {
-                                    Tourmove(0, 5);
+                                    onemove(move_calc(0, 5));
                                 }
                                 else if (cardnum == 10 || cardnum == 28)
                                 {
@@ -97,7 +97,7 @@ namespace boardgame
                                 }
                                 else if (cardnum == 11) // 고속도로 출발지까지 이동 카드
                                 {
-                                    cardmove(3, 10);
+                                    onemove(move_calc(3, 9));
                                     //money += 20;
                                     money.m += 20;
                                 }
@@ -155,12 +155,12 @@ namespace boardgame
                                 }
                                 else if (cardnum == 17) // 유람선 여행 베이징 행 퀸 엘리자베스 호 탑승료 지불
                                 {
-                                    Tourmove(0, 3);
+                                    //Tourmove(0, 3);
                                     // 비용추가
                                 }
                                 else if (cardnum == 18) // 관광여행 부산
                                 {
-                                    Tourmove(2, 5);
+                                    onemove(move_calc(2, 5));
                                     //통행료 지불
                                 }
                                 else if (cardnum == 21)
@@ -172,7 +172,7 @@ namespace boardgame
                                 }
                                 else if (cardnum == 23) //관광여행 서울
                                 {
-                                    Tourmove(3, 9);
+                                    onemove(move_calc(3, 9));
                                     //통행료 지불 기능
                                 }
                                 else if (cardnum == 24 || cardnum == 30)
@@ -181,7 +181,7 @@ namespace boardgame
                                 }
                                 else if (cardnum == 25) // 우주여행 초청장
                                 {
-                                    cardmove(2, 10);
+                                    onemove(move_calc(2, 9));
                                 }
                                 else if (cardnum == 27) //세계일주 초대권
                                 {
@@ -267,7 +267,7 @@ namespace boardgame
                                 }
                                 else if (cardnum == 29) //사회복지기금 배당
                                 {
-                                    cardmove(1, 10);
+                                    onemove(move_calc(1, 9));
                                     if (money_so != 0)
                                     {
                                         money.m += money_so;
