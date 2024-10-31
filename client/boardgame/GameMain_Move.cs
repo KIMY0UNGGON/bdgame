@@ -12,22 +12,7 @@ namespace boardgame
 {
     public partial class GameMain
     {
-        private int move_calc(int move_block,int move_city){
-           int result = nowblock - move_block; // 현재 블럭에서 이동할 블럭의 차
-           if(result >0){
-               result = (Math.abs(result)-1)*10+(10-nowcity)+move_city:
-           }
-           else if(result < 0){
-           result = (3-Math.abs(result))*10+(10-nowcity)+move_city:
-}
-else{
-    if(nowcity >= move_city){
-      result = 30+(10- nowcity)+move_city;
-}
-    else result = move_city-nowcity:
-}
-return result;
-}
+        
         private double Toll_fee(int nowblock, int nowcity)
         {
             bool g_c=confirm_ground(nowblock, nowcity);
@@ -67,27 +52,7 @@ return result;
             cardclick = true;
             if (nowcity == 9 && nowblock == 2) //우주여행 칸일 때 버튼들을 생성해 움직일 수 있게 함.
             {
-                for (int i = 0; i < 4; i++)
-                {
-                    for (int l = 0; l < 10; l++)
-                    {
-                        if (i == 2 && l == 9)
-                        {
-                            continue;
-                        }
-                        buttonTravel.Add(new Button());
-                        buttonTravel[a].Location = new System.Drawing.Point(city[i].cities[l].X, city[i].cities[l].Y);
-                        buttonTravel[a].Name = "button1";
-                        buttonTravel[a].Size = new System.Drawing.Size(75, 23);
-                        buttonTravel[a].TabIndex = 0;
-                        buttonTravel[a].Text = i + "|" + l;
-                        buttonTravel[a].UseVisualStyleBackColor = true;
-                        Controls.Add(buttonTravel[a]);
-                        buttonTravel[a].Click += new System.EventHandler(this.butt_Click);
-                        a++;
-                    }
-                }
-                loopconfirm = 0;
+                SpaceTrip();
             }
             else if (nowcity == 9 && nowblock == 0 && island < 3)
             {
@@ -224,103 +189,136 @@ return result;
             city[nowblock].play[nowcity].Add(players[nowblock][nowcity]);
             city[nowblock].update(nowblock);
         }
-        private void spacemove(int afbl, int afct) 
+        private void butt_Click(object sender, EventArgs e)
         {
-            int i = nowcity; // 9
-            button1.Enabled = false;
-            card_clicked = false;
-            while (!(nowblock == afbl && i == afct))
+            loopconfirm++;
+            string butt_name = ((Button)sender).ToString();
+            string[] bname = butt_name.Split(' ');
+            string[] number = bname[2].Split('|');
+            int block = Convert.ToInt32(number[0]);
+            int city = Convert.ToInt32(number[1]);
+            //if (test_mode == false)
+            //{
+            //    for (int i = 0; i < buttonTravel.Count; i++)
+            //    {
+            //        Controls.Remove(buttonTravel[i]);
+            //    }
+            //}
+            if (loopconfirm <= 1)
             {
-
-                city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
-                reset();
-
-                city[nowblock].play[i].Add(players[nowblock][i]);
-                city[nowblock].update(nowblock);
-                Invalidate();
-                Delay(100);
-                bfcity = i;
-                bfblock = nowblock;
-                i++;
-                // Card_red();
-                nowblock = bfblock;
-                nowcity = bfcity;
-                if (nowblock == 3 && nowcity == 9) //&& afbl != 0)
+                spacemove(block, city);
+                if (nowblock == 3 && nowcity == 7)
                 {
-                    //money += 20;
-                    money.m += 20;
+                    //money -= 15;
+                    money.m -= 15;
+                    money_so += 15;
                 }
-
-
-                if (afct == 10)
+                if (nowblock == 1 && nowcity == 9)
                 {
-                    if (afbl != nowblock)
+                    if (money_so != 0)
                     {
-                        if (bfcity > 9 || i > 9)
-                        {
-                            if (nowblock < 3)
-                                nowblock++;
-                            else
-                                nowblock = 0;
-                            nowcity = 0;
-                            i = 0;
-                        }
+                        money.m += money_so;
+                        MessageBox.Show(money_so.ToString() + "만원이 지급되었습니다.");
+                        money_so = 0;
                     }
                 }
-                else if (afct < 10)
+            }
+
+
+        }
+        private void SpaceTrip()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                for (int l = 0; l < 10; l++)
                 {
-                    if (bfcity > 9 || i > 9)
+                    if (i == 2 && l == 9)
                     {
-                        if (nowblock < 3)
-                            nowblock++;
-                        else
-                            nowblock = 0;
-                        nowcity = 0;
-                        i = 0;
+                        continue;
                     }
+                    Button space_butt = new Button();
+                    space_butt.Location = new System.Drawing.Point(city[i].cities[l].X, city[i].cities[l].Y);
+                    space_butt.Name = "button1";
+                    space_butt.Size = new System.Drawing.Size(75, 23);
+                    space_butt.TabIndex = 0;
+                    space_butt.Text = i + "|" + l;
+                    space_butt.UseVisualStyleBackColor = true;
+                    Controls.Add(space_butt);
+                    space_butt.Click += new System.EventHandler(this.butt_Click);
+                    
                 }
+            }
+          
+        }
+
+
+        private int move_calc(int move_block, int move_city)
+        { //매개변수는 이동할 좌표. 이동할 좌표까지 현재 위치에서 몇칸 움직여야 하는지 반환하는 메소드 
+            int result =  move_block-nowblock; // 현재 블럭에서 이동할 블럭의 차. 
+            if (result > 0)
+            {
+                result = (Math.Abs(result) - 1) * 10 + (10 - nowcity) + move_city;
+            }
+            else if (result < 0)
+            {
+                result = (3 - Math.Abs(result)) * 10 + (10 - nowcity) + move_city;
+            }
+            else
+            {
+                if (nowcity >= move_city)
+                {
+                    result = 30 + (10 - nowcity) + move_city;
+                }
+                else result = move_city - nowcity;
 
             }
+            return result;
+        }
+        private void spacemove(int afbl, int afct) 
+        {
+            button1.Enabled = false;
+            card_clicked = false;
+            onemove(move_calc(afbl, afct));
             card_clicked = true;
-            onemove(i, afbl);
+            
             button1.Enabled = true;
             
             buildmessage();
         }
 
-        private void onemove(int city, int afbl)
+        private void onemove(int move) //현재 이동 매커니즘의 중심.
         {
-            this.city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
-            reset();
 
-            this.city[nowblock].play[city].Add(players[nowblock][city]);
-            this.city[nowblock].update(nowblock);
-            Invalidate();
-            Delay(100);
-            bfcity = city;
-            bfblock = nowblock;
-            city++;
 
-            nowblock = bfblock;
-            nowcity = bfcity;
-            //  Card_red();
-            if (nowblock == 3 && nowcity == 9)//&& afbl != 0)
+            for (int i = 0; i < move; i++)
             {
-                //money += 20;
-                money.m += 20;
-            }
-            if (nowblock != afbl)
-            {
-                if (bfcity == 9)
+                this.city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]); //현재 위치의 말을 삭제.
+                reset(); //판을 다시그림.
+                nowcity++;
+                if (nowcity > 9)
                 {
                     if (nowblock < 3)
                         nowblock++;
                     else
                         nowblock = 0;
                     nowcity = 0;
-                    city = 0;
                 }
+                if (nowblock == 3 && nowcity == 9)
+                {
+                    money.m += 20;
+                }
+                this.city[nowblock].play[nowcity].Add(players[nowblock][nowcity]);
+                this.city[nowblock].update(nowblock);
+                Invalidate();
+                Delay(100);
+                bfcity = nowcity;
+                bfblock = nowblock;
             }
+            //  Card_red();
+
+
+
+
         }
 
         private void cardmove(int afbl, int afct)

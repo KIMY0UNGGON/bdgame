@@ -233,40 +233,7 @@ namespace boardgame
             Form_show();
         }
 
-        private void butt_Click(object sender, EventArgs e)
-        {
-            loopconfirm++;
-            string butt_name = ((Button)sender).ToString();
-            string[] bname = butt_name.Split(' ');
-            string[] number = bname[2].Split('|');
-            int block = Convert.ToInt32(number[0]);
-            int city = Convert.ToInt32(number[1]);
-            for (int i = 0; i < buttonTravel.Count; i++)
-            {
-                Controls.Remove(buttonTravel[i]);
-            }
-            if (loopconfirm <= 1)
-            {
-                spacemove(block, city);
-                if (nowblock == 3 && nowcity == 7)
-                {
-                    //money -= 15;
-                    money.m -= 15;
-                    money_so += 15;
-                }
-                if (nowblock == 1 && nowcity == 9)
-                {
-                    if (money_so != 0)
-                    {
-                        money.m += money_so;
-                        MessageBox.Show(money_so.ToString() + "만원이 지급되었습니다.");
-                        money_so = 0;
-                    }
-                }
-            }
 
-
-        }
 
 
 
