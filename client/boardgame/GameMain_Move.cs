@@ -33,6 +33,7 @@ namespace boardgame
         }
         private void button1_Click(object sender, EventArgs e) //주사위를 던지는 버튼을 클릭.
         {
+            player_stop = false;
             Random dice = new Random(); //주사위의 수를 표현하기위해 랜덤클래스 사용.
 
             int dicenum1 = dice.Next(1, 7); //첫번째 주사위의 수.
@@ -49,7 +50,6 @@ namespace boardgame
             button1.Enabled = false; //주사위가 굴러갈때 주사위를 한번더 굴리는 걸 방지.
             skip = 0; 
             int a = 0;
-            cardclick = true;
             if (nowcity == 9 && nowblock == 2) //우주여행 칸일 때 버튼들을 생성해 움직일 수 있게 함.
             {
                 SpaceTrip();
@@ -173,7 +173,7 @@ namespace boardgame
                 MessageBox.Show("사회복지기금(15만원)을 지불하였습니다.");
             }
             start = false;
-            cardclick = false;
+            player_stop = true;
         }
 
         public void uninhabit()
@@ -197,32 +197,31 @@ namespace boardgame
             string[] number = bname[2].Split('|');
             int block = Convert.ToInt32(number[0]);
             int city = Convert.ToInt32(number[1]);
-            //if (test_mode == false)
-            //{
-            //    for (int i = 0; i < buttonTravel.Count; i++)
-            //    {
-            //        Controls.Remove(buttonTravel[i]);
-            //    }
-            //}
-            if (loopconfirm <= 1)
+            if (test_mode == false)
             {
-                spacemove(block, city);
-                if (nowblock == 3 && nowcity == 7)
+                for (int i = 0; i < buttonTravel.Count; i++)
                 {
-                    //money -= 15;
-                    money.m -= 15;
-                    money_so += 15;
-                }
-                if (nowblock == 1 && nowcity == 9)
-                {
-                    if (money_so != 0)
-                    {
-                        money.m += money_so;
-                        MessageBox.Show(money_so.ToString() + "만원이 지급되었습니다.");
-                        money_so = 0;
-                    }
+                    Controls.Remove(buttonTravel[i]);
                 }
             }
+            //if (loopconfirm <= 1)
+            //{
+            spacemove(block, city);
+            if (nowblock == 3 && nowcity == 7)
+            {
+                money.m -= 15;
+                money_so += 15;
+            }
+            if (nowblock == 1 && nowcity == 9)
+            {
+                if (money_so != 0)
+                {
+                    money.m += money_so;
+                    MessageBox.Show(money_so.ToString() + "만원이 지급되었습니다.");
+                    money_so = 0;
+                }
+            }
+           // }
 
 
         }
@@ -252,14 +251,14 @@ namespace boardgame
         }
 
 
-        private int move_calc(int move_block, int move_city)
-        { //매개변수는 이동할 좌표. 이동할 좌표까지 현재 위치에서 몇칸 움직여야 하는지 반환하는 메소드 
-            int result =  move_block-nowblock; // 현재 블럭에서 이동할 블럭의 차. 
-            if (result > 0)
+        private int move_calc(int move_block, int move_city)//매개변수는 이동할 좌표. 이동할 좌표까지 현재 위치에서 몇칸 움직여야 하는지 반환하는 메소드 
+        { 
+            int result = nowblock-move_block; // 현재 블럭에서 이동할 블럭의 차. 
+            if (result < 0)
             {
                 result = (Math.Abs(result) - 1) * 10 + (10 - nowcity) + move_city;
             }
-            else if (result < 0)
+            else if (result > 0)
             {
                 result = (3 - Math.Abs(result)) * 10 + (10 - nowcity) + move_city;
             }
@@ -277,12 +276,13 @@ namespace boardgame
         private void spacemove(int afbl, int afct) 
         {
             button1.Enabled = false;
-            card_clicked = false;
+            //card_clicked = false;
+            player_stop = false;
             onemove(move_calc(afbl, afct));
-            card_clicked = true;
+            card_clicked = false;
             
             button1.Enabled = true;
-            
+            player_stop = true;
             buildmessage();
         }
 

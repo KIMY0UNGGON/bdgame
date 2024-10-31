@@ -10,12 +10,11 @@ namespace boardgame
 {
     public partial class GameMain
     {
-        public Point[] C = { new Point(500, 300), new Point(400, 200), new Point(300, 500) };
-        bool cardclick = false;
+        public Point[] C = { new Point(500, 300), new Point(400, 200), new Point(300, 500) }; //카드의 크기.
         bool card_clicked = false;
        
 
-        public List<Card> cards = new List<Card>();
+        public List<Card> cards = new List<Card>(); //카드들이 들어있는 리스트.
 
         public int b_count = -1;
 
@@ -31,20 +30,23 @@ namespace boardgame
 
         private void Card_red() //황금 열쇠 카드를 빨갛게 물들임. 카드를 뽑을 수 있는 상태.
         {
+            if (player_stop)
+            {
 
-            if ((nowblock == 0 && (nowcity == 1 || nowcity == 6)) || (nowblock == 1 && (nowcity == 1 || nowcity == 6)) || (nowblock == 2 && nowcity == 1) || (nowblock == 3 && nowcity == 4))
-            {
-                if (card_clicked)
-                    Card.DrawImage(cardg, C, CardList[0], GraphicsUnit.Pixel);
+                if (IS_KEY()) //현재 위치가 키 카드인지 확인.
+                {
+                    if (card_clicked)
+                        Card.DrawImage(cardg, C, CardList[0], GraphicsUnit.Pixel);
+                    else
+                        Card.DrawImage(card_red, C, CardList[0], GraphicsUnit.Pixel);
+                }
                 else
-                    Card.DrawImage(card_red, C, CardList[0], GraphicsUnit.Pixel);
+                {
+                    Card.DrawImage(cardg, C, CardList[0], GraphicsUnit.Pixel);
+                    card_clicked = false;
+                }
+                Invalidate();
             }
-            else
-            {
-                Card.DrawImage(cardg, C, CardList[0], GraphicsUnit.Pixel);
-                card_clicked = false;
-            }
-            Invalidate();
         }
         int hotel = 0;
         int building = 0;
@@ -128,14 +130,14 @@ namespace boardgame
         public string delete_name = null;
 
 
-        private void Confirm_buildCount() //방범비 위한 개수확인
+        private void Confirm_buildCount() //방범비 위한 지은 빌딩개수확인
         {
             
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 9; j++)
                 {
-                    if (((i == 0 && (j == 1 || j == 6)) || (i == 1 && (j == 1 || j == 6)) || (i == 2 && j == 1) || (i == 3 && (j == 7 || j== 4))) == false)
+                    if (!(IS_KEY() || (i == 3 && j == 7 )))
                     {
                         if (city[i].cityRect[j].Count() == 4)
                         {

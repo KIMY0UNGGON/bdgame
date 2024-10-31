@@ -18,7 +18,7 @@ namespace boardgame
 {
     public partial class GameMain : Form
     {
-
+        bool player_stop = true;
         public Point[] C1 = { new Point(500, 300), new Point(400, 200), new Point(200, 400), new Point(300, 500) };
         public GameMain()
         {
@@ -144,7 +144,7 @@ namespace boardgame
 
             //Form_show();
             this.Size = new Size(300, 200);
-            timer3.Start();
+          
 
 
             
@@ -198,7 +198,7 @@ namespace boardgame
             }
 
             button1.Visible = true;
-          
+            timer3.Start();
         }
 
 

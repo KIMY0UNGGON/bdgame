@@ -143,7 +143,7 @@ namespace boardgame
         {
             Random rand = new Random();
             //return rand.Next(0, 30);
-            return rand.Next(0, 1);
+            return rand.Next(0, 30);
         }
 
 

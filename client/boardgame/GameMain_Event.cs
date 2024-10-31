@@ -12,9 +12,12 @@ namespace boardgame
     {
         bool test_mode = true;
 
+        private bool IS_KEY() //카드 키인지 확인하는 메소드.
+        {
+            return (nowblock == 0 && (nowcity == 1 || nowcity == 6)) || (nowblock == 1 && (nowcity == 1 || nowcity == 6)) || (nowblock == 2 && nowcity == 1) || (nowblock == 3 && nowcity == 4);
+        }
 
-
-        private void TestMode_Click(object sender, EventArgs e)
+        private void TestMode_Click(object sender, EventArgs e) //테스트 모드.
         {
             butt_solo.Visible = false;
             butt_multi.Visible = false;
@@ -38,34 +41,29 @@ namespace boardgame
                 test_activate.Click += new System.EventHandler(this.TestMode_Click);
                 menu.Show(MousePosition);
             }
-            if (start_confirm)
+            if (start_confirm) //게임이 시작중인지 확인.
             {
-                for (int i = 0; i < 4; i++)
+                //for (int i = 0; i < 4; i++)
+                //{
+                if (city[nowblock].cacontain(e.Location)) //플레이어의 말 클릭시 플레이어의 정보를 확인할 수 있는 인터페이스를 열음.
                 {
-                    if (city[i].cacontain(e.Location)) //플레이어의 말 클릭시 플레이어의 정보를 확인할 수 있는 인터페이스를 열음.
-                    {
-                        information frm3 = new information();
-                        //frm3.money = money;
-                        frm3.Show();
-
-                        // frm3.money = money.m;
-                    }
+                    information frm3 = new information(); //말의 정보가 들어있는 form의 인스턴스를 만들고 보여줌,
+                    frm3.Show();
                 }
-                if (city[1].containcity(e.Location, 9))
+                //}
+                if (city[1].containcity(e.Location, 9)) //사회 기금.
                 {
                     socialfund frm4 = new socialfund();
                     frm4.money = money_so;
                     frm4.ShowDialog();
                 }
-                if (!cardclick)
+                if (!card_clicked) //황금열쇠를 클릭했는지 확인. 안했으면 TRUE
                 {
-                    if ((nowblock == 0 && (nowcity == 1 || nowcity == 6)) || (nowblock == 1 && (nowcity == 1 || nowcity == 6)) || (nowblock == 2 && nowcity == 1) || (nowblock == 3 && nowcity == 4))
+                    if (IS_KEY()) //지금 위치가 황금열쇠인지.
                     {
-                        if (containkey(PtoV.ToVector(e.Location), pArrtoV.Vect(C1)))
+                        if (containkey(PtoV.ToVector(e.Location), pArrtoV.Vect(C1))) //클릭한 좌표가 황금열쇠의 안인지 확인. 
                         {
-                            //Card.Dispose();
-                            //CardGraphic();
-                            card_clicked = true;
+                            card_clicked = true; //황금열쇠를 클릭했다고 변경.
                             if (Carddr == false)
                             {
 
@@ -79,19 +77,10 @@ namespace boardgame
                                 Delay(2000);
 
                                 money.m -= frm2.minus;
-                                //money -= frm2.minus;
-                                //if (frm2.backm != 0)
-                                //{
 
-                                //    //backmove(backm);
-
-                                //}
                                 int backm = frm2.backm;
 
                                 cardnum = frm2.Cardnum;
-
-
-                                timer2.Start();
 
                                 if (cardnum == 4) //무인도카드
                                 {
@@ -314,7 +303,6 @@ namespace boardgame
                     Carddr = false;
                 }
                 Invalidate();
-                cardclick = true;
                 //drawcard = true;
                 //}
                 loopconfirm = 0;
