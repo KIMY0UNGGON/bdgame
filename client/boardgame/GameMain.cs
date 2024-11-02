@@ -26,6 +26,9 @@ namespace boardgame
             this.ResizeRedraw = true;
         }
 
+
+        bool Turn = false; //현재 자신의 턴인지 확인.
+
         Bitmap bit;
         Graphics DC, dices, Card, nameGp;
         Bitmap map, dice1, key, cardg, player, player2, nameBt, card_red;
@@ -217,7 +220,7 @@ namespace boardgame
         }
 
       
-        bool Turn = false;
+
 
 
         private void bu_Click(object sender, EventArgs e)

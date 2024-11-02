@@ -36,8 +36,10 @@ namespace boardgame
             return price_toll;
 
         }
+        bool unhabit_bool = true;
         private void button1_Click(object sender, EventArgs e) //주사위를 던지는 버튼을 클릭.
         {
+            unhabit_bool = true;
             player_stop = false;
             Random dice = new Random(); //주사위의 수를 표현하기위해 랜덤클래스 사용.
 
@@ -59,11 +61,11 @@ namespace boardgame
             {
                 SpaceTrip();
             }
-            else if (nowcity == 9 && nowblock == 0 && island < 3)
-            {
-                island++;
-                Uninhabited = true;
-            }
+            //else if (nowcity == 9 && nowblock == 0 && island < 3)
+            //{
+            //    island++;
+            //    Uninhabited = true;
+            //}
             onemove(dicenum); //주사위 숫자의 합만큼 움직임.
 
 
@@ -76,13 +78,13 @@ namespace boardgame
                     money_so = 0;
                 }
             }
-            if (nowblock == 0 && nowcity == 9)
-            {
-                int n = 4 - island;
-                if (island == 0)
-                    n = 3;
-                MessageBox.Show("무인도에 도착하였습니다. 앞으로 " + n.ToString() + "턴동안 무인도에서 나갈수 없습니다.");
-            }
+            //if (nowblock == 0 && nowcity == 9)
+            //{
+            //    int n = 4 - island;
+            //    if (island == 0)
+            //        n = 3;
+            //    MessageBox.Show("무인도에 도착하였습니다. 앞으로 " + n.ToString() + "턴동안 무인도에서 나갈수 없습니다.");
+            //} 무인도 턴 세는 기능
 
             Invalidate();
             button1.Enabled = true;
