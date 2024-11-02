@@ -84,6 +84,9 @@
     <Compile Include="GameMain_Timer.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GameMain_Event.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="information.cs">
       <SubType>Form</SubType>
     </Compile>
