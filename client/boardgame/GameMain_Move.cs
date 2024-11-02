@@ -12,7 +12,12 @@ namespace boardgame
 {
     public partial class GameMain
     {
-        
+        private bool Is_Uninhabited() //무인도인지 확인하는 메소드
+        {
+            if (nowblock == 0 && nowcity == 9) //현재 위치가 무인도라면 TRUE 반환.
+                return true;
+            return false;
+        }
         private double Toll_fee(int nowblock, int nowcity)
         {
             bool g_c=confirm_ground(nowblock, nowcity);
@@ -40,7 +45,7 @@ namespace boardgame
             int dicenum2 = dice.Next(1, 7); //두번째 주사위의 수.
             button1.Text = dicenum1.ToString() + "|" + dicenum2.ToString(); //버튼에 첫번째와 두번째 주사위의 수를 표시.
             int dicenum = dicenum1 + dicenum2; //말이 움직일 수를 표현.
-            //int saveX = 0, saveY = 0; //이동하기 전에 있던 위치를 저장하기 위한 변수.
+
 
             Rectangle dicepos = new Rectangle(600, 700, 100, 100); //첫번째 주사위의 위치. 그림으로 표현되는 주사위.
             Rectangle dicepos1 = new Rectangle(710, 700, 100, 100); //두번째 주사위의 위치.
@@ -59,6 +64,23 @@ namespace boardgame
                 island++;
                 Uninhabited = true;
             }
+<<<<<<< HEAD
+            else if (dicenum + nowcity > 9)
+            {
+                int movecity = dicenum + nowcity;
+                //move_write(dicenum); //움직인 수를 서버에 보냄.
+                for (int i = bfcity; i <= movecity; i++) //말이 있는 칸부터 주사위 숫자를 더한 칸  
+                {
+                    if (i > 9) // 구역 넘어감
+                    {
+                        i = 0; movecity -= 10;
+                        if (nowblock < 3) nowblock++;
+                        else nowblock = 0;
+                    }
+=======
+<<<<<<< HEAD
+            onemove(dicenum); //주사위 숫자의 합만큼 움직임.
+=======
             onemove(dicenum);
             //else if (dicenum + nowcity > 9)
             //{
@@ -72,82 +94,94 @@ namespace boardgame
             //            if (nowblock < 3) nowblock++;
             //            else nowblock = 0;
             //        }
+>>>>>>> 0d01065a396c58937b381f4332413f6ce404d68e
 
-            //        if (nowblock == 3 && i == 8) money.m += 20;//money += 20; // 월급
+                    if (nowblock == 3 && i == 8) money.m += 20;//money += 20; // 월급
 
-            //        city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
-            //        reset();
-            //        city[nowblock].play[i].Add(players[nowblock][i]);
-            //        city[nowblock].update(nowblock);
-            //        Invalidate();
-            //        Delay(100);
-            //        bfcity = i;
-            //        bfblock = nowblock;
+                    city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
+                    reset();
+                    city[nowblock].play[i].Add(players[nowblock][i]);
+                    city[nowblock].update(nowblock);
+                    Invalidate();
+                    Delay(100);
+                    bfcity = i;
+                    bfblock = nowblock;
 
-            //    }
+                }
 
+                nowblock = bfblock;
+                nowcity = bfcity;
+
+                if (island >= 3)
+                {
+                    island = 0;
+                    Uninhabited = false;
+                }
+            }
+            else
+            {
+
+
+                int fq = dicenum + nowcity;
+
+                for (int i = bfcity; i <= fq; i++)
+                {
+                    if (i > 9)
+                    {
+                        i = 0; fq -= 10;
+                        if (nowblock < 3) nowblock++;
+                        else nowblock = 0;
+                    }
+
+                    skip++;
+
+                    if (nowblock == 3 && i == 9) money.m += 20;//money += 20; 시작지점 지날시 월급 지급.
+
+                    city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
+                    reset();
+                    city[nowblock].play[i].Add(players[nowblock][i]);
+                    city[nowblock].update(nowblock);
+                    Invalidate();
+                    Delay(100);
+                    bfcity = i;
+                    bfblock = nowblock;
+
+
+
+                    savepos = i;
+
+
+
+                    Invalidate();
+
+                }
+
+<<<<<<< HEAD
+                nowblock = bfblock;
+                nowcity = bfcity;
+                if (island >= 3)
+                {
+                    island = 0;
+                    Uninhabited = false;
+                }
+            }
+=======
             //    nowblock = bfblock;
             //    nowcity = bfcity;
-
             //    if (island >= 3)
             //    {
             //        island = 0;
             //        Uninhabited = false;
             //    }
             //}
-            //else
-            //{
-
-
-            //    int fq = dicenum + nowcity;
-
-            //    for (int i = bfcity; i <= fq; i++)
-            //    {
-            //        if (i > 9)
-            //        {
-            //            i = 0; fq -= 10;
-            //            if (nowblock < 3) nowblock++;
-            //            else nowblock = 0;
-            //        }
-
-            //        skip++;
-
-            //        if (nowblock == 3 && i == 9) money.m += 20;//money += 20; 시작지점 지날시 월급 지급.
-
-            //        city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
-            //        reset();
-            //        city[nowblock].play[i].Add(players[nowblock][i]);
-            //        city[nowblock].update(nowblock);
-            //        Invalidate();
-            //        Delay(100);
-            //        bfcity = i;
-            //        bfblock = nowblock;
-
-
-
-            //        savepos = i;
-
-
-
-            //        Invalidate();
-
-            //    }
-
-            //    nowblock = bfblock;
-            //    nowcity = bfcity;
-            //    if (island >= 3)
-            //    {
-            //        island = 0;
-            //        Uninhabited = false;
-            //    }
-            //}
+>>>>>>> 37a6503ff2f5b161fc35b381e5793d089a9058b2
+>>>>>>> 0d01065a396c58937b381f4332413f6ce404d68e
 
 
             if (nowblock == 1 && nowcity == 9)
             {
                 if (money_so != 0)
                 {
-                    //money += money_so;
                     money.m += money_so;
                     MessageBox.Show(money_so.ToString() + "만원이 지급되었습니다.");
                     money_so = 0;
