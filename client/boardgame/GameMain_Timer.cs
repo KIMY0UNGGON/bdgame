@@ -22,6 +22,7 @@ namespace boardgame
             Card_red();//열쇠 칸인지 확인.
             if (Turn)//자신의 턴이 돌아왔는지 확인하는 용도.
                 button1.Enabled = true;
+<<<<<<< HEAD
             if (Is_Uninhabited()) //지금 위치가 무인도인지.
             {
                 int n = 4 - island; 
@@ -33,6 +34,9 @@ namespace boardgame
 
             }
 
+=======
+            //지금 위치가 무인도인지 확인.
+>>>>>>> 37a6503ff2f5b161fc35b381e5793d089a9058b2
         }
     }
 }

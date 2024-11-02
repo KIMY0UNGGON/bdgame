@@ -54,7 +54,7 @@ namespace boardgame
             dices.DrawImage(dice1, dicepos1, Dicelist[dicenum2 - 1], GraphicsUnit.Pixel);
             button1.Enabled = false; //주사위가 굴러갈때 주사위를 한번더 굴리는 걸 방지.
             skip = 0; 
-            int a = 0;
+            
             if (nowcity == 9 && nowblock == 2) //우주여행 칸일 때 버튼들을 생성해 움직일 수 있게 함.
             {
                 SpaceTrip();
@@ -64,7 +64,92 @@ namespace boardgame
                 island++;
                 Uninhabited = true;
             }
+<<<<<<< HEAD
             onemove(dicenum); //주사위 숫자의 합만큼 움직임.
+=======
+            onemove(dicenum);
+            //else if (dicenum + nowcity > 9)
+            //{
+            //    int movecity = dicenum + nowcity;
+            //    //move_write(dicenum); //움직인 수를 서버에 보냄.
+            //    for (int i = bfcity; i <= movecity; i++) //말이 있는 칸부터 주사위 숫자를 더한 칸  
+            //    {
+            //        if (i > 9) // 구역 넘어감
+            //        {
+            //            i = 0; movecity -= 10;
+            //            if (nowblock < 3) nowblock++;
+            //            else nowblock = 0;
+            //        }
+
+            //        if (nowblock == 3 && i == 8) money.m += 20;//money += 20; // 월급
+
+            //        city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
+            //        reset();
+            //        city[nowblock].play[i].Add(players[nowblock][i]);
+            //        city[nowblock].update(nowblock);
+            //        Invalidate();
+            //        Delay(100);
+            //        bfcity = i;
+            //        bfblock = nowblock;
+
+            //    }
+
+            //    nowblock = bfblock;
+            //    nowcity = bfcity;
+
+            //    if (island >= 3)
+            //    {
+            //        island = 0;
+            //        Uninhabited = false;
+            //    }
+            //}
+            //else
+            //{
+
+
+            //    int fq = dicenum + nowcity;
+
+            //    for (int i = bfcity; i <= fq; i++)
+            //    {
+            //        if (i > 9)
+            //        {
+            //            i = 0; fq -= 10;
+            //            if (nowblock < 3) nowblock++;
+            //            else nowblock = 0;
+            //        }
+
+            //        skip++;
+
+            //        if (nowblock == 3 && i == 9) money.m += 20;//money += 20; 시작지점 지날시 월급 지급.
+
+            //        city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
+            //        reset();
+            //        city[nowblock].play[i].Add(players[nowblock][i]);
+            //        city[nowblock].update(nowblock);
+            //        Invalidate();
+            //        Delay(100);
+            //        bfcity = i;
+            //        bfblock = nowblock;
+
+
+
+            //        savepos = i;
+
+
+
+            //        Invalidate();
+
+            //    }
+
+            //    nowblock = bfblock;
+            //    nowcity = bfcity;
+            //    if (island >= 3)
+            //    {
+            //        island = 0;
+            //        Uninhabited = false;
+            //    }
+            //}
+>>>>>>> 37a6503ff2f5b161fc35b381e5793d089a9058b2
 
 
             if (nowblock == 1 && nowcity == 9)
@@ -245,125 +330,125 @@ namespace boardgame
 
         }
 
-        private void cardmove(int afbl, int afct)
-        {
-            button1.Enabled = false;
-            if (nowblock == afbl)
-            {
-                for (int i = nowcity; i < afct; i++)
-                {
-                    city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
-                    reset();
-                    city[nowblock].play[i].Add(players[nowblock][i]);
-                    city[nowblock].update(nowblock);
-                    Invalidate();
-                    Delay(100);
-                    bfcity = i;
-                    bfblock = nowblock;
+        //private void cardmove(int afbl, int afct)
+        //{
+        //    button1.Enabled = false;
+        //    if (nowblock == afbl)
+        //    {
+        //        for (int i = nowcity; i < afct; i++)
+        //        {
+        //            city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
+        //            reset();
+        //            city[nowblock].play[i].Add(players[nowblock][i]);
+        //            city[nowblock].update(nowblock);
+        //            Invalidate();
+        //            Delay(100);
+        //            bfcity = i;
+        //            bfblock = nowblock;
 
-                    nowblock = bfblock;
-                    nowcity = bfcity;
-                }
-            }
-            else
-            {
-                int i = nowcity;
-                while (!(nowblock == afbl && i == afct))
-                {
-                    city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
-                    reset();
-                    city[nowblock].play[i].Add(players[nowblock][i]);
-                    city[nowblock].update(nowblock);
-                    Invalidate();
-                    Delay(100);
-                    bfcity = i;
-                    bfblock = nowblock;
-                    i++;
+        //            nowblock = bfblock;
+        //            nowcity = bfcity;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        int i = nowcity;
+        //        while (!(nowblock == afbl && i == afct))
+        //        {
+        //            city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
+        //            reset();
+        //            city[nowblock].play[i].Add(players[nowblock][i]);
+        //            city[nowblock].update(nowblock);
+        //            Invalidate();
+        //            Delay(100);
+        //            bfcity = i;
+        //            bfblock = nowblock;
+        //            i++;
 
-                    nowblock = bfblock;
-                    nowcity = bfcity;
-                    if (nowblock == 3 && nowcity == 9)//&& afbl != 0)
-                    {
-                        //money += 20;
-                        money.m += 20;
-                    }
-                    if (nowblock != afbl)
-                    {
-                        if (bfcity == 9)
-                        {
-                            if (nowblock < 3)
-                                nowblock++;
-                            else
-                                nowblock = 0;
-                            nowcity = 0;
-                            i = 0;
-                        }
-                    }
-                }
-            }
-            if (nowblock == 0 && nowcity == 9)
-            {
-                MessageBox.Show("무인도에 도착하였습니다. 앞으로 3턴동안 무인도에서 나갈수 없습니다.");
-            }
+        //            nowblock = bfblock;
+        //            nowcity = bfcity;
+        //            if (nowblock == 3 && nowcity == 9)//&& afbl != 0)
+        //            {
+        //                //money += 20;
+        //                money.m += 20;
+        //            }
+        //            if (nowblock != afbl)
+        //            {
+        //                if (bfcity == 9)
+        //                {
+        //                    if (nowblock < 3)
+        //                        nowblock++;
+        //                    else
+        //                        nowblock = 0;
+        //                    nowcity = 0;
+        //                    i = 0;
+        //                }
+        //            }
+        //        }
+        //    }
+        //    if (nowblock == 0 && nowcity == 9)
+        //    {
+        //        MessageBox.Show("무인도에 도착하였습니다. 앞으로 3턴동안 무인도에서 나갈수 없습니다.");
+        //    }
 
-            button1.Enabled = true;
-            //  Card_red();
-        }
+        //    button1.Enabled = true;
+        //    //  Card_red();
+        //}
 
-        private void Tourmove(int afbl, int afct)
-        {
-            button1.Enabled = false;
-            if (nowblock == afbl && nowcity < afct - 1)
-            {
-                for (int i = nowcity; i < afct; i++)
-                {
-                    city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
-                    reset();
-                    city[nowblock].play[i].Add(players[nowblock][i]);
-                    city[nowblock].update(nowblock);
-                    Invalidate();
-                    Delay(100);
-                    bfcity = i;
-                    bfblock = nowblock;
+        //private void Tourmove(int afbl, int afct)
+        //{
+        //    button1.Enabled = false;
+        //    if (nowblock == afbl && nowcity < afct - 1)
+        //    {
+        //        for (int i = nowcity; i < afct; i++)
+        //        {
+        //            city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
+        //            reset();
+        //            city[nowblock].play[i].Add(players[nowblock][i]);
+        //            city[nowblock].update(nowblock);
+        //            Invalidate();
+        //            Delay(100);
+        //            bfcity = i;
+        //            bfblock = nowblock;
 
-                    nowblock = bfblock;
-                    nowcity = bfcity;
-                }
-            }
-            else
-            {
-                int i = nowcity;
-                while (!(nowblock == afbl && i == afct))
-                {
-                    city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
-                    reset();
-                    city[nowblock].play[i].Add(players[nowblock][i]);
-                    city[nowblock].update(nowblock);
-                    Invalidate();
-                    Delay(100);
-                    bfcity = i;
-                    bfblock = nowblock;
-                    i++;
+        //            nowblock = bfblock;
+        //            nowcity = bfcity;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        int i = nowcity;
+        //        while (!(nowblock == afbl && i == afct))
+        //        {
+        //            city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
+        //            reset();
+        //            city[nowblock].play[i].Add(players[nowblock][i]);
+        //            city[nowblock].update(nowblock);
+        //            Invalidate();
+        //            Delay(100);
+        //            bfcity = i;
+        //            bfblock = nowblock;
+        //            i++;
 
-                    nowblock = bfblock;
-                    nowcity = bfcity;
+        //            nowblock = bfblock;
+        //            nowcity = bfcity;
 
-                    if (bfcity == 9)
-                    {
-                        if (nowblock < 3)
-                            nowblock++;
-                        else
-                            nowblock = 0;
-                        nowcity = 0;
-                        i = 0;
-                    }
+        //            if (bfcity == 9)
+        //            {
+        //                if (nowblock < 3)
+        //                    nowblock++;
+        //                else
+        //                    nowblock = 0;
+        //                nowcity = 0;
+        //                i = 0;
+        //            }
 
-                }
-            }
-            button1.Enabled = true;
-            buildmessage();
-            // Card_red();
-        }
+        //        }
+        //    }
+        //    button1.Enabled = true;
+        //    buildmessage();
+        //    // Card_red();
+        //}
 
     }
 
