@@ -52,6 +52,7 @@ namespace boardgame
         bool Carddr = false;
 
         Money money = new Money();
+        bool Multy_Wait = true;
 
         public double money_retur()
         {
@@ -144,6 +145,8 @@ namespace boardgame
 
             //Form_show();
             this.Size = new Size(300, 200);
+            Select_Token Token = new Select_Token();
+            Token.Show();
           
 
 
@@ -153,52 +156,53 @@ namespace boardgame
         private void Form_show() //게임 화면을 그림.
         {
             //bt.Visible = false;
-         
-            this.Size = new Size(cityArea.side - 1, cityArea.down - 1); //폼의 크기를 보드의 크기만큼 변환.
-  
-            
+            if (Multi && !Multy_Wait)
+            { 
+                
 
 
-            init();
-
-
-            imagea(); //도시들의 좌표, 플레이어의 말 크기 및 좌표.
-            //playerimage();
-            image(); //황금 카드의 좌표 및 주사위의 크기 및 좌표
-            rectcity(); // 구매하면 건설될 건물들의 크기 및 좌표 지정.
-            //timer1.Start();
-            timer2.Start();
-            StreamWriter s1 = new StreamWriter(new FileStream("buildSave.txt", FileMode.Create));
-            s1.Close();
-
-            StreamReader sr = new StreamReader(new FileStream("Card.txt", FileMode.Open)); //황금 카드들의 내용들을 불러옴.
-
-            while (sr.EndOfStream == false) //읽어온 파일들을 끝까지 반복.
-            {
-                CardText.Add(sr.ReadLine());  //읽어온 파일의 내용을 리스트에 저장.
             }
+            else { 
+                this.Size = new Size(cityArea.side - 1, cityArea.down - 1); //폼의 크기를 보드의 크기만큼 변환.
+                init();
+                imagea(); //도시들의 좌표, 플레이어의 말 크기 및 좌표.
+                          //playerimage();
+                image(); //황금 카드의 좌표 및 주사위의 크기 및 좌표
+                rectcity(); // 구매하면 건설될 건물들의 크기 및 좌표 지정.
+                            //timer1.Start();
+                timer2.Start();
+                StreamWriter s1 = new StreamWriter(new FileStream("buildSave.txt", FileMode.Create));
+                s1.Close();
 
-            sr.Close();
+                StreamReader sr = new StreamReader(new FileStream("Card.txt", FileMode.Open)); //황금 카드들의 내용들을 불러옴.
 
-            StreamWriter sw = new StreamWriter(new FileStream("Save.txt", FileMode.Create));
-            sw.Close();
+                while (sr.EndOfStream == false) //읽어온 파일들을 끝까지 반복.
+                {
+                    CardText.Add(sr.ReadLine());  //읽어온 파일의 내용을 리스트에 저장.
+                }
 
-            Card.DrawImage(cardg, C, CardList[0], GraphicsUnit.Pixel);
+                sr.Close();
+
+                StreamWriter sw = new StreamWriter(new FileStream("Save.txt", FileMode.Create));
+                sw.Close();
+
+                Card.DrawImage(cardg, C, CardList[0], GraphicsUnit.Pixel);
 
 
-            Player player = players[3][9]; //플레이어 말의 위치 정보를 처음 시작하는 구간으로 저장. 첫번째 배열은 도시들의 구역. 두번째 배열은 도시들의 순서.
-            city[3].play[9].Add(player); //마지막 구역. 보드판에서는 시작 구역에 플레이어 말을 배치.
+                Player player = players[3][9]; //플레이어 말의 위치 정보를 처음 시작하는 구간으로 저장. 첫번째 배열은 도시들의 구역. 두번째 배열은 도시들의 순서.
+                city[3].play[9].Add(player); //마지막 구역. 보드판에서는 시작 구역에 플레이어 말을 배치.
 
-            city[3].update(nowblock); //도시 구역들을 업데이트하여 수정된 정보들을 다시 그림.
-            Invalidate();
-            for (int i = 0; i < 4; i++) //이새끼 뭐야?
-            {
-                name[i] = new List<string>();
-                name[i] = city[i].name_str;
+                city[3].update(nowblock); //도시 구역들을 업데이트하여 수정된 정보들을 다시 그림.
+                Invalidate();
+                for (int i = 0; i < 4; i++) //이새끼 뭐야?
+                {
+                    name[i] = new List<string>();
+                    name[i] = city[i].name_str;
+                }
+
+                button1.Visible = true;
+                timer3.Start();
             }
-
-            button1.Visible = true;
-            timer3.Start();
         }
 
 
@@ -216,7 +220,16 @@ namespace boardgame
             //sock.Close();
         }
 
-      
+        bool Multi = false;
+        private void butt_multi_Click(object sender, EventArgs e)
+        {
+            butt_solo.Visible = false;
+            butt_multi.Visible = false;
+            start_confirm = true;
+            Multi = true;
+            Form_show();
+        }
+
         bool Turn = false;
 
 
@@ -313,7 +326,7 @@ namespace boardgame
 
         private void backmove(int movec)
         {
-            int fq;
+            int fq; 
             if (nowcity < movec)
             {
                 fq = 10 + (nowcity - movec);
@@ -339,7 +352,7 @@ namespace boardgame
                 }
 
                 if (nowblock == 3 && nowcity == 9) money.m += 20;
-                city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
+                city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]); //지움.
                 
                 
                 reset();

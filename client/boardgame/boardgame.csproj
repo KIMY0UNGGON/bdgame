@@ -100,6 +100,12 @@
     <Compile Include="Select_build.Designer.cs">
       <DependentUpon>Select_build.cs</DependentUpon>
     </Compile>
+    <Compile Include="Select_Token.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Select_Token.Designer.cs">
+      <DependentUpon>Select_Token.cs</DependentUpon>
+    </Compile>
     <Compile Include="socialfund.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,6 +141,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Select_build.resx">
       <DependentUpon>Select_build.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Select_Token.resx">
+      <DependentUpon>Select_Token.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="socialfund.resx">
       <DependentUpon>socialfund.cs</DependentUpon>
@@ -250,7 +259,7 @@
     <None Include="Resources\p3-2.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\p2-1.png" />
+    <None Include="Resources\p2.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\p2-2.png" />
@@ -262,7 +271,7 @@
     <None Include="Resources\p4.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\p3-1.png" />
+    <None Include="Resources\p3.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

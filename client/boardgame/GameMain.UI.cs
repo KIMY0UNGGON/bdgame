@@ -42,12 +42,12 @@ namespace boardgame
             Image play1 = Properties.Resources.p1_2;
             player_2.Add( new Bitmap(play1));
 
-            Image p2 = Properties.Resources.p2_1;
+            Image p2 = Properties.Resources.p2;
             player_1.Add(new Bitmap(p2));
             Image p2_2 = Properties.Resources.p2_2;
             player_2.Add( new Bitmap(p2_2));
 
-            Image p3 = Properties.Resources.p3_1;
+            Image p3 = Properties.Resources.p3;
             player_1.Add(new Bitmap(p3));
             Image p3_2 = Properties.Resources.p3_2;
             player_2.Add(new Bitmap(p3_2));
@@ -58,27 +58,34 @@ namespace boardgame
             player_2.Add( new Bitmap(p4_2));
 
             List<Bitmap> thisplayer = new List<Bitmap>();
-           //if (BLUE)
-           // {
+            if (!Multi)
+            {
                 thisplayer.Add(new Bitmap(play));
                 thisplayer.Add(new Bitmap(play1));
-           // }
-           // if (BLACK)
-          //  {
-              //  thisplayer.Add(new Bitmap(p2));
-              //  thisplayer.Add(new Bitmap(p2_2));
-           // }
-           // if (RED)
-           // {
-              //  thisplayer.Add(new Bitmap(p3));
-             //   thisplayer.Add(new Bitmap(p3_2));
-           // }
-           // if (GRAY)
-           // {
-             //   thisplayer.Add(new Bitmap(p4));
-             //   thisplayer.Add(new Bitmap(p4_2));
-           // }
-
+            }
+            else
+            {
+                if (BLUE)
+                {
+                    thisplayer.Add(new Bitmap(play));
+                    thisplayer.Add(new Bitmap(play1));
+                }
+                if (BLACK)
+                {
+                    thisplayer.Add(new Bitmap(p2));
+                    thisplayer.Add(new Bitmap(p2_2));
+                }
+                if (RED)
+                {
+                    thisplayer.Add(new Bitmap(p3));
+                    thisplayer.Add(new Bitmap(p3_2));
+                }
+                if (GRAY)
+                {
+                    thisplayer.Add(new Bitmap(p4));
+                    thisplayer.Add(new Bitmap(p4_2));
+                }
+            }
             Image cardspace = Properties.Resources.areacard;
             areacard = new Bitmap(cardspace);
             Image cardspace1 = Properties.Resources.areacard2;

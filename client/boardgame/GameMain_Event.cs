@@ -84,22 +84,22 @@ namespace boardgame
 
                                 if (cardnum == 4) //무인도카드
                                 {
-                                    onemove(move_calc(0, 9));
+                                    onemove(move_calc(0, 9),true);
                                 }
                                 else if (cardnum == 6) //관광여행 제주도 카드
                                 {
                                     onemove(move_calc(0, 5));
                                 }
-                                else if (cardnum == 10 || cardnum == 28)
+                                else if (cardnum == 10 || cardnum == 28) //이사 뒤로 3칸.
                                 {
-                                    backmove(backm);
+                                    onemove(Math.Abs(backm),Back:true);
                                     buildmessage();
                                 }
                                 else if (cardnum == 11) // 고속도로 출발지까지 이동 카드
                                 {
                                     onemove(move_calc(3, 9));
                                     //money += 20;
-                                    money.m += 20;
+                                    //money.m += 20;
                                 }
                                 else if (cardnum == 14) //항공여행 타이베이 카드
                                 {
@@ -119,11 +119,11 @@ namespace boardgame
 
                                         nowblock = bfblock;
                                         nowcity = bfcity;
-                                        if (nowblock == 3 && nowcity == 9)
-                                        {
-                                            money.m += 20;
+                                        //if (nowblock == 3 && nowcity == 9)
+                                        //{
+                                        //    money.m += 20;
 
-                                        }
+                                        //}
                                         if (bfcity == 9)
                                         {
                                             if (nowblock < 3)
@@ -305,7 +305,7 @@ namespace boardgame
                 Invalidate();
                 //drawcard = true;
                 //}
-                loopconfirm = 0;
+                //loopconfirm = 0;
 
                 // }
                 // }

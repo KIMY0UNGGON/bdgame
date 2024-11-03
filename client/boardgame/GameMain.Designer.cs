@@ -78,6 +78,7 @@
             this.butt_multi.TabIndex = 2;
             this.butt_multi.Text = "멀티플레이";
             this.butt_multi.UseVisualStyleBackColor = true;
+            this.butt_multi.Click += new System.EventHandler(this.butt_multi_Click);
             // 
             // GameMain
             // 

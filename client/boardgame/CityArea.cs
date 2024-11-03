@@ -480,7 +480,7 @@ namespace boardgame
             
 
             
-            int x, y;
+            //int x, y;
 
             Image img1 = Properties.Resources._3;
             img3 = new Bitmap(img1);

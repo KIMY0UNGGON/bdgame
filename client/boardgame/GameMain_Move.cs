@@ -20,7 +20,7 @@ namespace boardgame
         }
         private double Toll_fee(int nowblock, int nowcity)
         {
-            bool g_c=confirm_ground(nowblock, nowcity);
+            bool g_c = confirm_ground(nowblock, nowcity);
             bool v_c = confirm_Villa(nowblock, nowcity);
             bool b_c = confirm_Building(nowblock, nowcity);
             bool h_c = confirm_Hotel(nowblock, nowcity);
@@ -49,136 +49,30 @@ namespace boardgame
 
             Rectangle dicepos = new Rectangle(600, 700, 100, 100); //첫번째 주사위의 위치. 그림으로 표현되는 주사위.
             Rectangle dicepos1 = new Rectangle(710, 700, 100, 100); //두번째 주사위의 위치.
-            Point x = dicepos.Location;                             
+            Point x = dicepos.Location;
             dices.DrawImage(dice1, dicepos, Dicelist[dicenum1 - 1], GraphicsUnit.Pixel); //주사위를 그림. 아래코드도 마찬가지.
             dices.DrawImage(dice1, dicepos1, Dicelist[dicenum2 - 1], GraphicsUnit.Pixel);
             button1.Enabled = false; //주사위가 굴러갈때 주사위를 한번더 굴리는 걸 방지.
-            skip = 0; 
-            
+            skip = 0;
+
             if (nowcity == 9 && nowblock == 2) //우주여행 칸일 때 버튼들을 생성해 움직일 수 있게 함.
             {
                 SpaceTrip();
             }
-            else if (nowcity == 9 && nowblock == 0 && island < 3)
-            {
-                island++;
-                Uninhabited = true;
-            }
-<<<<<<< HEAD
-            else if (dicenum + nowcity > 9)
-            {
-                int movecity = dicenum + nowcity;
-                //move_write(dicenum); //움직인 수를 서버에 보냄.
-                for (int i = bfcity; i <= movecity; i++) //말이 있는 칸부터 주사위 숫자를 더한 칸  
-                {
-                    if (i > 9) // 구역 넘어감
-                    {
-                        i = 0; movecity -= 10;
-                        if (nowblock < 3) nowblock++;
-                        else nowblock = 0;
-                    }
-=======
-<<<<<<< HEAD
-            onemove(dicenum); //주사위 숫자의 합만큼 움직임.
-=======
-            onemove(dicenum);
-            //else if (dicenum + nowcity > 9)
+            //else if (nowcity == 9 && nowblock == 0 && island < 3)
             //{
-            //    int movecity = dicenum + nowcity;
-            //    //move_write(dicenum); //움직인 수를 서버에 보냄.
-            //    for (int i = bfcity; i <= movecity; i++) //말이 있는 칸부터 주사위 숫자를 더한 칸  
-            //    {
-            //        if (i > 9) // 구역 넘어감
-            //        {
-            //            i = 0; movecity -= 10;
-            //            if (nowblock < 3) nowblock++;
-            //            else nowblock = 0;
-            //        }
->>>>>>> 0d01065a396c58937b381f4332413f6ce404d68e
-
-                    if (nowblock == 3 && i == 8) money.m += 20;//money += 20; // 월급
-
-                    city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
-                    reset();
-                    city[nowblock].play[i].Add(players[nowblock][i]);
-                    city[nowblock].update(nowblock);
-                    Invalidate();
-                    Delay(100);
-                    bfcity = i;
-                    bfblock = nowblock;
-
-                }
-
-                nowblock = bfblock;
-                nowcity = bfcity;
-
-                if (island >= 3)
-                {
-                    island = 0;
-                    Uninhabited = false;
-                }
-            }
-            else
-            {
-
-
-                int fq = dicenum + nowcity;
-
-                for (int i = bfcity; i <= fq; i++)
-                {
-                    if (i > 9)
-                    {
-                        i = 0; fq -= 10;
-                        if (nowblock < 3) nowblock++;
-                        else nowblock = 0;
-                    }
-
-                    skip++;
-
-                    if (nowblock == 3 && i == 9) money.m += 20;//money += 20; 시작지점 지날시 월급 지급.
-
-                    city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
-                    reset();
-                    city[nowblock].play[i].Add(players[nowblock][i]);
-                    city[nowblock].update(nowblock);
-                    Invalidate();
-                    Delay(100);
-                    bfcity = i;
-                    bfblock = nowblock;
-
-
-
-                    savepos = i;
-
-
-
-                    Invalidate();
-
-                }
-
-<<<<<<< HEAD
-                nowblock = bfblock;
-                nowcity = bfcity;
-                if (island >= 3)
-                {
-                    island = 0;
-                    Uninhabited = false;
-                }
-            }
-=======
-            //    nowblock = bfblock;
-            //    nowcity = bfcity;
-            //    if (island >= 3)
-            //    {
-            //        island = 0;
-            //        Uninhabited = false;
-            //    }
+            //    island++;
+            //    Uninhabited = true;
             //}
->>>>>>> 37a6503ff2f5b161fc35b381e5793d089a9058b2
->>>>>>> 0d01065a396c58937b381f4332413f6ce404d68e
+            onemove(dicenum);
 
 
-            if (nowblock == 1 && nowcity == 9)
+            Invalidate();
+            button1.Enabled = true;
+
+            buildmessage(); //건물을 지을것인지 질문.
+
+            if (nowblock == 1 && nowcity == 9) //사회복지기금
             {
                 if (money_so != 0)
                 {
@@ -187,20 +81,6 @@ namespace boardgame
                     money_so = 0;
                 }
             }
-            if (nowblock == 0 && nowcity == 9)
-            {
-                int n = 4 - island;
-                if (island == 0)
-                    n = 3;
-                MessageBox.Show("무인도에 도착하였습니다. 앞으로 " + n.ToString() + "턴동안 무인도에서 나갈수 없습니다.");
-            }
-
-            Invalidate();
-            button1.Enabled = true;
-
-            buildmessage(); //건물을 지을것인지 질문.
-
-
             if (nowblock == 3 && nowcity == 7)
             {
                 money.m -= 15;
@@ -210,6 +90,10 @@ namespace boardgame
             start = false;
             player_stop = true;
         }
+
+
+
+        
 
         public void uninhabit()
         {
@@ -226,7 +110,9 @@ namespace boardgame
         }
         private void butt_Click(object sender, EventArgs e)
         {
-            loopconfirm++;
+            //loopconfirm++;
+            player_stop = true;
+            Test_Turn = true;
             string butt_name = ((Button)sender).ToString();
             string[] bname = butt_name.Split(' ');
             string[] number = bname[2].Split('|');
@@ -256,7 +142,7 @@ namespace boardgame
                     money_so = 0;
                 }
             }
-           // }
+            // }
 
 
         }
@@ -279,16 +165,16 @@ namespace boardgame
                     space_butt.UseVisualStyleBackColor = true;
                     Controls.Add(space_butt);
                     space_butt.Click += new System.EventHandler(this.butt_Click);
-                    
+
                 }
             }
-          
+
         }
 
 
         private int move_calc(int move_block, int move_city)//매개변수는 이동할 좌표. 이동할 좌표까지 현재 위치에서 몇칸 움직여야 하는지 반환하는 메소드 
-        { 
-            int result = nowblock-move_block; // 현재 블럭에서 이동할 블럭의 차. 
+        {
+            int result = nowblock - move_block; // 현재 블럭에서 이동할 블럭의 차. 
             if (result < 0)
             {
                 result = (Math.Abs(result) - 1) * 10 + (10 - nowcity) + move_city;
@@ -308,53 +194,73 @@ namespace boardgame
             }
             return result;
         }
-        private void spacemove(int afbl, int afct) 
+        private void spacemove(int afbl, int afct)
         {
             button1.Enabled = false;
             //card_clicked = false;
-            player_stop = false;
+            player_stop = true;
+            Test_Turn = true;
             onemove(move_calc(afbl, afct));
             card_clicked = false;
-            
+
             button1.Enabled = true;
-            player_stop = true;
+
             buildmessage();
         }
 
-        private void onemove(int move) //현재 이동 매커니즘의 중심.
+        private void onemove(int move, bool penalty = false, bool Back = false) //현재 이동 매커니즘의 중심. 매개변수 페널티는 황금열쇠에서 나온 무인도로 가는 것을 표시하기 위함.
         {
-
-
-            for (int i = 0; i < move; i++)
+            //뒤로 움직일 때.
+            player_stop = true;
+            if (!Inhabit_move)
             {
-                this.city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]); //현재 위치의 말을 삭제.
-                reset(); //판을 다시그림.
-                nowcity++;
-                if (nowcity > 9)
+                
+                player_stop = false;
+         
+                for (int i = 0; i < move; i++)
                 {
-                    if (nowblock < 3)
-                        nowblock++;
+                    this.city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]); //현재 위치의 말을 삭제.
+                    reset(); //판을 다시그림.
+                    if (!Back)
+                        nowcity++;
                     else
-                        nowblock = 0;
-                    nowcity = 0;
+                        nowcity--;
+                    if (nowcity > 9)
+                    {
+                        if (nowblock < 3)
+                            nowblock++;
+                        else
+                            nowblock = 0;
+                        nowcity = 0;
+                    }
+                    else if(nowcity < 0)
+                    {
+                        if (nowblock < 0)
+                            nowblock = 3;
+                        else
+                            nowblock--;
+                    }
+                    if (!penalty && nowblock == 3 && nowcity == 9) //출발지 월급
+                    {
+                        money.m += 20;
+                    }
+                    this.city[nowblock].play[nowcity].Add(players[nowblock][nowcity]);
+                    this.city[nowblock].update(nowblock);
+                    Invalidate();
+                    Delay(100);
+                    bfcity = nowcity;
+                    bfblock = nowblock;
                 }
-                if (nowblock == 3 && nowcity == 9)
-                {
-                    money.m += 20;
-                }
-                this.city[nowblock].play[nowcity].Add(players[nowblock][nowcity]);
-                this.city[nowblock].update(nowblock);
-                Invalidate();
-                Delay(100);
-                bfcity = nowcity;
-                bfblock = nowblock;
+                //Test_Turn = false;
+                //  Card_red();
+
+
             }
-            //  Card_red();
-
-
-
-
+            player_stop = true;
+            Test_Turn = true; //말이 움직였을 때 턴이 넘어감.
         }
+    }
+}
 
         //private void cardmove(int afbl, int afct)
         //{
@@ -476,6 +382,4 @@ namespace boardgame
         //    // Card_red();
         //}
 
-    }
 
-}

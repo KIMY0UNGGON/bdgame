@@ -169,7 +169,7 @@ namespace boardgame
             
                 try
                 {
-                    server.send("move/" + nowblock + "|" + nowcity + "|" + dice1);
+                    server.send($"m{dice1}");
                 }
                 catch (Exception e)
                 {
