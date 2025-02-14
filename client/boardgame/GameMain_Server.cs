@@ -27,52 +27,28 @@ namespace boardgame
         {
             server = new MySocket();
             server.init();
-
-            /*
-            var ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 7000);
-            sock.BeginConnect(ep,new AsyncCallback(ConnectCallback),sock);
-
-
-       
-            int n = sock.Receive(receiverBuff);
-
-            string data = Encoding.UTF8.GetString(receiverBuff, 0, n);
-            this.Text = data + "번 말";
-            number = Int32.Parse(data);
-
-            if (data.Equals("1"))
-                BLUE = true;
-            if (data.Equals("2"))
-                BLACK = true;
-            if (data.Equals("3"))
-                RED = true;
-            if (data.Equals("4"))
-                GRAY = true;
-
-
-            
-            */
-
-
-
-
-
         }
 
         public void sendtomainthread(string data) //서버에서 보내온 값을 받아 쓰레드를 계속해서 실행(멀티쓰레드)
         {
+
             if (this.InvokeRequired)
             {
                 this.BeginInvoke(new Action(() => sendtomainthread(data)));
                 return;
             }
             //메인쓰레드
-            datadta(data); //서버에서 값을 받아 메인 폼에 적용하거나 서버에 다시 값을 보냄
+            Implement_Data(data); //서버에서 값을 받아 메인 폼에 적용하거나 서버에 다시 값을 보냄
         }
 
+        private void Token(string[] str)
+        {
+            Select_Token Token = new Select_Token();
+            Token.Confirm_Token(str);
+            Token.Show();
+        }
 
-
-        private void datadta(string data) //서버의 데이터를 받아 값에 따라 send와 receive 값을 정해 실행
+        private void Implement_Data(string data) //서버의 데이터를 받아 값에 따라 send와 receive 값을 정해 실행
         {
             //UI 사용 가능
             //받은 값의 첫번째 값에 따라 실행하는 명령이 달라지게 할 예정.
@@ -81,43 +57,77 @@ namespace boardgame
             //들어온 순서에 따라 서버에서 클라이언트에 번호를 지정해줌. 그 지정한 번호에 따라 자신의 번호를 변경하고 값을 받았음을 서버에 다시 알림.
             //현재는 색깔이 번호에 따라 지정되어있지만 선착순으로 선택하도록 할 예정. 즉 번호를 지정받고 말을 선택하는 폼을 띄운 뒤 플레이어가 선택하면 서버에 전송하는 방식.
             //자신 보다 먼저온 플레이어가 말을 선택하지 않았으면 다른 사람들은 선택을 하지 못하도록 서버에서 통제.
-            if (data.Equals("1"))
+            string[] split_data = data.Split('/');
+            
+            if (split_data[0].Equals("1"))
             {
-                BLUE = true;
-                this.Text = data + "번 말";
-                server.send("1번");
+                Multy_Count = Convert.ToInt32(split_data[1]);
+                Multy_Num = Convert.ToInt32(split_data[0]);
+                this.Text = split_data[0] + "번 말";
                 Turn = true;
-                // MessageBox.Show("당신은 " + this.Text + "입니다.");
             }
-            if (data.Equals("2"))
+            if (split_data[0].Equals("2"))
             {
-                BLACK = true;
-                this.Text = data + "번 말";
-                server.send("2번");
-                //MessageBox.Show("Test");
-
+                Multy_Count = Convert.ToInt32(split_data[1]);
+                Multy_Num = Convert.ToInt32(split_data[0]);
+                this.Text = split_data[0] + "번 말";
             }
-            if (data.Equals("3"))
+            if (split_data[0].Equals("3"))
             {
-                RED = true;
-                this.Text = data + "번 말";
-                //server.send("3번");
+                Multy_Count = Convert.ToInt32(split_data[1]);
+                Multy_Num = Convert.ToInt32(split_data[0]);
+                this.Text = split_data[0] + "번 말";
+
             }
-            if (data.Equals("4"))
+            if (split_data[0].Equals("4"))
             {
-                GRAY = true;
-                this.Text = data + "번 말";
-                //server.send("4번");
+                Multy_Count = Convert.ToInt32(split_data[1]);
+                Multy_Num = Convert.ToInt32(split_data[0]);
+                this.Text = split_data[0] + "번 말";
+               
 
             }
-
-
+            if (data.Equals("READY"))
+            {
+                if (Multy_Num > -1) //클라이언트의 넘버를 부여받았을 경우에만 서버에 전송. 보통은 접속과 동시에 선착순으로 번호를 부여받음.
+                {
+                    server.Thread_send("READY"); //준비가 되었다고 서버에 다시 전송.
+                }
+            }
+            if (data.StartsWith("info"))
+            {
+                //클라이언트의 넘버와 컬러를 전송받음.
+                string[] data_split = data.Split('<'); //0번째와 마지막은 의미없는 내용.
+                for(int i = 1; i< data_split.Length-1; i++)
+                {
+                    string[] split_2 = data_split[i].Split('/');
+                    int Token_Num = Convert.ToInt32(split_2[0]);
+                    int Token_Color = Convert.ToInt32(split_2[1]);
+                    Multy_init(Token_Num, Token_Color); //전달 받은 클라이언트의 넘버와 컬러를 Multy_init에 넘겨 해당 클라이언트의 번호에 지정된 색깔을 지정.               
+                }
+                if (Confirm_AllReady())
+                {
+                    server.Thread_send($"{Multy_Num}/COMPLETE"); //현재 이 클라이언트의 준비가 끝났다고 서버에 전송.
+                }
+            }
+            if (data.Equals("GameStart"))
+            {
+                
+                Multy_Wait = false;
+                Form_show(); //모두 준비 되었을때 폼 그림.
+            }
+            if (data.StartsWith("TOKEN"))
+            {
+                string tk = data.Split(new string[] {"TOKEN"} , StringSplitOptions.None)[1];
+                string[] tk_str = tk.Split('/');
+                Token(tk_str);
+            }
 
             // 자신의 턴이 끝났을 때 서버에 턴이 끝났음을 알림.
             if (data.Equals("END TURN"))
             {
                 Turn = false;
-                server.send("NEXT");
+                server.Thread_send("NEXT");
             }
             //서버가 내 턴이라고 메시지를 보내오면 자신의 턴으로 변경.
             if (data.Equals("YOUR TURN"))
@@ -125,57 +135,35 @@ namespace boardgame
                 Turn = true;
             }
 
-            //서버가 게임을 시작하라고 하면 게임화면을 변경.
-            if (data.Equals("GameStart"))
-            {
-                Form_show();
-            }
+            if (split_data[0].Equals("w")){ //다른 클라이언트가 정보를 원한다고 서버에서 알림.
+                server.send($"return/{money_retur()}/{split_data[2]}"); //현재 이 클라이언트의 돈의 정보를 split_data[2]에 전달.
 
+            }
+            if (split_data[0].Equals("return")) //다른 클라이언트의 정보를 받아옴.
+            {
+                information info = new information();
+                info.Multi = true;
+                info.money = Convert.ToInt32(split_data[1]);
+                info.Show();
+            }
             //게임 도중 건물을 구매했을 경우 내가 구매한 구역의 좌표를 보내고 다른 플레이어가 구매를 하였으면 그 좌표와 얼마나 지었는지를 서버에서 받아 자신의 메인 폼에 적용.
-            if (data.Contains("bui"))
+            if (data.Contains("b"))
             {
                 //추가 및 받는 값 변경필요.
             }
-            if (data.Contains("loc")) // 다른 클라이언트의 위치 받음. 현재 이동 메소드를 전체적으로 변경하여 변경필요.
+            if (data.StartsWith("l")) // 다른 클라이언트의 위치 받음. 현재 이동 메소드를 전체적으로 변경하여 변경필요.
             {
-                string[] dataspl = data.Split(new char[] { ' ' });
-                string[] numspl = dataspl[0].Split(new string[] { "번" }, StringSplitOptions.None);
-                int num_cl = Int32.Parse(numspl[0]); // 말번호
-                string[] posspl = dataspl[1].Split(new string[] { "loc" }, StringSplitOptions.None);
-                string[] posspl2 = posspl[1].Split(new string[] { "|" }, StringSplitOptions.None); //block , city, dice
-                int bl = Int32.Parse(posspl2[0]);
-                int ct = Int32.Parse(posspl2[1]);
-                int dc = Int32.Parse(posspl2[2]);
-                move_otherpl(ct, bl, dc, num_cl);
+                string[] data_split = data.Split(new char[] { '/' }); //데이터를 '/' 단위로 쪼갬
+                int move = Int32.Parse(data_split[1]);
+                int num = Int32.Parse(data_split[2]);
+                Move_OtherToken(move, num);
                 //dataspl[0] 말 번호
                 //dataspl[1] 위치 주사위 수
             }
 
         }
 
-        private void move_otherpl(int city1, int block, int dice, int num)// 다른 클라이언트의 플레이어 움직이기
-        {
-            int movecity = city1 + dice;
-            int befbl = block;
-            int befct = city1;
-            for (int i = city1; i <= movecity; i++) //말이 있는 칸부터 주사위 숫자를 더한 칸  
-            {
-                if (i > 9) // 구역 넘어감
-                {
-                    i = 0; movecity -= 10;
-                    if (block < 3) block++;
-                    else block = 0;
-                }
-                city[befbl].play[befct].Remove(players[befbl][befct]);
-                reset();
-                city[block].play[i].Add(players[block][i]);
-                city[block].other_update(block, num);
-                Invalidate();
-                Delay(100);
-                bfcity = i;
-                befbl = block;
-            }
-        }
+
 
 
             public void move_write(int dice1) //얼마만큼 움직였는지 서버에 전송. 다른 클라이언트들이 this 플레이어의 정보를 확인하기 위한 용도.

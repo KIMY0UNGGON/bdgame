@@ -21,6 +21,35 @@ namespace boardgame
         Graphics DC;
         List<Bitmap> Tokens = new List<Bitmap>();
         Rectangle[] Token_rect = new Rectangle[4];
+        bool RED = true;
+        bool GRAY = true;
+        bool BLACK = true;
+        bool BLUE = true;
+        public void Confirm_Token(string[] str_tk)
+        {
+            if (str_tk != null)
+            {
+                foreach (var tk in str_tk)
+                {
+                    if (tk.Equals("0"))
+                    {
+                        BLUE = false;
+                    }
+                    if (tk.Equals("1"))
+                    {
+                        BLACK = false;
+                    }
+                    if (tk.Equals("2"))
+                    {
+                        RED = false;
+                    }
+                    if (tk.Equals("3"))
+                    {
+                        GRAY = false;
+                    }
+                }
+            }
+        }
         private void Select_Token_Load(object sender, EventArgs e)
         {
             init(); //그림들의 기본 설정.
@@ -35,7 +64,7 @@ namespace boardgame
             for(int i = 0; i< Token_rect.Length; i++)
             {
                 if (Token_rect[i].Contains(new Rectangle(Location, new Size(1, 1)))) {
-                    return i;
+                    return i; //파란색 0, 검정색 1, 빨간색 2, 회색 3.
                 }
             }
 
@@ -58,10 +87,30 @@ namespace boardgame
 
             for(int i =0; i < 4; i++)//말들을 그릴 좌표
             {
+                if (!BLUE)
+                {
+                    if (i == 0)
+                        continue;
+                }
+                if (!BLACK)
+                {
+                    if (i == 1)
+                        continue;
+                }
+                if (!RED)
+                {
+                    if (i == 2)
+                        continue;
+                }
+                if (!GRAY)
+                {
+                    if (i == 3)
+                        continue;
+                }
                 if(i >= 2)
-                    Token_rect[i] = new Rectangle(new Point(100* ((i - 2) * 2), 160), new Size(150, 150));
+                    Token_rect[i] = new Rectangle(new Point(100* ((i - 2) * 2), 160), new Size(125, 100));
                 else
-                    Token_rect[i] = new Rectangle(new Point(100 * (i*2), 20), new Size(150, 150));
+                    Token_rect[i] = new Rectangle(new Point(100 * (i*2), 10), new Size(125, 100));
             }
         }
         private void Select_Token_Paint(object sender, PaintEventArgs e) //그림을 그려주는 페인트 이벤트
@@ -71,9 +120,16 @@ namespace boardgame
 
         private void Select_Token_MouseUp(object sender, MouseEventArgs e) //마우스 클릭 이벤트
         {
+            
             if(Token_Contain(e.Location) != -1)
             {
-                MessageBox.Show(Token_Contain(e.Location).ToString());
+                int Token_select = Token_Contain(e.Location);
+                GameMain gm = Application.OpenForms["GameMain"] as GameMain;
+                if (gm == null) return;
+                gm.Token_Color(Token_select);
+                this.Close();
+                //MessageBox.Show(Token_select.ToString()); //몇번 선택했는지 알림.
+                //선택한 색의 말을 GameMain에 전달.
             }
         }
     }

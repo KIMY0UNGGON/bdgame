@@ -9,21 +9,13 @@ namespace boardgame
 {
     public partial class GameMain
     {
-        private void timer1_Tick(object sender, EventArgs e)
-        {
 
-        }
-        private void timer2_Tick(object sender, EventArgs e) 
-        {
-           
-        }
         bool Test_Turn = false;
         bool Inhabit_move = false;
         private void timer3_Tick(object sender, EventArgs e)
         {
             Card_red();//열쇠 칸인지 확인.
-            if (Turn)//자신의 턴이 돌아왔는지 확인하는 용도.
-                button1.Enabled = true;
+
             //지금 위치가 무인도인지 확인.
             if (Is_Uninhabited()) //지금 위치가 무인도인지 확인.
             {

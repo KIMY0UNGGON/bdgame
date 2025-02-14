@@ -45,10 +45,18 @@ namespace boardgame
             {
                 //for (int i = 0; i < 4; i++)
                 //{
-                if (city[nowblock].cacontain(e.Location)) //플레이어의 말 클릭시 플레이어의 정보를 확인할 수 있는 인터페이스를 열음.
+                int Want_Num; //현재 클릭한 말의 클라이언트 넘버.
+                if ((Want_Num = city[nowblock].Token_Click(e.Location)) != -1) //플레이어의 말 클릭시 플레이어의 정보를 확인할 수 있는 인터페이스를 열음.
                 {
-                    information frm3 = new information(); //말의 정보가 들어있는 form의 인스턴스를 만들고 보여줌,
-                    frm3.Show();
+                    if (Multi)
+                    {
+                        server.send($"w/{Want_Num}/{Multy_Num}"); //서버에 클릭한 말의 정보를 달라고 요청.
+                    }
+                    else
+                    {
+                        information frm3 = new information(); //말의 정보가 들어있는 form의 인스턴스를 만들고 보여줌,
+                        frm3.Show();
+                    }
                 }
                 //}
                 if (city[1].containcity(e.Location, 9)) //사회 기금.
@@ -108,7 +116,7 @@ namespace boardgame
                                     while (!(nowblock == 0 && i == 1))
                                     {
                                         city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
-                                        reset();
+                                        reset(bfblock,bfcity);
                                         city[nowblock].play[i].Add(players[nowblock][i]);
                                         city[nowblock].update(nowblock);
                                         Invalidate();
@@ -191,7 +199,7 @@ namespace boardgame
                                     for (int l = nowcity; l < 10; l++)
                                     {
                                         city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
-                                        reset();
+                                        reset(bfblock,bfcity);
                                         city[nowblock].play[i].Add(players[nowblock][i]);
                                         city[nowblock].update(nowblock);
                                         Invalidate();
@@ -223,7 +231,7 @@ namespace boardgame
                                     while (!(nowblock == bl && i == nc))
                                     {
                                         city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
-                                        reset();
+                                        reset(bfblock,bfcity);
                                         city[nowblock].play[i].Add(players[nowblock][i]);
                                         city[nowblock].update(nowblock);
                                         Invalidate();

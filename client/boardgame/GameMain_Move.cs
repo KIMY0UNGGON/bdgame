@@ -64,8 +64,14 @@ namespace boardgame
             //    island++;
             //    Uninhabited = true;
             //}
-            onemove(dicenum);
-
+            if (Multi)
+            {
+                MultyMove(dicenum);
+            }
+            else
+            {
+                onemove(dicenum);
+            }
 
             Invalidate();
             button1.Enabled = true;
@@ -87,8 +93,9 @@ namespace boardgame
                 money_so += 15;
                 MessageBox.Show("사회복지기금(15만원)을 지불하였습니다.");
             }
-            start = false;
+            //start = false;
             player_stop = true;
+            Turn = false;
         }
 
 
@@ -104,7 +111,7 @@ namespace boardgame
         private void playerfront()
         {
             city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
-            reset();
+            reset(bfblock,bfcity);
             city[nowblock].play[nowcity].Add(players[nowblock][nowcity]);
             city[nowblock].update(nowblock);
         }
@@ -207,7 +214,57 @@ namespace boardgame
 
             buildmessage();
         }
+        private void MultyMove(int move, bool penalty = false, bool Back = false) //멀티 플레이시 움직임.
+        {
+            player_stop = true;
+            if (!Inhabit_move)
+            {
+                server.Thread_send($"m/{move}"); //움직일 횟수를 서버에 전송.
+                player_stop = false;
 
+                for (int i = 0; i < move; i++)
+                {
+                    this.city[bfblock].play[bfcity].Remove(Multy_Token[Multy_Num - 1][bfblock][bfcity]); //현재 위치의 말을 삭제.
+                    city[bfblock].Player_Num.Remove(Multy_Token[Multy_Num - 1][bfblock][bfcity]);
+                    reset(bfblock, bfcity); //판을 다시그림.
+                    if (!Back)
+                        nowcity++;
+                    else
+                        nowcity--;
+                    if (nowcity > 9)
+                    {
+                        if (nowblock < 3)
+                            nowblock++;
+                        else
+                            nowblock = 0;
+                        nowcity = 0;
+                    }
+                    else if (nowcity < 0)
+                    {
+                        if (nowblock < 0)
+                            nowblock = 3;
+                        else
+                            nowblock--;
+                    }
+                    if (!penalty && nowblock == 3 && nowcity == 9) //출발지 월급
+                    {
+                        money.m += 20;
+                    }
+                    this.city[nowblock].play[nowcity].Add(Multy_Token[Multy_Num - 1][nowblock][nowcity]);
+                    this.city[nowblock].update(nowcity);
+                    Invalidate();
+                    Delay(100);
+                    bfcity = nowcity;
+                    bfblock = nowblock;
+                }
+                //Test_Turn = false;
+                //  Card_red();
+
+
+            }
+            player_stop = true;
+            Test_Turn = true; //말이 움직였을 때 턴이 넘어감.
+        }
         private void onemove(int move, bool penalty = false, bool Back = false) //현재 이동 매커니즘의 중심. 매개변수 페널티는 황금열쇠에서 나온 무인도로 가는 것을 표시하기 위함.
         {
             //뒤로 움직일 때.
@@ -220,7 +277,7 @@ namespace boardgame
                 for (int i = 0; i < move; i++)
                 {
                     this.city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]); //현재 위치의 말을 삭제.
-                    reset(); //판을 다시그림.
+                    reset(bfblock,bfcity); //판을 다시그림.
                     if (!Back)
                         nowcity++;
                     else
@@ -245,7 +302,7 @@ namespace boardgame
                         money.m += 20;
                     }
                     this.city[nowblock].play[nowcity].Add(players[nowblock][nowcity]);
-                    this.city[nowblock].update(nowblock);
+                    this.city[nowblock].update(nowcity);
                     Invalidate();
                     Delay(100);
                     bfcity = nowcity;
@@ -259,6 +316,31 @@ namespace boardgame
             player_stop = true;
             Test_Turn = true; //말이 움직였을 때 턴이 넘어감.
         }
+
+        private void Move_OtherToken(int move, int num)// 다른 클라이언트의 플레이어 움직이기
+        {
+
+            for (int i = 0; i < move; i++) //말이 있는 칸부터 주사위 숫자를 더한 칸  
+            {
+                Nowcity_List[num]++;
+                if (Nowcity_List[num] > 9) // 구역 넘어감
+                {
+                    if (Nowblock_List[num] < 3) Nowblock_List[num]++;
+                    else Nowblock_List[num] = 0;
+                    Nowcity_List[num] = 0;
+                }
+                city[Before_block[num]].play[Before_city[num]].Remove(Multy_Token[num][Before_block[num]][Before_city[num]]);
+                city[Before_block[num]].Player_Num.Remove(Multy_Token[num][Before_block[num]][Before_city[num]]);
+                reset(Before_block[num], Before_city[num]);
+                city[Nowblock_List[num]].play[Nowcity_List[num]].Add(Multy_Token[num][Nowblock_List[num]][Nowcity_List[num]]);
+                city[Nowblock_List[num]].other_update(num, Nowcity_List[num]);
+                Invalidate();
+                Delay(100);
+                Before_city[num] = Nowcity_List[num];
+                Before_block[num] = Nowblock_List[num];
+            }
+        }
+
     }
 }
 

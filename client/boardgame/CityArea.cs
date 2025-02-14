@@ -22,7 +22,7 @@ namespace boardgame
         public Rectangle[] Rect_Hotel { get; set; }
 
 
-
+        public Dictionary<Player, int> Player_Num = new Dictionary<Player, int>(); //현재 있는 사각형 지역이 어떤 플레이어의 토큰인지 확인.
         public List<Player>[] play{  get;  set; }
 
 
@@ -31,7 +31,7 @@ namespace boardgame
         Graphics DC;
         Bitmap bt;
        // bool buy;
-        List<Bitmap> pl, pl2,thispl;
+        List<Bitmap>[] Players_Token;
         int count;
         Graphics GP;
 
@@ -47,11 +47,11 @@ namespace boardgame
 
         public List<double>[] price = new List<double>[8];
         int Area;
-        
-        public cityArea(int Area,int count, Graphics DC, Bitmap bt, int x, int y, int num, int margin, List<Bitmap> pl, List<Bitmap> pl2, Graphics GP, Bitmap img,Bitmap img2,Graphics name,List<Bitmap> thispl)
+        int Client_num;
+        public cityArea(int Area, Graphics DC, Bitmap bt, int x, int y, int num, int margin, Graphics GP, Bitmap img,Bitmap img2,Graphics name,List<Bitmap>[] Players_Token, int Client_num = 0)
         {
- 
 
+            int count = 10; //현재 구역의 칸 수.
             int x1 = x;
             int y1 = y;
 
@@ -77,7 +77,7 @@ namespace boardgame
                         cities[i] = new Rectangle(x, y, 150, 150);
 
                 }
-                else if (num == 0) //citys1
+                else if (num == 0) //num == 구역.
                 {
                     cities[i] = City.cityWidth(x, y);
                     x += margin;
@@ -92,12 +92,12 @@ namespace boardgame
                 }
                 else if( num == 2)
                 {
-                    cities[i] = City.cityWidth(x, y);
+                    cities[i] = City.cityWidth(x, y); //가로
                     x += margin;
                 }
                 else if( num == 3)
                 {
-                    cities[i] = City.cityHeight(x, y);
+                    cities[i] = City.cityHeight(x, y); //세로
 
                     y += margin;
                 }
@@ -112,16 +112,14 @@ namespace boardgame
 
             this.DC = DC;
             this.bt = bt;
-            this.pl = pl;
-            this.pl2 = pl2;
             this.count = count;
             this.GP = GP;
             this.img = img;
             this.img2 = img2;
             this.namegp = name;
             this.Area = Area;
-            this.thispl = thispl;
-
+            this.Players_Token = Players_Token;
+            this.Client_num = Client_num;
         }
 
         public void drawname(int num)
@@ -136,24 +134,24 @@ namespace boardgame
 
         public void name_input(List<string> name_i)
         {
-            StreamReader sr = new StreamReader(new FileStream("build.txt", FileMode.Open));
-            while (sr.EndOfStream == false)
+     
+            string BUILD = Properties.Resources.build;
+            foreach (var text in BUILD.Split('\n'))
             {
-                string[] name1 = sr.ReadLine().Split(new char[] { ',' });
-                name_i.Add(name1[0]); // 7 7 8 7
+               
+                name_i.Add(text); // 7 7 8 7
             }
-            sr.Close();
         }
         private void buildname() //이름과 가격을 txt 파일에서 긁어와 저장.
         {
 
-            StreamReader sr = new StreamReader(new FileStream("build.txt", FileMode.Open)); //텍스트파일에는 [도시이름, 땅가격, 호텔, 빌딩, 빌라] 순으로 데이터가 저장되어있음
+            string BUILD = Properties.Resources.build; //텍스트파일에는 [도시이름, 땅가격, 호텔, 빌딩, 빌라] 순으로 데이터가 저장되어있음
                                                                                             //price의 0~3번까지는 구매했을 때의 비용이, 5~8번까지는 땅에 도착했을때 지불해야하는 통행료를 저장.
             int countarea = 0;
            
-            while (sr.EndOfStream == false)
+            foreach (var text in BUILD.Split('\n'))
             {
-                string[] name1 = sr.ReadLine().Split(new char[] { ',' }); //name1은 txt파일에서 긁어온 내용을 ','에 따라 잘라서 저장한 배열. 
+                string[] name1 = text.Split(new char[] { ',' }); //name1은 txt파일에서 긁어온 내용을 ','에 따라 잘라서 저장한 배열. 
                 name.Add(name1[0]); // 7 7 8 7
 
                 if (Area == 0) //구역이 0일떄.
@@ -352,7 +350,7 @@ namespace boardgame
                 }
                 
             }
-            sr.Close();
+            
         }
         int namecount;
 
@@ -505,8 +503,8 @@ namespace boardgame
                     else
                     {
                         areacolor = new Rectangle(cities[i].X, cities[i].Y, 75, 25);//75 100
-                        GP.FillRectangle(new SolidBrush(color), areacolor);
-                        GP.DrawRectangle(Pens.Black, areacolor);
+                        DC.FillRectangle(new SolidBrush(color), areacolor);
+                        DC.DrawRectangle(Pens.Black, areacolor);
 
                     }
                    
@@ -530,8 +528,8 @@ namespace boardgame
                     else
                     {
                         areacolor = new Rectangle(125, cities[i].Y, 25, 75);
-                        GP.FillRectangle(new SolidBrush(color), areacolor);
-                        GP.DrawRectangle(Pens.Black, areacolor);
+                        DC.FillRectangle(new SolidBrush(color), areacolor);
+                        DC.DrawRectangle(Pens.Black, areacolor);
                     }
                 }
                 else if(num == 2)
@@ -555,8 +553,8 @@ namespace boardgame
                     else
                     {
                         areacolor = new Rectangle(cities[i].X, 125, 75, 25);
-                        GP.FillRectangle(new SolidBrush(Color.Brown), areacolor);
-                        GP.DrawRectangle(Pens.Black, areacolor);
+                        DC.FillRectangle(new SolidBrush(color), areacolor);
+                        DC.DrawRectangle(Pens.Black, areacolor);
                     }
                 }
                 else if(num == 3)
@@ -575,8 +573,8 @@ namespace boardgame
                     else
                     {
                         areacolor = new Rectangle(cities[i].X, cities[i].Y, 25, 75);
-                        GP.FillRectangle(new SolidBrush(color), areacolor);
-                        GP.DrawRectangle(Pens.Black, areacolor);
+                        DC.FillRectangle(new SolidBrush(color), areacolor);
+                        DC.DrawRectangle(Pens.Black, areacolor);
                         
                     }
                
@@ -618,27 +616,27 @@ namespace boardgame
             DC.DrawRectangle(Pens.Black, cities[3]);
             DC.FillRectangle(new SolidBrush(Color.LightBlue), cities[3]);
         }
-        public void update(int nowblock)
+        public void update(int nowblock) //모든 게임 판의 말들을 다시 그림.
         {
-            for (int i = 0; i < count; i++)
-            {
-                for (int a = 0; a < play[i].Count; a++)
-                {
-                    Drawplayer(play[i][a], nowblock);
+       
+                //for (int a = 0; a < play[i].Count; a++)
+                //{
+                    Drawplayer(play[nowblock].Last());
 
-                }
-            }
+                //}
+            
         }
-        public void other_update(int nowblock, int num)
+        public void other_update(int num, int nowblock) //특정 플레이어의 말을 그림.
         {
-            for (int i = 0; i < count; i++)
-            {
-                for (int a = 0; a < play[i].Count; a++)
-                {
-                    DrawPlayer(num, play[i][a], nowblock);
+            //for (int i = 0; i < count; i++)
+            //{
+                //for (int a = 0; a < play[i].Count; a++)
+                //{
+                    //Player_Num.Add()
+                    DrawPlayer(num, play[nowblock].Last());
 
-                }
-            }
+                //}
+            //}
         }
 
         public void PlayerRemove(int bfblock, int bfcity)
@@ -658,14 +656,26 @@ namespace boardgame
                     DC.DrawImage(img3, areacolor);
 
                 }
-
-                else if (cityRect[bfcity].Count > 0)
-                    DC.FillRectangle(new SolidBrush(Color.Aquamarine), cities[bfcity]);
                 else
-                    DC.FillRectangle(new SolidBrush(Color.DarkSeaGreen), cities[bfcity]);
+                {
 
+                
+                    DC.FillRectangle(new SolidBrush(Color.DarkSeaGreen), cities[bfcity]);
+                    areacolor = new Rectangle(cities[bfcity].X, cities[bfcity].Y, 75, 25);//75 100
+                    DC.FillRectangle(new SolidBrush(Color.Red), areacolor);
+                    DC.DrawRectangle(Pens.Black, areacolor);
+                }
+
+                if (play[bfcity].Count > 0) //말이 이동한 뒤 그 전 도시에 다른 말들이 존재하는 지 확인
+                {
+                    foreach (var play_rect in play[bfcity])
+                    {
+                        DrawPlayer(Player_Num[play_rect], play_rect);
+                    }
+                    //DC.FillRectangle(new SolidBrush(Color.Aquamarine), cities[bfcity]);
+                }
             }
-            else if(bfblock == 1) { 
+            else if(bfblock == 1) {
                 if (bfcity == 1 || bfcity == 6)
                 {
                     DC.DrawImage(img, cities[bfcity]);
@@ -679,11 +689,23 @@ namespace boardgame
                     DC.DrawImage(img3, areacolor);
 
                 }
-
-                else if (cityRect[bfcity].Count > 0)
-                    DC.FillRectangle(new SolidBrush(Color.Aquamarine), cities[bfcity]);
                 else
-                    DC.FillRectangle(new SolidBrush(Color.DarkSeaGreen), cities[bfcity]);
+                {
+
+                        DC.FillRectangle(new SolidBrush(Color.DarkSeaGreen), cities[bfcity]);
+                    areacolor = new Rectangle(125, cities[bfcity].Y, 25, 75);
+                    DC.FillRectangle(new SolidBrush(Color.DarkGreen), areacolor);
+                    DC.DrawRectangle(Pens.Black, areacolor);
+                }
+
+                if (play[bfcity].Count > 0) //말이 이동한 뒤 그 전 도시에 다른 말들이 존재하는 지 확인
+                {
+                    foreach (var play_rect in play[bfcity])
+                    {
+                        DrawPlayer(Player_Num[play_rect], play_rect);
+                    }
+                    //DC.FillRectangle(new SolidBrush(Color.Aquamarine), cities[bfcity]);
+                }
             }
             else if (bfblock == 2)
             {
@@ -699,10 +721,24 @@ namespace boardgame
                     img3 = new Bitmap(img4);
                     DC.DrawImage(img3, areacolor);
                 }
-                else if (cityRect[bfcity].Count > 0)
-                    DC.FillRectangle(new SolidBrush(Color.Aquamarine), cities[bfcity]);
                 else
+                {
+
+
                     DC.FillRectangle(new SolidBrush(Color.DarkSeaGreen), cities[bfcity]);
+                    areacolor = new Rectangle(cities[bfcity].X, 125, 75, 25);
+                    DC.FillRectangle(new SolidBrush(Color.Brown), areacolor);
+                    DC.DrawRectangle(Pens.Black, areacolor);
+                }
+
+                if (play[bfcity].Count > 0) //말이 이동한 뒤 그 전 도시에 다른 말들이 존재하는 지 확인
+                {
+                    foreach (var play_rect in play[bfcity])
+                    {
+                        DrawPlayer(Player_Num[play_rect], play_rect);
+                    }
+                    //DC.FillRectangle(new SolidBrush(Color.Aquamarine), cities[bfcity]);
+                }
             }
             else if (bfblock == 3)
             {
@@ -714,7 +750,7 @@ namespace boardgame
                 {
                     DC.DrawImage(img2, cities[bfcity]);
                 }
-                else if(bfcity == 9)
+                else if (bfcity == 9)
                 {
 
 
@@ -722,10 +758,25 @@ namespace boardgame
                     DC.FillRectangle(new SolidBrush(Color.Goldenrod), areacolor);
                     DC.DrawRectangle(Pens.Black, areacolor);
                 }
-                else if (cityRect[bfcity].Count > 0)
-                    DC.FillRectangle(new SolidBrush(Color.Aquamarine), cities[bfcity]);
                 else
+                {
+
+
                     DC.FillRectangle(new SolidBrush(Color.DarkSeaGreen), cities[bfcity]);
+                    areacolor = new Rectangle(cities[bfcity].X, cities[bfcity].Y, 25, 75);
+                    DC.FillRectangle(new SolidBrush(Color.Gray), areacolor);
+                    DC.DrawRectangle(Pens.Black, areacolor);
+
+                }
+                if (play[bfcity].Count > 0) //말이 이동한 뒤 그 전 도시에 다른 말들이 존재하는 지 확인
+                {
+                    foreach (var play_rect in play[bfcity])
+                    {
+                        DrawPlayer(Player_Num[play_rect], play_rect);
+                    }
+                    //DC.FillRectangle(new SolidBrush(Color.Aquamarine), cities[bfcity]);
+                }
+
             }
         }
 
@@ -755,7 +806,7 @@ namespace boardgame
             }
         }
 
-        public bool cacontain(Point pt)
+        public int Token_Click(Point pt)
         {
             int idx = -1;
 
@@ -765,17 +816,15 @@ namespace boardgame
                 {
                     if (play[i][a].nowpos.Contains(pt))
                     {
-                        idx = i;
+                        idx = Player_Num[play[i][a]];
                         break;
                     }
                 }
                 if (idx != -1)
                     break;
             }
-            if (idx == -1)
-                return false;
-            else
-                return true;
+
+            return idx;
         }
         public bool containcity(Point pt, int i)
         {
@@ -783,20 +832,25 @@ namespace boardgame
                 return true;
             else return false;
         }
-        public void Drawplayer(Player play, int city)
+        
+        public void Drawplayer(Player play)
         {
-            if(city % 2 == 0)
-                DC.DrawImage(thispl[0], play.nowpos);
+            if (Player_Num.ContainsKey(play) == false)
+                Player_Num.Add(play, Client_num);
+            if (Area % 2 == 0)
+                DC.DrawImage(Players_Token[Client_num][0], play.nowpos);
             else
-                DC.DrawImage(thispl[1], play.nowpos);
+                DC.DrawImage(Players_Token[Client_num][1], play.nowpos);
         }
 
-        public void DrawPlayer(int num, Player play, int city)
+        public void DrawPlayer(int num, Player play) //num == 다른 클라이언트의 번호.
         {
-            if (city % 2 == 0)
-                DC.DrawImage(pl[num], play.nowpos);
+            if (Player_Num.ContainsKey(play) == false)
+                Player_Num.Add(play, num);
+            if (Area % 2 == 0)
+                DC.DrawImage(Players_Token[num][0], play.nowpos);
             else
-                DC.DrawImage(pl2[num], play.nowpos);
+                DC.DrawImage(Players_Token[num][1], play.nowpos);
         }
      
         public void Groundbuy(int num, int city, Color color)

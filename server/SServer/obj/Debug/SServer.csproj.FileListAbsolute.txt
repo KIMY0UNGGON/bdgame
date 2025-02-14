@@ -14,3 +14,10 @@ C:\Users\sw\Desktop\수강생410\김영곤\SServer (2022-06-15)\SServer\obj\Debu
 C:\Users\sw\Desktop\수강생410\김영곤\SServer (2022-06-15)\SServer\obj\Debug\SServer.csproj.CoreCompileInputs.cache
 C:\Users\sw\Desktop\수강생410\김영곤\SServer (2022-06-15)\SServer\obj\Debug\SServer.exe
 C:\Users\sw\Desktop\수강생410\김영곤\SServer (2022-06-15)\SServer\obj\Debug\SServer.pdb
+C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\server\SServer\bin\Debug\SServer.exe.config
+C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\server\SServer\bin\Debug\SServer.exe
+C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\server\SServer\bin\Debug\SServer.pdb
+C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\server\SServer\obj\Debug\SServer.csproj.AssemblyReference.cache
+C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\server\SServer\obj\Debug\SServer.csproj.CoreCompileInputs.cache
+C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\server\SServer\obj\Debug\SServer.exe
+C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\server\SServer\obj\Debug\SServer.pdb

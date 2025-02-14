@@ -10,80 +10,85 @@ namespace boardgame
 {
     public partial class GameMain
     {
+        public bool b_building, b_villa, b_ground, b_hotel; //현재 땅에 어떤 건물이 지어졌는지 확인하는 bool 변수.
 
-        Label la;
 
-
-        public bool b_building, b_villa, b_ground, b_hotel;
-
-        public int savepos { get; set; } = 0;
-        public int round = 0;
-
+        int color_num { get; set; } = -1; //토큰의 색.
+        public void Token_Color(int color) //멀티플레이에서의 색 선택 메소드.
+        {
+            color_num = color;
+            //server.send("TOKEN_NEXT");
+            Self_init(color_num);
+            server.send("T" + color.ToString()); //선택한 컬러를 서버에 다시 전송.
+            //server.send($"{Multy_Num}READY"); //현재 클라이언트 토큰 선택 완료.
+        }
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-
-            e.Graphics.DrawImageUnscaled(bit, 0, 0);
             e.Graphics.DrawImageUnscaled(key, 0, 0);
+            e.Graphics.DrawImageUnscaled(bit, 0, 0);
             
-            
+
             e.Graphics.DrawImageUnscaled(nameBt, 0, 0);
             e.Graphics.DrawImageUnscaled(map, 0, 0);
             
 
         }
 
+
+        List<Bitmap> player_1 = new List<Bitmap>(); //플레이어 말의 가로.
+        List<Bitmap> player_2 = new List<Bitmap>(); //플레이어 말의 세로
+        List<Bitmap>[] MultyPlayers = new List<Bitmap>[Multy_Count]; //플레이어들의 비트맵을 저장.
+
+        private void Self_init(int color) //자기자신의 토큰 넘버와 비트맵컬러 저장.
+        {
+            MultyPlayers[Multy_Num - 1].Add(player_1[color]);
+            MultyPlayers[Multy_Num - 1].Add(player_2[color]);
+        }
+        private void Multy_init(int Num, int color)
+        {
+
+            MultyPlayers[Num].Add(player_1[color]);
+            MultyPlayers[Num].Add(player_2[color]);
+        }
+        private bool Confirm_AllReady()
+        {
+            int count = 0;
+            foreach(var multy in MultyPlayers)
+            {
+         
+                if (multy.Any())
+                {
+                    count++;
+                }
+                if(count == Multy_Count)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         private void init()
         {
-            List<Bitmap> player_1 = new List<Bitmap>();
-            List<Bitmap> player_2 = new List<Bitmap>();
 
-            Image play = Properties.Resources.p1;
-            player_1.Add(new Bitmap(play));
-            Image play1 = Properties.Resources.p1_2;
-            player_2.Add( new Bitmap(play1));
+            int Client_num = Multy_Num - 1;
 
-            Image p2 = Properties.Resources.p2;
-            player_1.Add(new Bitmap(p2));
-            Image p2_2 = Properties.Resources.p2_2;
-            player_2.Add( new Bitmap(p2_2));
 
-            Image p3 = Properties.Resources.p3;
-            player_1.Add(new Bitmap(p3));
-            Image p3_2 = Properties.Resources.p3_2;
-            player_2.Add(new Bitmap(p3_2));
-
-            Image p4 = Properties.Resources.p4;
-            player_1.Add(new Bitmap(p4));
-            Image p4_2 = Properties.Resources.p4_2;
-            player_2.Add( new Bitmap(p4_2));
-
-            List<Bitmap> thisplayer = new List<Bitmap>();
-            if (!Multi)
+            //List<Bitmap> thisplayer = new List<Bitmap>();
+        
+            if (!Multi) //솔로 플레이.
             {
-                thisplayer.Add(new Bitmap(play));
-                thisplayer.Add(new Bitmap(play1));
+                MultyPlayers[0].Add(new Bitmap(player_1[0]));
+                MultyPlayers[0].Add(new Bitmap(player_2[0]));
+                Client_num = 0;
             }
             else
             {
-                if (BLUE)
+                for (int i = 0; i < Multy_Count; i++)
                 {
-                    thisplayer.Add(new Bitmap(play));
-                    thisplayer.Add(new Bitmap(play1));
-                }
-                if (BLACK)
-                {
-                    thisplayer.Add(new Bitmap(p2));
-                    thisplayer.Add(new Bitmap(p2_2));
-                }
-                if (RED)
-                {
-                    thisplayer.Add(new Bitmap(p3));
-                    thisplayer.Add(new Bitmap(p3_2));
-                }
-                if (GRAY)
-                {
-                    thisplayer.Add(new Bitmap(p4));
-                    thisplayer.Add(new Bitmap(p4_2));
+                    Nowcity_List.Add(9);
+                    Nowblock_List.Add(3);
+                    Before_city.Add(9);
+                    Before_block.Add(3);
                 }
             }
             Image cardspace = Properties.Resources.areacard;
@@ -97,10 +102,10 @@ namespace boardgame
             Image img = Properties.Resources.사회복지기금;
             social = new Bitmap(img);
             
-            city[0] = new cityArea(0,10, DC, bit, (City.s2.Height * 10), (City.s1.Width * 9 + City.fours.Width), 0, -City.s1.Width, player_1, player_2, Card, areacard, social, nameGp,thisplayer);
-            city[1] = new cityArea(1,10, DC, bit, 0, (City.s2.Height * 10), 1, -City.s2.Height, player_1, player_2, Card, areacard1, social, nameGp, thisplayer);
-            city[2] = new cityArea(2,10, DC, bit, City.s1.Width * 2, 0, 2, City.s1.Width, player_1, player_2, Card, areacard2, social, nameGp, thisplayer);
-            city[3] = new cityArea(3,10, DC, bit, (City.s2.Height * 9 + City.fours.Height), City.s2.Height * 2, 3, City.s2.Height, player_1, player_2, Card, areacard3, social, nameGp, thisplayer);
+            city[0] = new cityArea(0, DC, bit, (City.s2.Height * 10), (City.s1.Width * 9 + City.fours.Width), 0, -City.s1.Width, Card, areacard, social, nameGp, MultyPlayers, Client_num);
+            city[1] = new cityArea(1, DC, bit, 0, (City.s2.Height * 10), 1, -City.s2.Height, Card, areacard1, social, nameGp, MultyPlayers, Client_num);
+            city[2] = new cityArea(2, DC, bit, City.s1.Width * 2, 0, 2, City.s1.Width, Card, areacard2, social, nameGp, MultyPlayers, Client_num);
+            city[3] = new cityArea(3, DC, bit, (City.s2.Height * 9 + City.fours.Height), City.s2.Height * 2, 3, City.s2.Height, Card, areacard3, social, nameGp, MultyPlayers, Client_num);
 
             city[0].drawcity(Color.Red, 0);
             city[1].drawcity(Color.DarkGreen, 1);
@@ -109,11 +114,11 @@ namespace boardgame
 
             for (int i = 0; i < 4; i++)
             {
-                city[i].drawname(i);
+                city[i].drawname(i); //구역들의 도시 이름을 그리는 메소드.
             }
         }
 
-        private void reset()
+        private void reset(int bfblock, int bfcity)
         {
 
             city[bfblock].PlayerRemove(bfblock, bfcity);
@@ -161,26 +166,87 @@ namespace boardgame
             }
         }
 
-        private void imagea() //플레이어의 말 크기와 좌표, 도시의 구역들의 좌표 지정.
+        //다른 말들도 설정할 수 있게 건드려야 함.
+        private void Place_Multy()
         {
-            for (int l = 0; l < 4; l++)
+
+                
+            for (int i = 0; i < Multy_Count; i++) //리스트의 개수를 추가.
             {
-                for (int i = 0; i < 10; i++)
-                {
-                    //if (l == 4)
-                    //{
-                    //    for (int a = 0; a < 4; a++)
-                    //    {
-                    //        players[l] = new List<Player>();
-                    //    }
-                    //}
-                    //else
-                    players[l] = new List<Player>();
+                Multy_Token[i] = new List<Player>[4]; //4개의 배열안에 각각 4개의 구역에 해당하는 배열 초기화
+                for (int l = 0; l < 4; l++)
+                { //초기화된 구역안에 리스트 인스턴스 생성.
+                    Multy_Token[i][l] = new List<Player>();
                 }
 
             }
 
-            for (int i = 0; i < 4; i++)
+            for (int j = 0; j < Multy_Count; j++) //클라이언트의 숫자 만큼 반복.
+            {
+                for (int i = 0; i < 4; i++) //구역만큼 반복. 플레이어 토큰의 위치를 추가.
+                {
+                    playerrect[i] = new Rectangle[10]; //구역간 플레이어가 갈 수 있는 열개의 칸
+                    if (i % 2 == 0) //0번구역과 2번구역일때.
+                    {
+                        for (int a = 0; a < 9; a++) //10개의 칸 중 9개의 칸만 반복. 마지막은 칸의 크기가 달라 따로 지정.
+                        {
+
+                            Rectangle pl = new Rectangle(new Point(city[i].cities[a].X , city[i].cities[a].Y + (j * 35)), new Size(75, 64));
+                            playerrect[i][a] = pl;
+                            Player player = new Player(playerrect, i, a);
+                            Multy_Token[j][i].Add(player);
+                        }
+                        Rectangle Last_Block; //마지막 블럭에서의 위치.
+                        if (j < 2)
+                        {
+                            Last_Block = new Rectangle(new Point(city[i].cities[9].X + (Player.Width_1*j), city[i].cities[9].Y), new Size(75, 64));
+                        }
+                        else
+                        {
+                            Last_Block = new Rectangle(new Point(city[i].cities[9].X + ( Player.Width_1 * (j-2)), city[i].cities[9].Y + (Player.Height_1*(j-1)+10)), new Size(75, 64));
+                        }
+                        playerrect[i][9] = Last_Block;
+                        Player player2 = new Player(playerrect, i, 9);
+                        Multy_Token[j][i].Add(player2);
+
+                    }
+                    else //1,3번구역.
+                    {
+                        for (int a = 0; a < 9; a++) //10개의 칸 중 9개의 칸만 반복. 마지막은 칸의 크기가 달라 따로 지정.
+                        {
+                            Rectangle pl = new Rectangle(new Point(city[i].cities[a].X + (j *35), city[i].cities[a].Y ), new Size(64, 75));
+                            playerrect[i][a] = pl;
+                            Player player = new Player(playerrect, i, a);
+                            Multy_Token[j][i].Add(player);
+
+                        }
+                        Rectangle Last_Block; //마지막 블럭에서의 위치.
+                        if (j < 2)
+                        {
+                            Last_Block = new Rectangle(new Point(city[i].cities[9].X  + (Player.Width_1 * j), city[i].cities[9].Y ), new Size(75, 64));
+                        }
+                        else
+                        {
+                            Last_Block = new Rectangle(new Point(city[i].cities[9].X , city[i].cities[9].Y + (Player.Height_1 + 10)), new Size(75, 64));
+                        }
+                        playerrect[i][9] = Last_Block;
+                        Player player2 = new Player(playerrect, i, 9);
+                        Multy_Token[j][i].Add(player2);
+                    }
+                }
+            }
+        }
+        private void Place_Solo() //플레이어의 말 크기와 좌표, 도시의 구역들의 좌표 지정.
+        {
+            for (int i = 0; i < 4; i++) //리스트의 개수를 추가.
+            {
+
+                players[i] = new List<Player>();
+
+
+            }
+
+            for (int i = 0; i < 4; i++) //플레이어 토큰의 위치를 추가.
             {
                 playerrect[i] = new Rectangle[10];
                 if (i == 0 || i == 2)
@@ -188,7 +254,7 @@ namespace boardgame
                     for (int a = 0; a < 10; a++)
                     {
 
-                        Rectangle pl = new Rectangle(new Point(city[i].cities[a].X, city[i].cities[a].Y + 30), new Size(75, 64));
+                        Rectangle pl = new Rectangle(new Point(city[i].cities[a].X, city[i].cities[a].Y), new Size(75, 64));
                         playerrect[i][a] = pl;
                         Player player = new Player(playerrect, i, a);
                         players[i].Add(player);
@@ -198,7 +264,7 @@ namespace boardgame
                 {
                     for (int a = 0; a < 10; a++)
                     {
-                        Rectangle pl = new Rectangle(new Point(city[i].cities[a].X + 30, city[i].cities[a].Y), new Size(64, 75));
+                        Rectangle pl = new Rectangle(new Point(city[i].cities[a].X, city[i].cities[a].Y), new Size(64, 75));
                         playerrect[i][a] = pl;
                         Player player = new Player(playerrect, i, a);
                         players[i].Add(player);
@@ -250,8 +316,37 @@ namespace boardgame
             Card = Graphics.FromImage(key);
             nameBt = new Bitmap(this.Width, this.Height);
             nameGp = Graphics.FromImage(nameBt);
-    
 
+
+        }
+        private void initMultyImage() //멀티플레이어의 이미지가 담긴 리스트의 인스턴스들 생성.
+        {
+            for (int i = 0; i < MultyPlayers.Length; i++) {
+                MultyPlayers[i] = new List<Bitmap>();
+            }
+        }
+        private void initImage()
+        {
+            Image play = Properties.Resources.p1;
+            player_1.Add(new Bitmap(play));
+
+            Image play1 = Properties.Resources.p1_2;
+            player_2.Add(new Bitmap(play1));
+
+            play = Properties.Resources.p2;
+            player_1.Add(new Bitmap(play));
+            play1 = Properties.Resources.p2_2;
+            player_2.Add(new Bitmap(play1));
+
+            play = Properties.Resources.p3;
+            player_1.Add(new Bitmap(play));
+            play1 = Properties.Resources.p3_2;
+            player_2.Add(new Bitmap(play1));
+
+            play = Properties.Resources.p4;
+            player_1.Add(new Bitmap(play));
+            play1 = Properties.Resources.p4_2;
+            player_2.Add(new Bitmap(play1));
         }
 
     }

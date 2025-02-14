@@ -22,9 +22,7 @@ namespace boardgame
 
 
         public double money = 0;
-       // int number = 0;
-        //Button[] butt;
-        //Button butt;// = new Button();
+        public bool Multi { get; set; } = false;
         List<string> st = new List<string>();
 
         List<Button> cardbutt = new List<Button>();
@@ -101,35 +99,24 @@ namespace boardgame
         // List<string> buildstring = new List<string>();
         // GameMain frm1;
 
-
+        
 
         private void Form3_Load(object sender, EventArgs e)
         {
-            textBox1.Text = money.ToString() + "만원";
-            //StreamReader sr = new StreamReader(new FileStream("Save.txt",FileMode.OpenOrCreate));
-            //   int test = 0;
-            ////butt = new Button[4];
-            //while (sr.EndOfStream == false)
-            //{
-            //    Button butt = new Button();
+            if (!Multi)
+            {
+                textBox1.Text = money.ToString() + "만원";
 
-            //    butt.Text = sr.ReadLine();
-            //    butt.Size = new System.Drawing.Size(75, 52);
-            //    butt.Location = new System.Drawing.Point(test, 0);
-            //    butt.Click += butt_Click;
-
-            //    Controls.Add(butt);
-            //    //LButton.Add(butt);
-            //    test += 80;
-            //    //number++;
-
-            //}
-            //sr.Close();
-            build_save();
-            Card_save();
+                build_save();
+                Card_save();
 
 
-            timer1.Start();
+                timer1.Start();
+            }
+            else //멀티 모드
+            {
+                textBox1.Text = money.ToString() + "만원";
+            }
         }
 
         private void build_save()
@@ -169,57 +156,6 @@ namespace boardgame
             }
 
         }
-        //private void save_build()
-        //{
-        //    StreamReader build = new StreamReader(new FileStream("buildSave.txt", FileMode.Open));
-
-
-        //     List<int> color = new List<int>();
-        //    //int color = -1;
-        //    int count = buildstring.Count;
-        //    while (build.EndOfStream == false)
-        //    {
-        //        string[] spl = build.ReadLine().Split(new char[] { '|' });
-        //        buildstring.Add(spl[0]);
-        //        color.Add(Convert.ToInt32(spl[2]));
-        //    }
-        //       // color = Convert.ToInt32(spl[2]);
-        //    for (int i = count; i< buildstring.Count; i++)
-        //    {
-        //        buildsave.Add(new Button());
-
-        //        buildsave[i].Text = buildstring[i];
-        //        buildsave[i].Size = new System.Drawing.Size(75, 52);
-        //        buildsave[i].Location = new System.Drawing.Point(cardloc, locy);
-        //        buildsave[i].Click += build_click;
-        //        //if (color[i] == 0)
-        //        //    buildsave[i].BackColor = Color.Red;
-        //        //else if (color[i] == 1)
-        //        //    buildsave[i].BackColor = Color.DarkGreen;
-        //        //else if (color[i] == 2)
-        //        //    buildsave[i].BackColor = Color.Brown;
-        //        //else
-        //        //    buildsave[i].BackColor = Color.Gray;
-        //        if (buildstring.Count >= 2)
-        //        {
-        //            if (cardloc > 500)
-        //                locy += 60;
-        //            else if (locy >= 200)
-        //                locy = 200;
-        //            else
-        //                cardloc += 80;
-        //        }
-        //        Controls.Add(buildsave[i]);
-
-        //        //i++;
-        //    }
-        //    build.Close();
-
-        //    //for (int i = buildsave.Count; i<= buildstring.Count; i++)//string s in buildstring)
-        //    //{
-
-
-        //}
 
         private int numberconfirm(Button btn) //번호 확인. 
         {
@@ -262,38 +198,7 @@ namespace boardgame
 
             cardloc -= 80;
 
-            // StreamReader sr = new StreamReader(new FileStream("buildSave.txt", FileMode.Open));
-            //while (sr.EndOfStream == false)
-            //{
-            //    string cardte = sr.ReadLine();
-            //    string[] spl = cardte.Split(new char[] { '|' });
-
-            //    if (spl[0].Equals(card.Text))
-            //    {
-            //        num = spl[1];
-            //        color = Convert.ToInt32(spl[2]);
-            //        continue;
-            //    }
-            //    cardst.Add(cardte);
-            //}
-
-            // sr.Close();
-            //StreamWriter sw = new StreamWriter(new FileStream("buildSave.txt", FileMode.Create));
-            //for (int i = 0; i < cardst.Count; i++)
-            //    sw.WriteLine(cardst[i]);
-            //sw.Close();
-
-            //if (f5.loca <= 6)
-            //    f5.color = 0;
-            //else if (f5.loca <= 13)
-            //    f5.color = 1;
-            //else if (f5.loca <= 21)
-            //    f5.color = 2;
-            //else
-            //    f5.color = 3;
-
-            //cardst.Clear();
-            //Card_b.Clear();
+            
 
             if (buildsave.Count != 0)
             {
@@ -306,7 +211,7 @@ namespace boardgame
                         buildsave[i].Location = new System.Drawing.Point(buildsave[i-1].Location.X+80, buildsave[i].Location.Y-60);
                 }
             }
-            //testremove()
+    
 
         }
         private void build_click(object sender, EventArgs e)
@@ -325,21 +230,7 @@ namespace boardgame
                     break;
                 }
             
-            //StreamReader sr = new StreamReader(new FileStream("Save.txt", FileMode.Open));
-            //while (sr.EndOfStream == false)
-            //{
-            //    string test = sr.ReadLine();
-            //    if (test.Equals(bu.Text))
-            //    {
-            //        continue;
-            //    }
-            //    st.Add(test);
-            //}
-            //sr.Close();
-            //StreamWriter sw = new StreamWriter(new FileStream("Save.txt", FileMode.Create));
-            //for (int i = 0; i < st.Count; i++)
-            //    sw.WriteLine(st[i]);
-            //sw.Close();
+          
             
             Card F2 = new Card();
             F2.resu = Cards[num].resu;
@@ -347,13 +238,10 @@ namespace boardgame
             Controls.Remove(bu);
             cardbutt.RemoveAt(num);
             Card_Remove(Cards[num]);
-            //Cards.RemoveAt(num);
+  
            
             F2.Show();
             cardx -= 80;
-
-            //this.Close();
-
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -364,10 +252,10 @@ namespace boardgame
         private void money_print()
         {
             GameMain gm = Application.OpenForms["GameMain"] as GameMain; //열려있는 메인 게임의 폼을 가지고 옴.
-            //StreamReader sr1 = new StreamReader(new FileStream("money.txt", FileMode.Open));
+           
 
             textBox1.Text = gm.money_retur().ToString() + "만원";
-            //sr1.Close();
+ 
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -380,25 +268,7 @@ namespace boardgame
 
         private void Card_save()
         {
-            //StreamReader sr = new StreamReader(new FileStream("Save.txt", FileMode.OpenOrCreate));
-            //int test = 0;
-            ////butt = new Button[4];
-            //while (sr.EndOfStream == false)
-            //{
-            //    Button butt = new Button();
-
-            //    butt.Text = sr.ReadLine();
-            //    butt.Size = new System.Drawing.Size(75, 52);
-            //    butt.Location = new System.Drawing.Point(test, 0);
-            //    butt.Click += butt_Click;
-
-            //    Controls.Add(butt);
-            //    //LButton.Add(butt);
-            //    test += 80;
-
-            //    //number++;
-            //}
-            //sr.Close();
+           
             build_retrieve();
             if (Cards.Count > cardbutt.Count)
             {

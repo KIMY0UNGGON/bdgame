@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace boardgame
 {
-    class Player
+    class Player //가로 세로. 사각형.
     {
         public static int Height_1 = 64;
         public static int Width_1 = 75;

@@ -35,7 +35,7 @@ namespace boardgame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(376, 346);
+            this.ClientSize = new System.Drawing.Size(350, 262);
             this.Name = "Select_Token";
             this.Text = "말 색깔 선택";
             this.Load += new System.EventHandler(this.Select_Token_Load);

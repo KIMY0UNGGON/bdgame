@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
@@ -38,6 +39,7 @@ namespace boardgame
         public List<buildCard> bclist_infor = new List<buildCard>();
         List<buildCard> bclist_all = new List<buildCard>(); //건물 카드들이 들어있는 리스트
 
+        static int Multy_Count { get; set; } = 2;
         public int island { get; set; } = 0; //무인도에 들어가있는 턴
 
         public bool Uninhabited { get; set; } = false; //무인도에 있는지
@@ -46,28 +48,28 @@ namespace boardgame
         public List<Rectangle> CardList = new List<Rectangle>();
         public List<String> CardText = new List<String>();
         List<Player>[] players = new List<Player>[4];
-
+        List<Player>[][] Multy_Token = new List<Player>[Multy_Count][]; //[][][] 각각 클라이언트 번호, 구역, 블럭 순.
         List<Button> buttonTravel = new List<Button>();
 
         bool Carddr = false;
-
+        int Multy_Num { get; set; } = -1; //현재 이 클라이언트의 번호를 나타내는 변수.
         Money money = new Money();
         bool Multy_Wait = true;
 
-        public double money_retur()
+        public double money_retur() //돈의 값을 받아옴. 주로 다른 FORM인 정보에 데이터를 전송할 때 사용.
         {
             return money.m;
         }
-        bool RED = false;
-        bool BLUE = false;
-        bool GRAY = false;
-        bool BLACK = false;
-        public int nowcity { get; set; } = 9;
-        public int nowblock { get; set; } = 3;
-        int bfcity { get; set; } = 9;
-        int bfblock { get; set; } = 3;
 
-        bool start = true;
+        public int nowcity { get; set; } = 9;//현재 구역의 도시 번호
+        public int nowblock { get; set; } = 3; //현재 구역의 번호.
+        int bfcity { get; set; } = 9; //전의 구역의 도시 번호
+        int bfblock { get; set; } = 3; //전에 있던 구역의 번호.
+
+        List<int> Nowcity_List = new List<int>();
+        List<int> Nowblock_List = new List<int>();
+        List<int> Before_city = new List<int>();
+        List<int> Before_block = new List<int>();
 
         public int cardnum;
         public int[] buildnum = new int[36];
@@ -142,67 +144,81 @@ namespace boardgame
 
             // Server_connect(); //서버와 연결. 다른 말들의 정보를 받기 위함.
             initDC(); //그래픽들을 할당해 주는 메소드
-
+            initImage(); //Token들의 이미지를 가져와 리스트에 저장.
             //Form_show();
             this.Size = new Size(300, 200);
-            Select_Token Token = new Select_Token();
-            Token.Show();
-          
 
 
-            
         }
+        private void Turn_Thread()
+        {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new Action(() => Turn_Thread()));
+                return;
+            }
+            //메인쓰레드
+            Confirm_Turn(); //서버에서 값을 받아 메인 폼에 적용하거나 서버에 다시 값을 보냄
+        }
+        private void Confirm_Turn()
+        {
+        
+                if (Turn)//자신의 턴이 돌아왔는지 확인하는 용도.
+                    button1.Enabled = true;
+                else
+                    button1.Enabled = false;
+            
 
+        }
         private void Form_show() //게임 화면을 그림.
         {
-            //bt.Visible = false;
-            if (Multi && !Multy_Wait)
-            { 
-                
+            this.Size = new Size(cityArea.side - 1, cityArea.down - 1); //폼의 크기를 보드의 크기만큼 변환.
+            init();
+
+         
+            //playerimage();
+            image(); //황금 카드의 좌표 및 주사위의 크기 및 좌표
+            rectcity(); // 구매하면 건설될 건물들의 크기 및 좌표 지정.
 
 
+            string Card_T = Properties.Resources.Card;
+            foreach(var Card_text in Card_T.Split('\n')) //현재 내부에 저장되어있는 카드 정보를 읽어와서 리스트에 저장.
+            {
+                CardText.Add(Card_text);
+           
             }
-            else { 
-                this.Size = new Size(cityArea.side - 1, cityArea.down - 1); //폼의 크기를 보드의 크기만큼 변환.
-                init();
-                imagea(); //도시들의 좌표, 플레이어의 말 크기 및 좌표.
-                          //playerimage();
-                image(); //황금 카드의 좌표 및 주사위의 크기 및 좌표
-                rectcity(); // 구매하면 건설될 건물들의 크기 및 좌표 지정.
-                            //timer1.Start();
-                timer2.Start();
-                StreamWriter s1 = new StreamWriter(new FileStream("buildSave.txt", FileMode.Create));
-                s1.Close();
 
-                StreamReader sr = new StreamReader(new FileStream("Card.txt", FileMode.Open)); //황금 카드들의 내용들을 불러옴.
 
-                while (sr.EndOfStream == false) //읽어온 파일들을 끝까지 반복.
+            Card.DrawImage(cardg, C, CardList[0], GraphicsUnit.Pixel); //카드 이미지 그림.
+
+
+            if (Multi) //멀티모드
+            {
+                Place_Multy(); //멀티 모드에서의 토큰 위치 설정.
+                //List<Player> Enemy = new List<Player>(); //
+                for (int i = 0; i < Multy_Count; i++)
                 {
-                    CardText.Add(sr.ReadLine());  //읽어온 파일의 내용을 리스트에 저장.
+                    city[3].play[9].Add(Multy_Token[i][3][9]);
+                    city[3].other_update(i, nowcity); //모든 말들을 다시 그림.
                 }
-
-                sr.Close();
-
-                StreamWriter sw = new StreamWriter(new FileStream("Save.txt", FileMode.Create));
-                sw.Close();
-
-                Card.DrawImage(cardg, C, CardList[0], GraphicsUnit.Pixel);
-
+                Thread thread = new Thread(new ThreadStart(Turn_Thread));
+                thread.Start();
+            }
+            else
+            {
+                Place_Solo();
 
                 Player player = players[3][9]; //플레이어 말의 위치 정보를 처음 시작하는 구간으로 저장. 첫번째 배열은 도시들의 구역. 두번째 배열은 도시들의 순서.
+
                 city[3].play[9].Add(player); //마지막 구역. 보드판에서는 시작 구역에 플레이어 말을 배치.
-
-                city[3].update(nowblock); //도시 구역들을 업데이트하여 수정된 정보들을 다시 그림.
-                Invalidate();
-                for (int i = 0; i < 4; i++) //이새끼 뭐야?
-                {
-                    name[i] = new List<string>();
-                    name[i] = city[i].name_str;
-                }
-
-                button1.Visible = true;
-                timer3.Start();
+                Select_Token Token = new Select_Token();
+                Token.Show();
+                city[3].update(nowcity); //도시 구역들을 업데이트하여 수정된 정보들을 다시 그림.
             }
+            
+            Invalidate();
+            button1.Visible = true;
+            timer3.Start();
         }
 
 
@@ -214,10 +230,21 @@ namespace boardgame
 
 
         int skip = 0;
-
+        public void FORM_Close()
+        {
+            this.Close();
+        }
         private void GameMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            //FORM_Close();
             //sock.Close();
+            foreach (Process process in Process.GetProcesses())
+            {
+                if (process.ProcessName.Equals("boardgame"))
+                {
+                    process.Kill();
+                }
+            }
         }
 
         bool Multi = false;
@@ -225,9 +252,14 @@ namespace boardgame
         {
             butt_solo.Visible = false;
             butt_multi.Visible = false;
-            start_confirm = true;
+            start_confirm = false;
             Multi = true;
-            Form_show();
+            //Thread Turn_thread = new Thread(new ThreadStart(() => Turn_Thread()));
+            //Turn_thread.Start();
+          
+            initMultyImage();
+            Server_connect();
+           
         }
 
         bool Turn = false;
@@ -243,6 +275,7 @@ namespace boardgame
             butt_solo.Visible = false;
             butt_multi.Visible = false;
             start_confirm = true;
+            initMultyImage();
             Form_show();
         }
 
@@ -355,7 +388,7 @@ namespace boardgame
                 city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]); //지움.
                 
                 
-                reset();
+                reset(bfblock,bfcity);
                 city[nowblock].play[nowcity].Add(players[nowblock][nowcity]);
                 city[nowblock].update(nowblock);
                 Delay(100);
@@ -378,10 +411,6 @@ namespace boardgame
             bclist_infor.Add(bc);
         }
 
-       // public void input_bclist(buildCard bc)
-       // {
-       //     bclist_all.Add(bc);
-       // }
 
         private void button2_Click(object sender, EventArgs e) //삭제한 버튼 이벤트의 잔재.
         {

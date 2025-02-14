@@ -12,25 +12,13 @@ namespace boardgame
 {
     public partial class GameMain
     {
-
-
-
-        //private void build_rect(int nowblock, int nowcity, Rectangle rect, int count = 0)
-        //{
-        //    money.m -= city[nowblock].price[count][nowcity];
-        //    rect = buildrect[nowblock][nowcity][count];
-        //    city[nowblock].updatecity(nowblock, nowcity, rect,count);
-        //}
         
 
         private void buildmessage()
         {
-
-            //if(city[nowblock].cityRect[nowcity].)
-
-            if (((nowblock == 0 && (nowcity == 1 || nowcity == 6)) || (nowblock == 1 && (nowcity == 1 || nowcity == 6)) || (nowblock == 2 && nowcity == 1) || (nowblock == 3 && (nowcity == 7 || nowcity == 4))) == false)
+            if (((nowblock == 0 && (nowcity == 1 || nowcity == 6)) || (nowblock == 1 && (nowcity == 1 || nowcity == 6)) || (nowblock == 2 && nowcity == 1) || (nowblock == 3 && (nowcity == 7 || nowcity == 4))) == false) //카드 구간.
             {
-                if (nowcity < 9)
+                if (nowcity < 9) //마지막 칸은 제외
                 {
                     
                     
@@ -49,14 +37,14 @@ namespace boardgame
                                 
 
                                 //int count = city[nowblock].cityRect[nowcity].Count;
-                                if (b_ground)
+                                if (b_ground) //땅만 구매
                                 {
                                     money.m -= city[nowblock].price[0][nowcity];
                                     city[nowblock].Rect_Ground[nowcity] = buildrect[nowblock][nowcity][0];
                                     city[nowblock].updatecity(nowblock, nowcity);
                                     // build_rect(nowblock, nowcity, city[nowblock].Rect_Ground[nowcity]);
                                 }
-                                if (b_villa)
+                                if (b_villa) //첫번째 빌라 구매
                                 {
                                     money.m -= city[nowblock].price[1][nowcity];
                                     city[nowblock].Rect_Villa[nowcity] = buildrect[nowblock][nowcity][1];
@@ -64,7 +52,7 @@ namespace boardgame
                                     city[nowblock].updatecity(nowblock, nowcity, 1);
                                     // build_rect(nowblock, nowcity, city[nowblock].Rect_Villa[nowcity],1);
                                 }
-                                if (b_building)
+                                if (b_building) //두번째 빌딩 구매
                                 {
                                     money.m -= city[nowblock].price[2][nowcity];
                                     city[nowblock].Rect_Building[nowcity] = buildrect[nowblock][nowcity][2];
@@ -72,19 +60,14 @@ namespace boardgame
                                     city[nowblock].updatecity(nowblock, nowcity, 2);
                                     // build_rect(nowblock, nowcity, city[nowblock].Rect_Building[nowcity],2);
                                 }
-                                if (b_hotel)
+                                if (b_hotel) //호텔 구매
                                 {
                                     money.m -= city[nowblock].price[3][nowcity];
                                     city[nowblock].Rect_Hotel[nowcity] = buildrect[nowblock][nowcity][3];
                                     city[nowblock].cityRect[nowcity].Add(city[nowblock].Rect_Hotel[nowcity]);
                                     city[nowblock].updatecity(nowblock, nowcity, 3);
-                                    // build_rect(nowblock, nowcity, city[nowblock].Rect_Hotel[nowcity], 3);
                                 }
 
-                                // city[nowblock].cityRect[nowcity].Add(buildrect[nowblock][nowcity][city[nowblock].cityRect[nowcity].Count]);
-
-
-                                //playerfront();
                                 buildCard bcard = new buildCard();
                                 bcard.color = nowblock; //어느 구역인지 저장.
                                 bcard.city_address = nowcity;

@@ -137,3 +137,4 @@ C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\client\boardgame\
 C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\client\boardgame\obj\Debug\boardgame.exe
 C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\client\boardgame\obj\Debug\boardgame.pdb
 C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\client\boardgame\obj\Debug\boardgame.Select_Token.resources
+C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\client\boardgame\obj\Debug\boardgame.csproj.AssemblyReference.cache
