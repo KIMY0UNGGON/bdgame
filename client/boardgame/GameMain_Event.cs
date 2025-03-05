@@ -22,6 +22,7 @@ namespace boardgame
             butt_solo.Visible = false;
             butt_multi.Visible = false;
             start_confirm = true;
+            initMultyImage();
             Form_show();
             test_mode = true;
             SpaceTrip();

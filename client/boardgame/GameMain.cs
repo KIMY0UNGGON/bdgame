@@ -201,8 +201,8 @@ namespace boardgame
                     city[3].play[9].Add(Multy_Token[i][3][9]);
                     city[3].other_update(i, nowcity); //모든 말들을 다시 그림.
                 }
-                Thread thread = new Thread(new ThreadStart(Turn_Thread));
-                thread.Start();
+                Thread Tes = new Thread(new ThreadStart(Turn_Thread));
+                Tes.Start();
             }
             else
             {
@@ -219,6 +219,9 @@ namespace boardgame
             Invalidate();
             button1.Visible = true;
             timer3.Start();
+            Thread thread = new Thread(new ThreadStart(test_thread));
+            thread.IsBackground = true;
+            thread.Start();
         }
 
 
