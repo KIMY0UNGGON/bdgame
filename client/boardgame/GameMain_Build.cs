@@ -14,7 +14,14 @@ namespace boardgame
     public partial class GameMain
     {
         
+        private void other_build(string build, int Client_num)
+        {
+            if (build.Equals("g"))
+            {
 
+            }
+            if(build.)
+        }
         private void buildmessage()
         {
             if (((nowblock == 0 && (nowcity == 1 || nowcity == 6)) || (nowblock == 1 && (nowcity == 1 || nowcity == 6)) || (nowblock == 2 && nowcity == 1) || (nowblock == 3 && (nowcity == 7 || nowcity == 4))) == false) //카드 구간.

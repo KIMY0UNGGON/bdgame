@@ -59,11 +59,7 @@ namespace boardgame
             {
                 SpaceTrip();
             }
-            //else if (nowcity == 9 && nowblock == 0 && island < 3)
-            //{
-            //    island++;
-            //    Uninhabited = true;
-            //}
+ 
             if (Multi)
             {
                 MultyMove(dicenum);

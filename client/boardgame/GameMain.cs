@@ -141,7 +141,7 @@ namespace boardgame
         Button bt;
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            GC.Collect();
             // Server_connect(); //서버와 연결. 다른 말들의 정보를 받기 위함.
             initDC(); //그래픽들을 할당해 주는 메소드
             initImage(); //Token들의 이미지를 가져와 리스트에 저장.
@@ -220,8 +220,11 @@ namespace boardgame
             button1.Visible = true;
             timer3.Start();
             Thread thread = new Thread(new ThreadStart(test_thread));
+            Thread thread1 = new Thread(new ThreadStart(Thread_CardRed));
+            thread1.IsBackground = true;
             thread.IsBackground = true;
             thread.Start();
+            thread1.Start();
         }
 
 
@@ -300,7 +303,7 @@ namespace boardgame
 
             {
 
-                System.Windows.Forms.Application.DoEvents();
+                //System.Windows.Forms.Application.DoEvents();
 
                 ThisMoment = DateTime.Now;
 
