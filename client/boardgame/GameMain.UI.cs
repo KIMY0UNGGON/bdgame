@@ -6,18 +6,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace boardgame
 {
     public partial class GameMain
     {
-        public bool b_building, b_villa, b_ground, b_hotel; //현재 땅에 어떤 건물이 지어졌는지 확인하는 bool 변수.
 
-
-        int color_num { get; set; } = -1; //토큰의 색.
         public void Token_Color(int color) //멀티플레이에서의 색 선택 메소드.
         {
             color_num = color;
             //server.send("TOKEN_NEXT");
+            
             Self_init(color_num);
             server.send("T" + color.ToString()); //선택한 컬러를 서버에 다시 전송.
             //server.send($"{Multy_Num}READY"); //현재 클라이언트 토큰 선택 완료.
@@ -35,20 +34,36 @@ namespace boardgame
         }
 
 
-        List<Bitmap> player_1 = new List<Bitmap>(); //플레이어 말의 가로.
-        List<Bitmap> player_2 = new List<Bitmap>(); //플레이어 말의 세로
-        List<Bitmap>[] MultyPlayers = new List<Bitmap>[Multy_Count]; //플레이어들의 비트맵을 저장.
+
 
         private void Self_init(int color) //자기자신의 토큰 넘버와 비트맵컬러 저장.
         {
             MultyPlayers[Multy_Num - 1].Add(player_1[color]);
             MultyPlayers[Multy_Num - 1].Add(player_2[color]);
+            ColorSet(Multy_Num - 1, color);
         }
+        Color[] TokenColor = new Color[Multy_Count];
         private void Multy_init(int Num, int color)
         {
 
             MultyPlayers[Num].Add(player_1[color]);
             MultyPlayers[Num].Add(player_2[color]);
+            ColorSet(Num, color);
+            //TokenColor[Num] = 
+        }
+        private void ColorSet(int  Num, int color) {
+            switch (color)
+            {
+                case 0: TokenColor[Num] = System.Drawing.Color.SkyBlue; break;
+                case 1:
+                    TokenColor[Num] = System.Drawing.Color.Black; break;
+                case 2:
+                    TokenColor[Num] = System.Drawing.Color.Red; break;
+                case 3:
+                    TokenColor[Num] = System.Drawing.Color.Gray; break;
+
+            }
+
         }
         private bool Confirm_AllReady()
         {
@@ -102,10 +117,10 @@ namespace boardgame
             Image img = Properties.Resources.사회복지기금;
             social = new Bitmap(img);
             
-            city[0] = new cityArea(0, DC, bit, (City.s2.Height * 10), (City.s1.Width * 9 + City.fours.Width), 0, -City.s1.Width, Card, areacard, social, nameGp, MultyPlayers, Client_num);
-            city[1] = new cityArea(1, DC, bit, 0, (City.s2.Height * 10), 1, -City.s2.Height, Card, areacard1, social, nameGp, MultyPlayers, Client_num);
-            city[2] = new cityArea(2, DC, bit, City.s1.Width * 2, 0, 2, City.s1.Width, Card, areacard2, social, nameGp, MultyPlayers, Client_num);
-            city[3] = new cityArea(3, DC, bit, (City.s2.Height * 9 + City.fours.Height), City.s2.Height * 2, 3, City.s2.Height, Card, areacard3, social, nameGp, MultyPlayers, Client_num);
+            city[0] = new cityArea(0, DC, bit, (City.s2.Height * 10), (City.s1.Width * 9 + City.fours.Width), 0, -City.s1.Width, Card, areacard, social, nameGp, MultyPlayers, Arch_GP,Client_num);
+            city[1] = new cityArea(1, DC, bit, 0, (City.s2.Height * 10), 1, -City.s2.Height, Card, areacard1, social, nameGp, MultyPlayers, Arch_GP, Client_num);
+            city[2] = new cityArea(2, DC, bit, City.s1.Width * 2, 0, 2, City.s1.Width, Card, areacard2, social, nameGp, MultyPlayers, Arch_GP, Client_num);
+            city[3] = new cityArea(3, DC, bit, (City.s2.Height * 9 + City.fours.Height), City.s2.Height * 2, 3, City.s2.Height, Card, areacard3, social, nameGp, MultyPlayers, Arch_GP, Client_num);
 
             city[0].drawcity(Color.Red, 0);
             city[1].drawcity(Color.DarkGreen, 1);
@@ -316,8 +331,8 @@ namespace boardgame
             Card = Graphics.FromImage(key);
             nameBt = new Bitmap(this.Width, this.Height);
             nameGp = Graphics.FromImage(nameBt);
-
-
+            Arch = new Bitmap(this.Width, this.Height);
+            Arch_GP = Graphics.FromImage(Arch);
         }
         private void initMultyImage() //멀티플레이어의 이미지가 담긴 리스트의 인스턴스들 생성.
         {

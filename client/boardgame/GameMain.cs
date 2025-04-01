@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -27,9 +28,9 @@ namespace boardgame
             this.ResizeRedraw = true;
         }
 
-        Bitmap bit;
-        Graphics DC, dices, Card, nameGp;
-        Bitmap map, dice1, key, cardg, player, player2, nameBt, card_red;
+        Bitmap bit, map, key, nameBt,Arch;
+        Graphics DC, dices, Card, nameGp, Arch_GP;
+        Bitmap  dice1, cardg, card_red;
         //Area area;
         cityArea[] city = new cityArea[4]; //cityArea 들의 리스트 도시들의 구역들을 지정하고 그리기 위한 클래스 들임.
 
@@ -82,66 +83,110 @@ namespace boardgame
 
         information inform = new information();
 
+        public List<string>[] name = new List<string>[4];
+
+        int skip = 0;
+
+        MySocket server;  //서버 연결시 사용하는 소켓
 
 
 
+        public bool b_building, b_villa, b_ground, b_hotel; //현재 땅에 어떤 건물이 지어졌는지 확인하는 bool 변수.
 
 
+        int color_num { get; set; } = -1; //토큰의 색. 0번 하늘색, 1번 검정색, 2번 빨간색, 3번 회색
+        List<Bitmap> player_1 = new List<Bitmap>(); //플레이어 말의 가로.
+        List<Bitmap> player_2 = new List<Bitmap>(); //플레이어 말의 세로
+        List<Bitmap>[] MultyPlayers = new List<Bitmap>[Multy_Count]; //플레이어들의 비트맵을 저장.
 
-        private void ground() //구매 가능한 땅에 대해 구역을 지정해 배열로서 표현.
-                              //구매 가능한 땅에 지어질 수 있는 건물의 사각형의 크기를 지정함.
+        public Point[] C = { new Point(500, 300), new Point(400, 200), new Point(300, 500) }; //카드의 크기.
+        bool card_clicked = false;
+
+
+        public List<Card> cards = new List<Card>(); //카드들이 들어있는 리스트.
+
+       
+
+        int hotel = 0;
+        int building = 0;
+        int bul = 0;
+
+        bool start_confirm = false; //게임이 시작을 했는지 확인하는변수.
+
+        int loopconfirm = 0; //  보드를 몇바퀴 돌았는 확인하는 변수.
+        enum Build_Confirm { GROUND, VILLA, BUILDING, HOTEL };
+
+        private void BCCard_init()
         {
-            for (int i = 0; i < 4; i++)
+            for(int i = 0; i< name.Length;  i++)
             {
-                if (i == 2)
-                {
-                    buyground[i] = new Rectangle[7];
-                }
-                else
-                {
-                    buyground[i] = new Rectangle[8];
-                }
-                for (int j = 0; j < 8; j++)
-                {
-                    if (i == 2)
-                    {
-                        if (j == 1)
-                        {
-                            continue;
-                        }
-                        buyground[i][j] = City.four(city[i].cities[j].X, city[i].cities[j].Y);
-
-                    }
-                    else
-                    {
-                        if (i < 3)
-                        {
-                            if (j == 1 || j == 6)
-                            {
-                                continue;
-                            }
-
-                        }
-                        else
-                        {
-                            if (j == 4 || j == 7)
-                            {
-                                continue;
-                            }
-                        }
-                        buyground[i][j] = City.four(city[i].cities[j].X, city[i].cities[j].Y);
-                    }
-                }
+                name[i] = new List<string>();
             }
+            string Card_Text = Properties.Resources.build;
+            int count = 0;
+            foreach (var Text in Card_Text.Split('\n'))
+            {
+                string[] txtSplit = Text.Split(','); //도시 이름
+                name[count].Add(txtSplit[0]);
+                if (count != 3 && name[count].Count == 7)
+                    count++;                
+                else if (count == 3 && name[count].Count == 8)
+                    count++;
+            }
+
         }
 
 
+        //private void ground() //구매 가능한 땅에 대해 구역을 지정해 배열로서 표현.
+        //                      //구매 가능한 땅에 지어질 수 있는 건물의 사각형의 크기를 지정함.
+        //{
+        //    for (int i = 0; i < 4; i++)
+        //    {
+        //        if (i == 2)
+        //        {
+        //            buyground[i] = new Rectangle[7];
+        //        }
+        //        else
+        //        {
+        //            buyground[i] = new Rectangle[8];
+        //        }
+        //        for (int j = 0; j < 8; j++)
+        //        {
+        //            if (i == 2)
+        //            {
+        //                if (j == 1)
+        //                {
+        //                    continue;
+        //                }
+        //                buyground[i][j] = City.four(city[i].cities[j].X, city[i].cities[j].Y);
 
+        //            }
+        //            else
+        //            {
+        //                if (i < 3)
+        //                {
+        //                    if (j == 1 || j == 6)
+        //                    {
+        //                        continue;
+        //                    }
 
-        Button bt;
+        //                }
+        //                else
+        //                {
+        //                    if (j == 4 || j == 7)
+        //                    {
+        //                        continue;
+        //                    }
+        //                }
+        //                buyground[i][j] = City.four(city[i].cities[j].X, city[i].cities[j].Y);
+        //            }
+        //        }
+        //    }
+        //}
+
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            GC.Collect();
             // Server_connect(); //서버와 연결. 다른 말들의 정보를 받기 위함.
             initDC(); //그래픽들을 할당해 주는 메소드
             initImage(); //Token들의 이미지를 가져와 리스트에 저장.
@@ -174,8 +219,8 @@ namespace boardgame
         {
             this.Size = new Size(cityArea.side - 1, cityArea.down - 1); //폼의 크기를 보드의 크기만큼 변환.
             init();
+            BCCard_init();
 
-         
             //playerimage();
             image(); //황금 카드의 좌표 및 주사위의 크기 및 좌표
             rectcity(); // 구매하면 건설될 건물들의 크기 및 좌표 지정.
@@ -199,10 +244,10 @@ namespace boardgame
                 for (int i = 0; i < Multy_Count; i++)
                 {
                     city[3].play[9].Add(Multy_Token[i][3][9]);
-                    city[3].other_update(i, nowcity); //모든 말들을 다시 그림.
+                    city[3].update(i, nowcity); //모든 말들을 다시 그림.
                 }
-                Thread Tes = new Thread(new ThreadStart(Turn_Thread));
-                Tes.Start();
+                //Thread Tes = new Thread(new ThreadStart(Turn_Thread));
+                //Tes.Start();
             }
             else
             {
@@ -219,20 +264,18 @@ namespace boardgame
             Invalidate();
             button1.Visible = true;
             timer3.Start();
-            Thread thread = new Thread(new ThreadStart(test_thread));
-            thread.IsBackground = true;
-            thread.Start();
+        //    Thread thread = new Thread(new ThreadStart(test_thread));
+        //    Thread thread1 = new Thread(new ThreadStart(Thread_CardRed));
+        //    thread1.IsBackground = true;
+        //    thread.IsBackground = true;
+        //    thread.Start();
+        //    thread1.Start();
         }
 
 
 
 
 
-        public List<string>[] name = new List<string>[4];
-
-
-
-        int skip = 0;
         public void FORM_Close()
         {
             this.Close();
@@ -296,20 +339,28 @@ namespace boardgame
 
             DateTime AfterWards = ThisMoment.Add(duration);
 
-            while (AfterWards >= ThisMoment)
+            while (true)
 
             {
 
-                System.Windows.Forms.Application.DoEvents();
+               
 
                 ThisMoment = DateTime.Now;
+                System.Windows.Forms.Application.DoEvents();
+                //Application.
+                if (AfterWards <= ThisMoment)
+                    break;
 
             }
 
             return DateTime.Now;
 
         }
-
+        private static async Task DoSomethingAsync(int milliseconds)
+        {
+            await Task.Delay(milliseconds);
+            //Console.WriteLine($"Task completed after {milliseconds} milliseconds");
+        }
 
         private bool containkey(Vector2 point, Vector2[] polygon)
         {
@@ -357,8 +408,6 @@ namespace boardgame
 
         }
 
- 
-        MySocket server;
 
         private void backmove(int movec)
         {

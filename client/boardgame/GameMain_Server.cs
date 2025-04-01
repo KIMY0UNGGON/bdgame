@@ -17,11 +17,8 @@ namespace boardgame
     public partial class GameMain
     {
         //Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        int number = -1;
+        //int number = -1; //현재 클라이언트넘버
         byte[] receiverBuff = new byte[8192];
-
-
-
 
         private void Server_connect()
         {
@@ -149,13 +146,18 @@ namespace boardgame
             //게임 도중 건물을 구매했을 경우 내가 구매한 구역의 좌표를 보내고 다른 플레이어가 구매를 하였으면 그 좌표와 얼마나 지었는지를 서버에서 받아 자신의 메인 폼에 적용.
             if (data.Contains("b"))
             {
+                string[] data_build = data.Split(new char[] { '/' }); // 토큰분리
+                int num = Convert.ToInt32(data_build.Last()); //클라 번호
+
+                other_build(data_build, num);
+
                 //추가 및 받는 값 변경필요.
             }
             if (data.StartsWith("l")) // 다른 클라이언트의 위치 받음. 현재 이동 메소드를 전체적으로 변경하여 변경필요.
             {
                 string[] data_split = data.Split(new char[] { '/' }); //데이터를 '/' 단위로 쪼갬
-                int move = Int32.Parse(data_split[1]);
-                int num = Int32.Parse(data_split[2]);
+                int move = Int32.Parse(data_split[1]); //이동할 칸수
+                int num = Int32.Parse(data_split[2]); //클라이언트 번호
                 Move_OtherToken(move, num);
                 //dataspl[0] 말 번호
                 //dataspl[1] 위치 주사위 수

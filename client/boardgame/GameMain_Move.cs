@@ -59,11 +59,7 @@ namespace boardgame
             {
                 SpaceTrip();
             }
-            //else if (nowcity == 9 && nowblock == 0 && island < 3)
-            //{
-            //    island++;
-            //    Uninhabited = true;
-            //}
+ 
             if (Multi)
             {
                 MultyMove(dicenum);
@@ -253,7 +249,11 @@ namespace boardgame
                     this.city[nowblock].play[nowcity].Add(Multy_Token[Multy_Num - 1][nowblock][nowcity]);
                     this.city[nowblock].update(nowcity);
                     Invalidate();
+
                     Delay(100);
+
+
+
                     bfcity = nowcity;
                     bfblock = nowblock;
                 }
@@ -317,7 +317,7 @@ namespace boardgame
             Test_Turn = true; //말이 움직였을 때 턴이 넘어감.
         }
 
-        private void Move_OtherToken(int move, int num)// 다른 클라이언트의 플레이어 움직이기
+        private async void Move_OtherToken(int move, int num)// 다른 클라이언트의 플레이어 움직이기
         {
 
             for (int i = 0; i < move; i++) //말이 있는 칸부터 주사위 숫자를 더한 칸  
@@ -333,9 +333,11 @@ namespace boardgame
                 city[Before_block[num]].Player_Num.Remove(Multy_Token[num][Before_block[num]][Before_city[num]]);
                 reset(Before_block[num], Before_city[num]);
                 city[Nowblock_List[num]].play[Nowcity_List[num]].Add(Multy_Token[num][Nowblock_List[num]][Nowcity_List[num]]);
-                city[Nowblock_List[num]].other_update(num, Nowcity_List[num]);
+                city[Nowblock_List[num]].update(num, Nowcity_List[num]);
                 Invalidate();
-                Delay(100);
+                //Delay(100);
+                var task1 = DoSomethingAsync(100);
+                await Task.WhenAll(task1);
                 Before_city[num] = Nowcity_List[num];
                 Before_block[num] = Nowblock_List[num];
             }

@@ -132,15 +132,19 @@ namespace boardgame
         private void locacard() // 지역 및 건물 카드의 내용들을 txt파일에서 긁어옴.
         {
 
-            StreamReader sr = new StreamReader(new FileStream("build.txt", FileMode.OpenOrCreate));
+            //StreamReader sr = new StreamReader(new FileStream("build.txt", FileMode.OpenOrCreate));
 
-            while (sr.EndOfStream == false)
+            //while (sr.EndOfStream == false)
+            //{
+            //    Cardtext.Add(sr.ReadLine());
+
+            //}
+            //sr.Close();
+            string Card_Text = Properties.Resources.build;
+            foreach(var Text in Card_Text.Split('\n'))
             {
-                Cardtext.Add(sr.ReadLine());
-            
+                Cardtext.Add(Text);
             }
-            sr.Close();
-
 
             gp.DrawImage(Card1, new Rectangle(0, 0, 381, 370), rect, GraphicsUnit.Pixel);
 

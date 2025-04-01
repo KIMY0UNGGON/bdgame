@@ -21,3 +21,10 @@ C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\server\SServer\ob
 C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\server\SServer\obj\Debug\SServer.csproj.CoreCompileInputs.cache
 C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\server\SServer\obj\Debug\SServer.exe
 C:\Users\yg\OneDrive\바탕 화면\깃허브\새 폴더\bdgame\server\SServer\obj\Debug\SServer.pdb
+C:\Users\ddd84\Desktop\bdgame\bdgame\server\SServer\bin\Debug\SServer.exe.config
+C:\Users\ddd84\Desktop\bdgame\bdgame\server\SServer\bin\Debug\SServer.exe
+C:\Users\ddd84\Desktop\bdgame\bdgame\server\SServer\bin\Debug\SServer.pdb
+C:\Users\ddd84\Desktop\bdgame\bdgame\server\SServer\obj\Debug\SServer.csproj.AssemblyReference.cache
+C:\Users\ddd84\Desktop\bdgame\bdgame\server\SServer\obj\Debug\SServer.csproj.CoreCompileInputs.cache
+C:\Users\ddd84\Desktop\bdgame\bdgame\server\SServer\obj\Debug\SServer.exe
+C:\Users\ddd84\Desktop\bdgame\bdgame\server\SServer\obj\Debug\SServer.pdb

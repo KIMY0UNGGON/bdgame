@@ -183,7 +183,8 @@ namespace SServer
                     }
                     if (sp[0].Equals("b")) //클라이언트가 건물을구매했을때.
                     {
-                       // Except_send($"b/{}/{Client_Counts}", clientSock, Client_Counts) //b(건물 구매함)/{구매한 것}/{구매한 클라 넘버}
+
+                        Except_send($"{sp}/{Client_Counts}", clientSock, Client_Counts); //b(건물 구매함)/{구매한 것}/{구매한 클라 넘버}
 
 
                         turn = true;

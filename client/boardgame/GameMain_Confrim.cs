@@ -8,10 +8,7 @@ namespace boardgame
 {
     public partial class GameMain
     {
-        bool start_confirm = false; //게임이 시작을 했는지 확인하는변수.
 
-        int loopconfirm = 0; //  보드를 몇바퀴 돌았는 확인하는 변수.
-        enum Build_Confirm {GROUND,VILLA,BUILDING,HOTEL};
 
 
         //구매한 구역들 확인.

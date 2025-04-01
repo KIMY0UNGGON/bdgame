@@ -48,7 +48,9 @@ namespace boardgame
         public List<double>[] price = new List<double>[8];
         int Area;
         int Client_num;
-        public cityArea(int Area, Graphics DC, Bitmap bt, int x, int y, int num, int margin, Graphics GP, Bitmap img,Bitmap img2,Graphics name,List<Bitmap>[] Players_Token, int Client_num = 0)
+
+        Graphics Arch_GP;
+        public cityArea(int Area, Graphics DC, Bitmap bt, int x, int y, int num, int margin, Graphics GP, Bitmap img,Bitmap img2,Graphics name,List<Bitmap>[] Players_Token,Graphics Arch_GP, int Client_num = 0)
         {
 
             int count = 10; //현재 구역의 칸 수.
@@ -120,6 +122,7 @@ namespace boardgame
             this.Area = Area;
             this.Players_Token = Players_Token;
             this.Client_num = Client_num;
+            this.Arch_GP = Arch_GP;
         }
 
         public void drawname(int num)
@@ -618,26 +621,27 @@ namespace boardgame
         }
         public void update(int nowblock) //모든 게임 판의 말들을 다시 그림.
         {
-       
-                //for (int a = 0; a < play[i].Count; a++)
-                //{
-                    Drawplayer(play[nowblock].Last());
-
-                //}
-            
+            Drawplayer(play[nowblock].Last());
         }
-        public void other_update(int num, int nowblock) //특정 플레이어의 말을 그림.
+        public void update(int num, int nowblock) //특정 플레이어의 말을 그림.
         {
-            //for (int i = 0; i < count; i++)
-            //{
-                //for (int a = 0; a < play[i].Count; a++)
-                //{
-                    //Player_Num.Add()
-                    DrawPlayer(num, play[nowblock].Last());
-
-                //}
-            //}
+            DrawPlayer(num, play[nowblock].Last());
         }
+
+        public void update(int nowblock, int nowcity,  Color color, int count = 0)  //nowblock 이 구역 nowcity : 도시
+        {
+            if (count == 0)
+            {
+                Groundbuy(nowblock, nowcity, color);
+            }
+            if (count == 1)
+                BuildDraw(Rect_Villa[nowcity], color);
+            if (count == 2)
+                BuildDraw(Rect_Building[nowcity], color);
+            if (count == 3)
+                BuildDraw(Rect_Hotel[nowcity], color);
+        }
+
 
         public void PlayerRemove(int bfblock, int bfcity)
         {
@@ -780,31 +784,19 @@ namespace boardgame
             }
         }
 
-        public void updatecity(int nowblock, int nowcity, int count = 0)  //nowblock 이 구역 nowcity : 도시
-        {
-            if (count == 0)
-            {
-                Groundbuy(nowblock, nowcity, Color.Aquamarine);
-            }
-            if(count == 1)
-                BuildDraw(Rect_Villa[nowcity]);
-            if(count == 2)
-                BuildDraw(Rect_Building[nowcity]);
-            if (count == 3)
-                BuildDraw(Rect_Hotel[nowcity]); 
-        }
 
-        public void updatebuild(int nowblock, int nowcity)
-        {
 
-            for (int i = 0; i < count; i++)
-            {
-                for (int a = 0; a < cityRect[i].Count; a++)
-                {
-                    BuildDraw(cityRect[i][a]);
-                }
-            }
-        }
+        //public void updatebuild(int nowblock, int nowcity)
+        //{
+
+        //    for (int i = 0; i < count; i++)
+        //    {
+        //        for (int a = 0; a < cityRect[i].Count; a++)
+        //        {
+        //            BuildDraw(cityRect[i][a]);
+        //        }
+        //    }
+        //}
 
         public int Token_Click(Point pt)
         {
@@ -853,31 +845,31 @@ namespace boardgame
                 DC.DrawImage(Players_Token[num][1], play.nowpos);
         }
      
-        public void Groundbuy(int num, int city, Color color)
+        public void Groundbuy(int num, int city, Color color) //땅구매
         {
-            if (num == 0)
-            {
-                areacolor = new Rectangle(cities[city].X, cities[city].Y + 25, 75, 125);
-                Rect_Ground[city] = areacolor;
-            }
+            //if (num == 0)
+            //{
+            //    areacolor = new Rectangle(cities[city].X, cities[city].Y + 25, 75, 125);
+            //    Rect_Ground[city] = areacolor;
+            //}
 
-            else if (num == 1)
-            {
-                areacolor = new Rectangle(0, cities[city].Y, 125, 75);
-                Rect_Ground[city] = areacolor;
-            }
-            else if (num == 2)
-            {
-                areacolor = new Rectangle(cities[city].X, cities[city].Y, 75, 125);
-                Rect_Ground[city] = areacolor;
-            }
+            //else if (num == 1)
+            //{
+            //    areacolor = new Rectangle(0, cities[city].Y, 125, 75);
+            //    Rect_Ground[city] = areacolor;
+            //}
+            //else if (num == 2)
+            //{
+            //    areacolor = new Rectangle(cities[city].X, cities[city].Y, 75, 125);
+            //    Rect_Ground[city] = areacolor;
+            //}
 
-            else
-            {
-                areacolor = new Rectangle(cities[city].X + 25, cities[city].Y, 125, 75);
-                Rect_Ground[city] = areacolor;
-            }
-            cityRect[city].Add(areacolor);
+            //else
+            //{
+            //    areacolor = new Rectangle(cities[city].X + 25, cities[city].Y, 125, 75);
+            //    Rect_Ground[city] = areacolor;
+            //}
+            cityRect[city].Add(Rect_Ground[city]);
             DC.FillRectangle(new SolidBrush(color), areacolor);
         }
         public void GroundSell(int nowblock, int city)
@@ -913,9 +905,9 @@ namespace boardgame
             GP.FillRectangle(new SolidBrush(color), rect);
             GP.DrawRectangle(Pens.Black, rect);
         }
-        public void BuildDraw(Rectangle rect)
+        public void BuildDraw(Rectangle rect, Color color)
         {
-            GP.FillRectangle(new SolidBrush(Color.Blue), rect);
+            GP.FillRectangle(new SolidBrush(color), rect);
             GP.DrawRectangle(Pens.Black, rect);
         }
     }

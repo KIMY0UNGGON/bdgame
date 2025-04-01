@@ -14,7 +14,32 @@ namespace boardgame
     public partial class GameMain
     {
         
+        private void other_build(string[] build, int Client_num)
+        {
 
+            int otherblock = Int32.Parse(build[1]);
+            int othercity = Int32.Parse(build[2]);
+
+
+            //g v bl h TokenColor
+            if (build.Contains("g"))
+            {
+                city[otherblock].update(otherblock, othercity, TokenColor[Client_num], 0);
+            }
+            if (build.Contains("v"))
+            {
+                city[otherblock].update(otherblock, othercity, TokenColor[Client_num], 1);
+
+            }
+            if (build.Contains("bl"))
+            {
+                city[otherblock].update(otherblock, othercity, TokenColor[Client_num], 2);
+            }
+            if (build.Contains("h"))
+            {
+                city[otherblock].update(otherblock, othercity, TokenColor[Client_num], 3);
+            }
+        }
         private void buildmessage()
         {
             if (((nowblock == 0 && (nowcity == 1 || nowcity == 6)) || (nowblock == 1 && (nowcity == 1 || nowcity == 6)) || (nowblock == 2 && nowcity == 1) || (nowblock == 3 && (nowcity == 7 || nowcity == 4))) == false) //카드 구간.
@@ -33,14 +58,14 @@ namespace boardgame
                                 sb.ShowDialog(); //구매창 보여줌
 
 
-                                string message = "b";
+                                string message = $"b/{nowblock}/{nowcity}";
 
                                 //int count = city[nowblock].cityRect[nowcity].Count;
                                 if (b_ground) //땅만 구매
                                 {
                                     money.m -= city[nowblock].price[0][nowcity];
                                     city[nowblock].Rect_Ground[nowcity] = buildrect[nowblock][nowcity][0];
-                                    city[nowblock].updatecity(nowblock, nowcity);
+                                    city[nowblock].update(nowblock, nowcity, TokenColor[Multy_Num-1]);
                                     message += "/g";
                                     // build_rect(nowblock, nowcity, city[nowblock].Rect_Ground[nowcity]);
                                 }
@@ -49,7 +74,7 @@ namespace boardgame
                                     money.m -= city[nowblock].price[1][nowcity];
                                     city[nowblock].Rect_Villa[nowcity] = buildrect[nowblock][nowcity][1];
                                     city[nowblock].cityRect[nowcity].Add(city[nowblock].Rect_Villa[nowcity]);
-                                    city[nowblock].updatecity(nowblock, nowcity, 1);
+                                    city[nowblock].update(nowblock, nowcity, TokenColor[Multy_Num - 1],1);
                                     // build_rect(nowblock, nowcity, city[nowblock].Rect_Villa[nowcity],1);
                                     message += "/v";
                                 }
@@ -58,7 +83,7 @@ namespace boardgame
                                     money.m -= city[nowblock].price[2][nowcity];
                                     city[nowblock].Rect_Building[nowcity] = buildrect[nowblock][nowcity][2];
                                     city[nowblock].cityRect[nowcity].Add(city[nowblock].Rect_Building[nowcity]);
-                                    city[nowblock].updatecity(nowblock, nowcity, 2);
+                                    city[nowblock].update(nowblock, nowcity, TokenColor[Multy_Num - 1], 2);
                                     message += "/bl";
                                     // build_rect(nowblock, nowcity, city[nowblock].Rect_Building[nowcity],2);
                                 }
@@ -67,7 +92,7 @@ namespace boardgame
                                     money.m -= city[nowblock].price[3][nowcity];
                                     city[nowblock].Rect_Hotel[nowcity] = buildrect[nowblock][nowcity][3];
                                     city[nowblock].cityRect[nowcity].Add(city[nowblock].Rect_Hotel[nowcity]);
-                                    city[nowblock].updatecity(nowblock, nowcity, 3);
+                                    city[nowblock].update(nowblock, nowcity, TokenColor[Multy_Num - 1], 3);
                                     message += "/h";
                                 }
                                 if (Multi)
@@ -110,7 +135,7 @@ namespace boardgame
                                 if (b_ground)
                                     bcard.Show();
                                 bclist_all.Add(bcard);
-                                playerfront();
+                               // playerfront();
                                 Invalidate();
                                 //write_build(); 서버에 건물을 지었다고 전송.
                             }

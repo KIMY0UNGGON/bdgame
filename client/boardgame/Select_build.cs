@@ -92,7 +92,7 @@ namespace boardgame
                 build_v.Enabled = false;
 
             }
-            label1.Text = name_data();
+            //label1.Text = name_data();
       
         }
 

@@ -10,13 +10,7 @@ namespace boardgame
 {
     public partial class GameMain
     {
-        public Point[] C = { new Point(500, 300), new Point(400, 200), new Point(300, 500) }; //카드의 크기.
-        bool card_clicked = false;
-       
 
-        public List<Card> cards = new List<Card>(); //카드들이 들어있는 리스트.
-
-        public int b_count = -1;
 
         public void Save_Cards(Card card)
         {
@@ -48,9 +42,6 @@ namespace boardgame
                 Invalidate();
             }
         }
-        int hotel = 0;
-        int building = 0;
-        int bul = 0;
 
 
 
