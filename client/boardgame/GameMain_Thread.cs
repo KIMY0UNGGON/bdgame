@@ -10,8 +10,6 @@ namespace boardgame
     public partial class GameMain
     {
 
-        bool Test_Turn = false;
-        bool Inhabit_move = false;
         private void test_thread()
         {
             while (true)

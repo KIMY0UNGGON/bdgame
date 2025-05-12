@@ -315,6 +315,14 @@ namespace boardgame
             }
             player_stop = true;
             Test_Turn = true; //말이 움직였을 때 턴이 넘어감.
+            if (LOSE_CONDITION())
+            {
+                if (Multi)
+                {
+                    server.send($"LOSE/{Multy_Num}");
+                }
+
+            }
         }
 
         private async void Move_OtherToken(int move, int num)// 다른 클라이언트의 플레이어 움직이기

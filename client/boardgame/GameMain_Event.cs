@@ -10,7 +10,7 @@ namespace boardgame
 {
     public partial class GameMain
     {
-        bool test_mode = true;
+      
 
         private bool IS_KEY() //카드 키인지 확인하는 메소드.
         {
@@ -291,33 +291,12 @@ namespace boardgame
                     }
                 }
 
-                //if (frm2.startpoint)
-                //{
-                //    for(int i = 0; i < 4; i++)
-                //    {
-                //        for(int l = 0; l < 9; l++)
-                //        {
-
-                //        }
-                //    }
-                //}
-                //Card.DrawImage(cardg, C, CardList[0], GraphicsUnit.Pixel); //93,69 번호 //70 119 제목 //21 167 내용 // 37,201 행동
-                //200 : 280                                               
-                //    Card.DrawImage(cardg, new Rectangle(600, 400, 200, 280), CardList[1], GraphicsUnit.Pixel);
-                //    te();
-                //    test = true;
                 else
                 {
-                    // Card.DrawImage(cardg, C, CardList[0], GraphicsUnit.Pixel);
                     Carddr = false;
                 }
                 Invalidate();
-                //drawcard = true;
-                //}
-                //loopconfirm = 0;
-
-                // }
-                // }
+       
             }
         }
     }

@@ -18,7 +18,7 @@ namespace boardgame
     {
         //Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         //int number = -1; //현재 클라이언트넘버
-        byte[] receiverBuff = new byte[8192];
+      
 
         private void Server_connect()
         {

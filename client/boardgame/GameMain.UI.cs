@@ -33,6 +33,11 @@ namespace boardgame
 
         }
 
+        private bool LOSE_CONDITION()
+        {
+            if (money.m.CompareTo(0) <= 0) return true;
+            return false;
+        }
 
 
 
