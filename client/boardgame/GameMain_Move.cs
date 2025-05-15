@@ -104,10 +104,10 @@ namespace boardgame
 
         private void playerfront() //플레이어를 다시 앞으로 그리기
         {
-            Players_Token.ForEach(x => city[bfblock].play.Remove(x));
+            city[bfblock].play.ForEach(x => x.Visible = false);
             reset(bfblock,bfcity);
-            Players_Token.ForEach(x => city[nowblock].play.Add(x));
-            city[nowblock].update(nowblock);
+            city[bfblock].play.ForEach(x => x.Visible = true);
+            city[nowblock].update(Multy_Num - 1);
         }
         private void butt_Click(object sender, EventArgs e)
         {
@@ -216,7 +216,7 @@ namespace boardgame
                 for (int i = 0; i < move; i++)
                 {
                     //this.city[bfblock].play[bfcity].Remove(Multy_Token[Multy_Num - 1][bfblock][bfcity]); //현재 위치의 말을 삭제.
-                    this.city[bfblock].play.Remove(Players_Token[Multy_Num - 1]); //현재 위치의 말을 삭제.
+                    this.city[bfblock].play[Multy_Num-1].Visible = false; //현재 위치의 말을 삭제.
 
                     reset(bfblock, bfcity); //판을 다시그림.
                     if (!Back)
@@ -242,8 +242,8 @@ namespace boardgame
                     {
                         money.m += 20;
                     }
-                    this.city[nowblock].play.Add(Players_Token[Multy_Num - 1]);
-                    this.city[nowblock].update(nowcity);
+                    this.city[nowblock].play[Multy_Num - 1].Activate(nowblock, nowcity);
+                    this.city[nowblock].update(Multy_Num - 1);
                     Invalidate();
 
                     Delay(100);
@@ -272,7 +272,7 @@ namespace boardgame
          
                 for (int i = 0; i < move; i++)
                 {
-                    this.city[bfblock].play.Remove(Players_Token[Multy_Num - 1]); //현재 위치의 말을 삭제.
+                    this.city[bfblock].play[Multy_Num - 1].Visible = false; ; //현재 위치의 말을 삭제.
                     reset(bfblock,bfcity); //판을 다시그림.
                     if (!Back)
                         nowcity++;
@@ -297,8 +297,8 @@ namespace boardgame
                     {
                         money.m += 20;
                     }
-                    this.city[nowblock].play.Add(Players_Token[Multy_Num - 1]);
-                    this.city[nowblock].update(nowcity);
+                    this.city[nowblock].play[Multy_Num - 1].Activate(nowblock, nowcity);
+                    this.city[nowblock].update(Multy_Num-1);
                     Invalidate();
                     Delay(100);
                     bfcity = nowcity;
@@ -323,7 +323,7 @@ namespace boardgame
 
         private async void Move_OtherToken(int move, int num)// 다른 클라이언트의 플레이어 그리기
         {
-
+            //수정 필요
             for (int i = 0; i < move; i++) //말이 있는 칸부터 주사위 숫자를 더한 칸  
             {
                 Nowcity_List[num]++;
@@ -333,10 +333,10 @@ namespace boardgame
                     else Nowblock_List[num] = 0;
                     Nowcity_List[num] = 0;
                 }
-                city[Before_block[num]].play.Remove(Players_Token[num - 1]);
+                city[Before_block[num]].play[num].Visible = false;
            
                 reset(Before_block[num], Before_city[num]);
-                city[Nowblock_List[num]].play[num - 1].Visible = true;
+                city[Nowblock_List[num]].play[num - 1].Activate(Nowblock_List[num], Nowcity_List[num]);
                 city[Nowblock_List[num]].update(num);
                 Invalidate();
                 //Delay(100);

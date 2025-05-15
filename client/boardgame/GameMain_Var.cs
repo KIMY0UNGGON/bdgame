@@ -15,13 +15,13 @@ namespace boardgame
         bool test_mode = true;
         bool player_stop = true;
         public Point[] C1 = { new Point(500, 300), new Point(400, 200), new Point(200, 400), new Point(300, 500) };
-
+        private Area area = new Area();
 
         Bitmap bit, map, key, nameBt, Arch;
         Graphics DC, dices, Card, nameGp, Arch_GP;
         Bitmap dice1, cardg, card_red;
         //Area area;
-        cityArea[] city = new cityArea[4]; //cityArea 들의 리스트 도시들의 구역들을 지정하고 그리기 위한 클래스 들임.
+        private cityArea[] city = new cityArea[4]; //cityArea 들의 리스트 도시들의 구역들을 지정하고 그리기 위한 클래스 들임.
 
 
         Bitmap areacard, areacard1, areacard2, areacard3;

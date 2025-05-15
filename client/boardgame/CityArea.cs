@@ -49,14 +49,12 @@ namespace boardgame
         //int Client_num;
 
         Graphics Arch_GP;
-        public cityArea(int Area, Graphics DC, Bitmap bt, int x, int y, int num, int margin,
+        public cityArea(int Area, Graphics DC, Bitmap bt , Rectangle[] cities,
             Graphics GP, Bitmap img,Bitmap img2, Graphics name, List<Player> play, Graphics Arch_GP)
         {
 
             int count = 10; //현재 구역의 칸 수.
-            int x1 = x;
-            int y1 = y;
-
+            
             
             cityRect = new List<Rectangle>[count];
             
@@ -64,46 +62,9 @@ namespace boardgame
             Rect_Ground = new Rectangle[count];
             Rect_Hotel = new Rectangle[count];
             Rect_Villa = new Rectangle[count];
-            cities = new Rectangle[count];
+  
             for (int i = 0; i < count; i++)
             {
-                if(i == 9)
-                {
-                    if (num == 0)
-                        cities[i] = new Rectangle(x - 75, y, 150, 150);
-                    else if (num == 1)
-                        cities[i] = new Rectangle(x, y - 75, 150, 150);
-                    else if(num == 2)
-                        cities[i] = new Rectangle(x, y, 150, 150);
-                    else if(num == 3)
-                        cities[i] = new Rectangle(x, y, 150, 150);
-
-                }
-                else if (num == 0) //num == 구역.
-                {
-                    cities[i] = City.cityWidth(x, y);
-                    x += margin;
-                   // Width = true;
-                }
-                else if (num == 1) //citys2
-                {
-                    cities[i] = City.cityHeight(x, y);
-
-                    y += margin;
-                    //Width = false;
-                }
-                else if( num == 2)
-                {
-                    cities[i] = City.cityWidth(x, y); //가로
-                    x += margin;
-                }
-                else if( num == 3)
-                {
-                    cities[i] = City.cityHeight(x, y); //세로
-
-                    y += margin;
-                }
-
                 cityRect[i] = new List<Rectangle>();
             }
 
@@ -119,6 +80,7 @@ namespace boardgame
             this.Area = Area;
             this.play = play;
             this.Arch_GP = Arch_GP;
+            this.cities = cities;
         }
 
         public void drawname(int num)
@@ -773,7 +735,7 @@ namespace boardgame
         public void DrawPlayer(Player play)
         {
             if (!play.Visible) return;
-            if (play.nowPos.city == 9) //현재 다시 play를 다시 사용하려 할때
+            if (play.nowPos.city == 10) //현재 다시 play를 다시 사용하려 할때
                 play.nowPos.city = 0;
             
             if (Area % 2 == 0)

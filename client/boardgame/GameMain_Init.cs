@@ -126,11 +126,11 @@ namespace boardgame
             Image img = Properties.Resources.사회복지기금;
             social = new Bitmap(img);
 
-            city[0] = new cityArea(0, DC, bit, (City.s2.Height * 10), (City.s1.Width * 9 + City.fours.Width), 0, -City.s1.Width, Card, areacard, social, nameGp, Players_Token, Arch_GP);
-            city[1] = new cityArea(1, DC, bit, 0, (City.s2.Height * 10), 1, -City.s2.Height, Card, areacard1, social, nameGp, Players_Token, Arch_GP);
-            city[2] = new cityArea(2, DC, bit, City.s1.Width * 2, 0, 2, City.s1.Width, Card, areacard2, social, nameGp, Players_Token, Arch_GP);
-            city[3] = new cityArea(3, DC, bit, (City.s2.Height * 9 + City.fours.Height), City.s2.Height * 2, 3, City.s2.Height, Card, areacard3, social, nameGp, Players_Token, Arch_GP);
-            city[0].play.ForEach(x => x.Activate(3,9));
+            city[0] = new cityArea(0, DC, bit, area.cities[0], Card, areacard, social, nameGp, Players_Token, Arch_GP);
+            city[1] = new cityArea(1, DC, bit, area.cities[1], Card, areacard1, social, nameGp, Players_Token, Arch_GP);
+            city[2] = new cityArea(2, DC, bit, area.cities[2], Card, areacard2, social, nameGp, Players_Token, Arch_GP);
+            city[3] = new cityArea(3, DC, bit, area.cities[3], Card, areacard3, social, nameGp, Players_Token, Arch_GP);
+            city[3].play.ForEach(x => x.Activate(3,9));
 
 
 
@@ -158,18 +158,18 @@ namespace boardgame
                         for (int a = 0; a < 9; a++) //10개의 칸 중 9개의 칸만 반복. 마지막은 칸의 크기가 달라 따로 지정.
                         {
 
-                            Rectangle pl = new Rectangle(new Point(city[i].cities[a].X, city[i].cities[a].Y + (j * 35)), new Size(75, 64));
+                            Rectangle pl = new Rectangle(new Point(area.cities[i][a].X, city[i].cities[a].Y + (j * 35)), new Size(75, 64));
                             playerrect[i][a] = pl;
 
                         }
                         Rectangle Last_Block; //마지막 블럭에서의 위치.
                         if (j < 2)
                         {
-                            Last_Block = new Rectangle(new Point(city[i].cities[9].X + (Player.Width_1 * j), city[i].cities[9].Y), new Size(75, 64));
+                            Last_Block = new Rectangle(new Point(area.cities[i][9].X + (Player.Width_1 * j), area.cities[i][9].Y), new Size(75, 64));
                         }
                         else
                         {
-                            Last_Block = new Rectangle(new Point(city[i].cities[9].X + (Player.Width_1 * (j - 2)), city[i].cities[9].Y + (Player.Height_1 * (j - 1) + 10)), new Size(75, 64));
+                            Last_Block = new Rectangle(new Point(area.cities[i][9].X + (Player.Width_1 * (j - 2)), area.cities[i][9].Y + (Player.Height_1 * (j - 1) + 10)), new Size(75, 64));
                         }
                         playerrect[i][9] = Last_Block;
                     }
@@ -177,17 +177,17 @@ namespace boardgame
                     {
                         for (int a = 0; a < 9; a++) //10개의 칸 중 9개의 칸만 반복. 마지막은 칸의 크기가 달라 따로 지정.
                         {
-                            Rectangle pl = new Rectangle(new Point(city[i].cities[a].X + (j * 35), city[i].cities[a].Y), new Size(64, 75));
+                            Rectangle pl = new Rectangle(new Point(area.cities[i][a].X + (j * 35), area.cities[i][a].Y), new Size(64, 75));
                             playerrect[i][a] = pl;
                         }
                         Rectangle Last_Block; //마지막 블럭에서의 위치.
                         if (j < 2)
                         {
-                            Last_Block = new Rectangle(new Point(city[i].cities[9].X + (Player.Width_1 * j), city[i].cities[9].Y), new Size(75, 64));
+                            Last_Block = new Rectangle(new Point(area.cities[i][9].X + (Player.Width_1 * j), area.cities[i][9].Y), new Size(75, 64));
                         }
                         else
                         {
-                            Last_Block = new Rectangle(new Point(city[i].cities[9].X, city[i].cities[9].Y + (Player.Height_1 + 10)), new Size(75, 64));
+                            Last_Block = new Rectangle(new Point(area.cities[i][9].X, area.cities[i][9].Y + (Player.Height_1 + 10)), new Size(75, 64));
                         }
                         playerrect[i][9] = Last_Block;
                     }
@@ -207,7 +207,7 @@ namespace boardgame
                     for (int a = 0; a < 10; a++)
                     {
 
-                        Rectangle pl = new Rectangle(new Point(city[i].cities[a].X, city[i].cities[a].Y), new Size(75, 64));
+                        Rectangle pl = new Rectangle(new Point(area.cities[i][a].X, area.cities[i][a].Y), new Size(75, 64));
                         playerrect[i][a] = pl;
 
                     }
@@ -216,14 +216,15 @@ namespace boardgame
                 {
                     for (int a = 0; a < 10; a++)
                     {
-                        Rectangle pl = new Rectangle(new Point(city[i].cities[a].X, city[i].cities[a].Y), new Size(64, 75));
+                        Rectangle pl = new Rectangle(new Point(area.cities[i][a].X, area.cities[i][a].Y), new Size(64, 75));
                         playerrect[i][a] = pl;
 
 
                     }
                 }
-                Players_Token.Add(new Player(playerrect, MultyPlayers.First().ToArray()));
+              
             }
+            Players_Token.Add(new Player(playerrect, MultyPlayers.First().ToArray()));
         }
     }
 }

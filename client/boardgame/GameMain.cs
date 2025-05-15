@@ -38,12 +38,13 @@ namespace boardgame
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            GC.Collect();
+            //GC.Collect();
             // Server_connect(); //서버와 연결. 다른 말들의 정보를 받기 위함.
             initDC(); //그래픽들을 할당해 주는 메소드
             initImage(); //Token들의 이미지를 가져와 리스트에 저장.
             //Form_show();
             this.Size = new Size(300, 200);
+       
 
 
         }
@@ -70,12 +71,7 @@ namespace boardgame
         private void Form_show() //게임 화면을 그림.
         {
             this.Size = new Size(cityArea.side - 1, cityArea.down - 1); //폼의 크기를 보드의 크기만큼 변환.
-            init();
-            BCCard_init();
-
-            //playerimage();
-            image(); //황금 카드의 좌표 및 주사위의 크기 및 좌표
-            rectcity(); // 구매하면 건설될 건물들의 크기 및 좌표 지정.
+           
 
 
             string Card_T = Properties.Resources.Card;
@@ -86,32 +82,37 @@ namespace boardgame
             }
 
 
-            Card.DrawImage(cardg, C, CardList[0], GraphicsUnit.Pixel); //카드 이미지 그림.
+         
 
 
             if (Multi) //멀티모드
             {
                 initPlace_Multy(); //멀티 모드에서의 토큰 위치 설정.
-                               //List<Player> Enemy = new List<Player>(); //
-
-                Players_Token.ForEach(x => city[3].play.Add(x));
-                city[3].updateAll(); //모든 말들을 다시 그림.
-                
+                init();
+                //Players_Token.ForEach(x => city[3].play.Add(x));
+               
             }
             else
             {
                 Select_Token Token = new Select_Token();
 
-                Token.Show();
+                Token.ShowDialog();
                 Place_Solo();
-
-               //Player player = players[3][9]; //플레이어 말의 위치 정보를 처음 시작하는 구간으로 저장. 첫번째 배열은 도시들의 구역. 두번째 배열은 도시들의 순서.
-
-                city[3].play.Add(Players_Token.First()); //마지막 구역. 보드판에서는 시작 구역에 플레이어 말을 배치.
+                init();
+                
+                //city[3].play.Add(Players_Token.First()); //마지막 구역. 보드판에서는 시작 구역에 플레이어 말을 배치.
               
-                city[3].updateAll(); //도시 구역들을 업데이트하여 수정된 정보들을 다시 그림.
             }
-            
+      
+            BCCard_init();
+
+            //playerimage();
+            image(); //황금 카드의 좌표 및 주사위의 크기 및 좌표
+            rectcity(); // 구매하면 건설될 건물들의 크기 및 좌표 지정.
+            Card.DrawImage(cardg, C, CardList[0], GraphicsUnit.Pixel); //카드 이미지 그림.
+            city[3].updateAll(); //모든 말들을 다시 그림.
+
+
             Invalidate();
             button1.Visible = true;
             timer3.Start();
@@ -168,7 +169,6 @@ namespace boardgame
             start_confirm = true;
             Multy_Num = 1;
             initMultyImage();
-            Place_Solo();
             Form_show();
         }
 
@@ -177,27 +177,17 @@ namespace boardgame
 
 
         private static DateTime Delay(int MS)
-
         {
-
             DateTime ThisMoment = DateTime.Now;
-
             TimeSpan duration = new TimeSpan(0, 0, 0, 0, MS);
-
             DateTime AfterWards = ThisMoment.Add(duration);
 
             while (true)
-
             {
-
-               
-
                 ThisMoment = DateTime.Now;
                 System.Windows.Forms.Application.DoEvents();
-                //Application.
                 if (AfterWards <= ThisMoment)
                     break;
-
             }
 
             return DateTime.Now;
@@ -279,7 +269,7 @@ namespace boardgame
                 
                 reset(bfblock,bfcity);
                 city[nowblock].play[Multy_Num - 1].Visible = true;
-                city[nowblock].update(nowblock);
+                city[nowblock].update(Multy_Num - 1);
                 Delay(100);
                 
                 Invalidate();

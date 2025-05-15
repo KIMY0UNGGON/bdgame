@@ -198,7 +198,7 @@ namespace boardgame
                                         city[bfblock].play[Multy_Num - 1].Visible = false;
                                         reset(bfblock,bfcity);
                                         city[nowblock].play[Multy_Num-1].Activate(  nowblock, i );
-                                        city[nowblock].update(nowblock);
+                                        city[nowblock].update(Multy_Num - 1);
                                         Invalidate();
                                         Delay(100);
                                         bfcity = i;
@@ -230,7 +230,7 @@ namespace boardgame
                                         city[bfblock].play[Multy_Num-1].Visible = false;
                                         reset(bfblock,bfcity);
                                         city[nowblock].play[Multy_Num - 1].Activate(nowblock, i );
-                                        city[nowblock].update(nowblock);
+                                        city[nowblock].update(Multy_Num - 1);
                                         Invalidate();
                                         Delay(100);
                                         bfcity = i;

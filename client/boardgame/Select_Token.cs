@@ -56,6 +56,7 @@ namespace boardgame
             for (int i = 0; i < 4; i++) {
                 DC.DrawImage(Tokens[i], Token_rect[i]); //Form 에 직접 그림을 그림.
             }
+       
             Invalidate();
         }
 
