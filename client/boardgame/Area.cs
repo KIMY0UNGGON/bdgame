@@ -18,20 +18,13 @@ namespace boardgame
         public Point[] Card = new Point[] { new Point(200, 400), new Point(300, 500), new Point(500, 300), new Point(400, 200) };
 
 
-        public int down = (1016);//    1016
-        public int side = (993);//     993
+        public int down = GameMain.ActiveForm.Size.Height;
+        public int side = GameMain.ActiveForm.Size.Width;
 
         public Rectangle[][] cities = new Rectangle[4][];
         //public Rectangle[] fou = new Rectangle[4];
         public Rectangle[] areacolor = new Rectangle[4];
         public Rectangle[] dice = new Rectangle[2];
-        // Card;
-        //public
-        // public List<Rectangle>[] LCity = new List<Rectangle>[4];
-
-
-
-        //public Polygon keyCard = new Polygon();
 
 
         Canvas canvas = new Canvas();
@@ -202,35 +195,10 @@ namespace boardgame
                 }
             }
 
-            //DC.FillRectangle(new SolidBrush(Color.Red), cities[0][8]); 
-            //DC.FillRectangle(new SolidBrush(Color.Red), cities[0][6]);
-            //DC.FillRectangle(new SolidBrush(Color.Red), cities[0][5]);
+       
 
         }
-        //private void fourplace()
-        //{
-        //    //int down = (City.s1.Width * 9 + City.fours.Width);
-        //    //int side = (City.s2.Height * 9 + City.fours.Height);
-
-        //    fou[2] = City.four(0, 0); 
-        //    DC.DrawRectangle(Pens.GreenYellow, fou[2]);
-        //    DC.FillRectangle(new SolidBrush(Color.LightGreen), fou[2]);
-
-        //    fou[1] = City.four(0, down);
-        //    DC.DrawRectangle(Pens.Black, fou[1]);
-        //    DC.FillRectangle(new SolidBrush(Color.Salmon), fou[1]);
-
-        //    fou[3] = City.four(side, 0);
-        //    DC.DrawRectangle(Pens.Aqua, fou[3]);
-        //    DC.FillRectangle(new SolidBrush(Color.LightBlue), fou[3]);
-
-        //    fou[0] = City.four(side, down);
-        //    DC.DrawRectangle(Pens.Gold, fou[0]);
-        //    DC.FillRectangle(new SolidBrush(Color.Goldenrod), fou[0]);
-
-        //}
-
-        //public Point[] Card = new Point[] { new Point(200, 400),  new Point(300, 500), new Point(500, 300), new Point(400, 200) };
+       
         public void draw()
         {
 

@@ -110,7 +110,7 @@ namespace boardgame
             if (data.Equals("GameStart"))
             {
                 
-                Multy_Wait = false;
+                //Multy_Wait = false;
                 Form_show(); //모두 준비 되었을때 폼 그림.
             }
             if (data.StartsWith("TOKEN"))

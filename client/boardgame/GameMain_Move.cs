@@ -53,7 +53,7 @@ namespace boardgame
             dices.DrawImage(dice1, dicepos, Dicelist[dicenum1 - 1], GraphicsUnit.Pixel); //주사위를 그림. 아래코드도 마찬가지.
             dices.DrawImage(dice1, dicepos1, Dicelist[dicenum2 - 1], GraphicsUnit.Pixel);
             button1.Enabled = false; //주사위가 굴러갈때 주사위를 한번더 굴리는 걸 방지.
-            skip = 0;
+           // skip = 0;
 
             if (nowcity == 9 && nowblock == 2) //우주여행 칸일 때 버튼들을 생성해 움직일 수 있게 함.
             {
@@ -94,8 +94,6 @@ namespace boardgame
             Turn = false;
         }
 
-
-
         
 
         public void uninhabit()
@@ -104,11 +102,11 @@ namespace boardgame
             this.Uninhabited = false;
         }
 
-        private void playerfront()
+        private void playerfront() //플레이어를 다시 앞으로 그리기
         {
-            city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
+            Players_Token.ForEach(x => city[bfblock].play.Remove(x));
             reset(bfblock,bfcity);
-            city[nowblock].play[nowcity].Add(players[nowblock][nowcity]);
+            Players_Token.ForEach(x => city[nowblock].play.Add(x));
             city[nowblock].update(nowblock);
         }
         private void butt_Click(object sender, EventArgs e)
@@ -128,8 +126,7 @@ namespace boardgame
                     Controls.Remove(buttonTravel[i]);
                 }
             }
-            //if (loopconfirm <= 1)
-            //{
+
             spacemove(block, city);
             if (nowblock == 3 && nowcity == 7)
             {
@@ -145,8 +142,6 @@ namespace boardgame
                     money_so = 0;
                 }
             }
-            // }
-
 
         }
         private void SpaceTrip()
@@ -220,8 +215,9 @@ namespace boardgame
 
                 for (int i = 0; i < move; i++)
                 {
-                    this.city[bfblock].play[bfcity].Remove(Multy_Token[Multy_Num - 1][bfblock][bfcity]); //현재 위치의 말을 삭제.
-                    city[bfblock].Player_Num.Remove(Multy_Token[Multy_Num - 1][bfblock][bfcity]);
+                    //this.city[bfblock].play[bfcity].Remove(Multy_Token[Multy_Num - 1][bfblock][bfcity]); //현재 위치의 말을 삭제.
+                    this.city[bfblock].play.Remove(Players_Token[Multy_Num - 1]); //현재 위치의 말을 삭제.
+
                     reset(bfblock, bfcity); //판을 다시그림.
                     if (!Back)
                         nowcity++;
@@ -246,7 +242,7 @@ namespace boardgame
                     {
                         money.m += 20;
                     }
-                    this.city[nowblock].play[nowcity].Add(Multy_Token[Multy_Num - 1][nowblock][nowcity]);
+                    this.city[nowblock].play.Add(Players_Token[Multy_Num - 1]);
                     this.city[nowblock].update(nowcity);
                     Invalidate();
 
@@ -276,7 +272,7 @@ namespace boardgame
          
                 for (int i = 0; i < move; i++)
                 {
-                    this.city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]); //현재 위치의 말을 삭제.
+                    this.city[bfblock].play.Remove(Players_Token[Multy_Num - 1]); //현재 위치의 말을 삭제.
                     reset(bfblock,bfcity); //판을 다시그림.
                     if (!Back)
                         nowcity++;
@@ -301,7 +297,7 @@ namespace boardgame
                     {
                         money.m += 20;
                     }
-                    this.city[nowblock].play[nowcity].Add(players[nowblock][nowcity]);
+                    this.city[nowblock].play.Add(Players_Token[Multy_Num - 1]);
                     this.city[nowblock].update(nowcity);
                     Invalidate();
                     Delay(100);
@@ -325,7 +321,7 @@ namespace boardgame
             }
         }
 
-        private async void Move_OtherToken(int move, int num)// 다른 클라이언트의 플레이어 움직이기
+        private async void Move_OtherToken(int move, int num)// 다른 클라이언트의 플레이어 그리기
         {
 
             for (int i = 0; i < move; i++) //말이 있는 칸부터 주사위 숫자를 더한 칸  
@@ -337,11 +333,11 @@ namespace boardgame
                     else Nowblock_List[num] = 0;
                     Nowcity_List[num] = 0;
                 }
-                city[Before_block[num]].play[Before_city[num]].Remove(Multy_Token[num][Before_block[num]][Before_city[num]]);
-                city[Before_block[num]].Player_Num.Remove(Multy_Token[num][Before_block[num]][Before_city[num]]);
+                city[Before_block[num]].play.Remove(Players_Token[num - 1]);
+           
                 reset(Before_block[num], Before_city[num]);
-                city[Nowblock_List[num]].play[Nowcity_List[num]].Add(Multy_Token[num][Nowblock_List[num]][Nowcity_List[num]]);
-                city[Nowblock_List[num]].update(num, Nowcity_List[num]);
+                city[Nowblock_List[num]].play[num - 1].Visible = true;
+                city[Nowblock_List[num]].update(num);
                 Invalidate();
                 //Delay(100);
                 var task1 = DoSomethingAsync(100);

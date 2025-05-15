@@ -34,73 +34,7 @@ namespace boardgame
         }
 
 
-        private void BCCard_init()
-        {
-            for(int i = 0; i< name.Length;  i++)
-            {
-                name[i] = new List<string>();
-            }
-            string Card_Text = Properties.Resources.build;
-            int count = 0;
-            foreach (var Text in Card_Text.Split('\n'))
-            {
-                string[] txtSplit = Text.Split(','); //도시 이름
-                name[count].Add(txtSplit[0]);
-                if (count != 3 && name[count].Count == 7)
-                    count++;                
-                else if (count == 3 && name[count].Count == 8)
-                    count++;
-            }
-
-        }
-
-
-        //private void ground() //구매 가능한 땅에 대해 구역을 지정해 배열로서 표현.
-        //                      //구매 가능한 땅에 지어질 수 있는 건물의 사각형의 크기를 지정함.
-        //{
-        //    for (int i = 0; i < 4; i++)
-        //    {
-        //        if (i == 2)
-        //        {
-        //            buyground[i] = new Rectangle[7];
-        //        }
-        //        else
-        //        {
-        //            buyground[i] = new Rectangle[8];
-        //        }
-        //        for (int j = 0; j < 8; j++)
-        //        {
-        //            if (i == 2)
-        //            {
-        //                if (j == 1)
-        //                {
-        //                    continue;
-        //                }
-        //                buyground[i][j] = City.four(city[i].cities[j].X, city[i].cities[j].Y);
-
-        //            }
-        //            else
-        //            {
-        //                if (i < 3)
-        //                {
-        //                    if (j == 1 || j == 6)
-        //                    {
-        //                        continue;
-        //                    }
-
-        //                }
-        //                else
-        //                {
-        //                    if (j == 4 || j == 7)
-        //                    {
-        //                        continue;
-        //                    }
-        //                }
-        //                buyground[i][j] = City.four(city[i].cities[j].X, city[i].cities[j].Y);
-        //            }
-        //        }
-        //    }
-        //}
+        
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -157,37 +91,31 @@ namespace boardgame
 
             if (Multi) //멀티모드
             {
-                Place_Multy(); //멀티 모드에서의 토큰 위치 설정.
-                //List<Player> Enemy = new List<Player>(); //
-                for (int i = 0; i < Multy_Count; i++)
-                {
-                    city[3].play[9].Add(Multy_Token[i][3][9]);
-                    city[3].update(i, nowcity); //모든 말들을 다시 그림.
-                }
-                //Thread Tes = new Thread(new ThreadStart(Turn_Thread));
-                //Tes.Start();
+                initPlace_Multy(); //멀티 모드에서의 토큰 위치 설정.
+                               //List<Player> Enemy = new List<Player>(); //
+
+                Players_Token.ForEach(x => city[3].play.Add(x));
+                city[3].updateAll(); //모든 말들을 다시 그림.
+                
             }
             else
             {
+                Select_Token Token = new Select_Token();
+
+                Token.Show();
                 Place_Solo();
 
-                Player player = players[3][9]; //플레이어 말의 위치 정보를 처음 시작하는 구간으로 저장. 첫번째 배열은 도시들의 구역. 두번째 배열은 도시들의 순서.
+               //Player player = players[3][9]; //플레이어 말의 위치 정보를 처음 시작하는 구간으로 저장. 첫번째 배열은 도시들의 구역. 두번째 배열은 도시들의 순서.
 
-                city[3].play[9].Add(player); //마지막 구역. 보드판에서는 시작 구역에 플레이어 말을 배치.
-                Select_Token Token = new Select_Token();
-                Token.Show();
-                city[3].update(nowcity); //도시 구역들을 업데이트하여 수정된 정보들을 다시 그림.
+                city[3].play.Add(Players_Token.First()); //마지막 구역. 보드판에서는 시작 구역에 플레이어 말을 배치.
+              
+                city[3].updateAll(); //도시 구역들을 업데이트하여 수정된 정보들을 다시 그림.
             }
             
             Invalidate();
             button1.Visible = true;
             timer3.Start();
-        //    Thread thread = new Thread(new ThreadStart(test_thread));
-        //    Thread thread1 = new Thread(new ThreadStart(Thread_CardRed));
-        //    thread1.IsBackground = true;
-        //    thread.IsBackground = true;
-        //    thread.Start();
-        //    thread1.Start();
+
         }
 
 
@@ -238,7 +166,9 @@ namespace boardgame
             butt_solo.Visible = false;
             butt_multi.Visible = false;
             start_confirm = true;
+            Multy_Num = 1;
             initMultyImage();
+            Place_Solo();
             Form_show();
         }
 
@@ -317,15 +247,7 @@ namespace boardgame
             }
         }
 
-        private void button3_Click_1(object sender, EventArgs e)
-        {
-            //string[] butt = button3.Text.Split('|');
-            //Select_build sb = new Select_build();
-            //sb.ShowDialog();
-
-        }
-
-
+ 
         private void backmove(int movec)
         {
             int fq; 
@@ -342,10 +264,8 @@ namespace boardgame
                 
                 if (nowcity == 0)
                 {
-                    if (nowblock > 0)
-                        nowblock -= 1;
-                    else
-                        nowblock = 3;
+                    if (nowblock > 0) nowblock -= 1;
+                    else nowblock = 3;
                 }
                 nowcity -= 1;
                 if(nowcity < 0)
@@ -354,11 +274,11 @@ namespace boardgame
                 }
 
                 if (nowblock == 3 && nowcity == 9) money.m += 20;
-                city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]); //지움.
+                city[bfblock].play[Multy_Num - 1].Visible = false; //지움.
                 
                 
                 reset(bfblock,bfcity);
-                city[nowblock].play[nowcity].Add(players[nowblock][nowcity]);
+                city[nowblock].play[Multy_Num - 1].Visible = true;
                 city[nowblock].update(nowblock);
                 Delay(100);
                 
@@ -368,12 +288,7 @@ namespace boardgame
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            city[0].play[0].Add(players[0][0]);
-            city[0].update(0);
-            Invalidate();
-        }
+
         public void input_carddata(buildCard bc) //카드 집어 넣는 메소드
         {
             inform.Card_put(bc);

@@ -116,10 +116,10 @@ namespace boardgame
                                     int i = nowcity;
                                     while (!(nowblock == 0 && i == 1))
                                     {
-                                        city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
+                                        city[bfblock].play[Multy_Num-1].Visible = false;
                                         reset(bfblock,bfcity);
-                                        city[nowblock].play[i].Add(players[nowblock][i]);
-                                        city[nowblock].update(nowblock);
+                                        city[nowblock].play[Multy_Num-1].Activate(nowblock,i);
+                                        city[nowblock].update(Multy_Num-1);
                                         Invalidate();
                                         Delay(100);
                                         bfcity = i;
@@ -128,11 +128,7 @@ namespace boardgame
 
                                         nowblock = bfblock;
                                         nowcity = bfcity;
-                                        //if (nowblock == 3 && nowcity == 9)
-                                        //{
-                                        //    money.m += 20;
-
-                                        //}
+                               
                                         if (bfcity == 9)
                                         {
                                             if (nowblock < 3)
@@ -199,9 +195,9 @@ namespace boardgame
                                     int nc = nowcity;
                                     for (int l = nowcity; l < 10; l++)
                                     {
-                                        city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
+                                        city[bfblock].play[Multy_Num - 1].Visible = false;
                                         reset(bfblock,bfcity);
-                                        city[nowblock].play[i].Add(players[nowblock][i]);
+                                        city[nowblock].play[Multy_Num-1].Activate(  nowblock, i );
                                         city[nowblock].update(nowblock);
                                         Invalidate();
                                         Delay(100);
@@ -231,9 +227,9 @@ namespace boardgame
 
                                     while (!(nowblock == bl && i == nc))
                                     {
-                                        city[bfblock].play[bfcity].Remove(players[bfblock][bfcity]);
+                                        city[bfblock].play[Multy_Num-1].Visible = false;
                                         reset(bfblock,bfcity);
-                                        city[nowblock].play[i].Add(players[nowblock][i]);
+                                        city[nowblock].play[Multy_Num - 1].Activate(nowblock, i );
                                         city[nowblock].update(nowblock);
                                         Invalidate();
                                         Delay(100);

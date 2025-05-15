@@ -43,6 +43,50 @@ namespace boardgame
             return new Rectangle(x, y, City_Four, City_Four);
         }
 
-       
+       public void test(Rectangle[] cities, int count, int margin, int num)
+        {
+            cities = new Rectangle[count];
+            for (int i = 0; i < count; i++)
+            {
+                if (i == 9)
+                {
+                    if (num == 0)
+                        cities[i] = new Rectangle(x - 75, y, 150, 150);
+                    else if (num == 1)
+                        cities[i] = new Rectangle(x, y - 75, 150, 150);
+                    else if (num == 2)
+                        cities[i] = new Rectangle(x, y, 150, 150);
+                    else if (num == 3)
+                        cities[i] = new Rectangle(x, y, 150, 150);
+
+                }
+                else if (num == 0) //num == 구역.
+                {
+                    cities[i] = City.cityWidth(x, y);
+                    x += margin;
+                    // Width = true;
+                }
+                else if (num == 1) //citys2
+                {
+                    cities[i] = City.cityHeight(x, y);
+
+                    y += margin;
+                    //Width = false;
+                }
+                else if (num == 2)
+                {
+                    cities[i] = City.cityWidth(x, y); //가로
+                    x += margin;
+                }
+                else if (num == 3)
+                {
+                    cities[i] = City.cityHeight(x, y); //세로
+
+                    y += margin;
+                }
+
+                cityRect[i] = new List<Rectangle>();
+            }
+        }
     }
 }

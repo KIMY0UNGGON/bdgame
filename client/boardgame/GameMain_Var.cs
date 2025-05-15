@@ -37,16 +37,21 @@ namespace boardgame
         public List<Rectangle> Dicelist = new List<Rectangle>();
         public List<Rectangle> CardList = new List<Rectangle>();
         public List<String> CardText = new List<String>();
-        List<Player>[] players = new List<Player>[4];
+        //List<Player>[] players = new List<Player>[4]; //최대 4명의 플레이어 위치를 사각형으로 미리 설정
+
+        List<Player> Players_Token = new List<Player>(); //현재 테스트 중. 테스트 끝나면 Multy_Token과 players 삭제
+
+
+
         List<Player>[][] Multy_Token = new List<Player>[Multy_Count][]; //[][][] 각각 클라이언트 번호, 구역, 블럭 순.
         Dictionary<Player,KeyValuePair<Point,Point>> MultyTest = new Dictionary<Player, KeyValuePair<Point, Point>>();
-        
+        //현재 위치 전위치 포함 리스트
         List<Button> buttonTravel = new List<Button>();
 
         bool Carddr = false;
         int Multy_Num { get; set; } = -1; //현재 이 클라이언트의 번호를 나타내는 변수.
         Money money = new Money();
-        bool Multy_Wait = true;
+        //bool Multy_Wait = true;
         bool Multi = false;
 
         public int nowcity { get; set; } = 9;//현재 구역의 도시 번호
@@ -72,7 +77,7 @@ namespace boardgame
 
         public List<string>[] name = new List<string>[4];
 
-        int skip = 0;
+        //int skip = 0;
 
         MySocket server;  //서버 연결시 사용하는 소켓
 
@@ -82,8 +87,8 @@ namespace boardgame
 
 
         int color_num { get; set; } = -1; //토큰의 색. 0번 하늘색, 1번 검정색, 2번 빨간색, 3번 회색
-        List<Bitmap> player_1 = new List<Bitmap>(); //플레이어 말의 가로.
-        List<Bitmap> player_2 = new List<Bitmap>(); //플레이어 말의 세로
+        List<Bitmap> player_1 = new List<Bitmap>(); //플레이어 말의 가로 이미지
+        List<Bitmap> player_2 = new List<Bitmap>(); //플레이어 말의 세로 이미지
         List<Bitmap>[] MultyPlayers = new List<Bitmap>[Multy_Count]; //플레이어들의 비트맵을 저장.
 
         public Point[] C = { new Point(500, 300), new Point(400, 200), new Point(300, 500) }; //카드의 크기.
@@ -100,7 +105,7 @@ namespace boardgame
 
         bool start_confirm = false; //게임이 시작을 했는지 확인하는변수.
 
-        int loopconfirm = 0; //  보드를 몇바퀴 돌았는 확인하는 변수.
+       // int loopconfirm = 0; //  보드를 몇바퀴 돌았는 확인하는 변수.
         enum Build_Confirm { GROUND, VILLA, BUILDING, HOTEL };
 
 
