@@ -14,17 +14,22 @@ namespace boardgame
     {
         private void initDC()
         {
-
             bit = new Bitmap(this.Width, this.Height);
-            DC = Graphics.FromImage(bit);
+            GPs.Add( Graphics.FromImage(bit)); //DC
             map = new Bitmap(this.Width, this.Height);
-            dices = Graphics.FromImage(map);
+            
+            GPs.Add(Graphics.FromImage(new Bitmap(210, 100))); //dices
+            
             key = new Bitmap(this.Width, this.Height);
             Card = Graphics.FromImage(key);
+            GPs.Add(Graphics.FromImage(key));
             nameBt = new Bitmap(this.Width, this.Height);
             nameGp = Graphics.FromImage(nameBt);
+            GPs.Add(Graphics.FromImage(nameBt));
             Arch = new Bitmap(this.Width, this.Height);
             Arch_GP = Graphics.FromImage(Arch);
+
+            
         }
         private void initMultyImage() //멀티플레이어의 이미지가 담긴 리스트의 인스턴스들 생성.
         {
@@ -126,10 +131,10 @@ namespace boardgame
             Image img = Properties.Resources.사회복지기금;
             social = new Bitmap(img);
 
-            city[0] = new cityArea(0, DC, bit, area.cities[0], Card, areacard, social, nameGp, Players_Token, Arch_GP);
-            city[1] = new cityArea(1, DC, bit, area.cities[1], Card, areacard1, social, nameGp, Players_Token, Arch_GP);
-            city[2] = new cityArea(2, DC, bit, area.cities[2], Card, areacard2, social, nameGp, Players_Token, Arch_GP);
-            city[3] = new cityArea(3, DC, bit, area.cities[3], Card, areacard3, social, nameGp, Players_Token, Arch_GP);
+            city[0] = new cityArea(0, GPs, area.cities[0], areacard, social, Players_Token);
+            city[1] = new cityArea(1, GPs, area.cities[1], areacard1, social, Players_Token);
+            city[2] = new cityArea(2, GPs, area.cities[2], areacard2, social, Players_Token);
+            city[3] = new cityArea(3, GPs, area.cities[3], areacard3, social, Players_Token);
             city[3].play.ForEach(x => x.Activate(3,9));
 
 

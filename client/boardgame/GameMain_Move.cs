@@ -46,12 +46,13 @@ namespace boardgame
             button1.Text = dicenum1.ToString() + "|" + dicenum2.ToString(); //버튼에 첫번째와 두번째 주사위의 수를 표시.
             int dicenum = dicenum1 + dicenum2; //말이 움직일 수를 표현.
 
-
+            //600 ~ 810
+            //700~800  
             Rectangle dicepos = new Rectangle(600, 700, 100, 100); //첫번째 주사위의 위치. 그림으로 표현되는 주사위.
             Rectangle dicepos1 = new Rectangle(710, 700, 100, 100); //두번째 주사위의 위치.
             Point x = dicepos.Location;
-            dices.DrawImage(dice1, dicepos, Dicelist[dicenum1 - 1], GraphicsUnit.Pixel); //주사위를 그림. 아래코드도 마찬가지.
-            dices.DrawImage(dice1, dicepos1, Dicelist[dicenum2 - 1], GraphicsUnit.Pixel);
+            GPs[1].DrawImage(dice1, dicepos, Dicelist[dicenum1 - 1], GraphicsUnit.Pixel); //주사위를 그림. 아래코드도 마찬가지.
+            GPs[1].DrawImage(dice1, dicepos1, Dicelist[dicenum2 - 1], GraphicsUnit.Pixel);
             button1.Enabled = false; //주사위가 굴러갈때 주사위를 한번더 굴리는 걸 방지.
            // skip = 0;
 

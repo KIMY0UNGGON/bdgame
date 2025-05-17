@@ -19,6 +19,12 @@ namespace boardgame
 
         Bitmap bit, map, key, nameBt, Arch;
         Graphics DC, dices, Card, nameGp, Arch_GP;
+        //DC : 플레이어, 도시칸
+        //dices : 다이스
+        //Card : 카드
+        //nameGP : 도시 이름
+        //Arch_GP : 
+        List<Graphics> GPs = new List<Graphics>();
         Bitmap dice1, cardg, card_red;
         //Area area;
         private cityArea[] city = new cityArea[4]; //cityArea 들의 리스트 도시들의 구역들을 지정하고 그리기 위한 클래스 들임.

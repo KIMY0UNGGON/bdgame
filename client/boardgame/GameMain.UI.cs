@@ -100,22 +100,22 @@ namespace boardgame
                         if (i == 0)
                         {
 
-                            buildrect[i][l][j + 1] = City.citybuildA(city[i].cities[l].X + n, city[i].cities[l].Y);
+                            buildrect[i][l][j + 1] = City.citybuildA(area.cities[i][l].X + n, area.cities[i][l].Y);
                             n += 25;
                         }
                         else if (i == 2)
                         {
-                            buildrect[i][l][j + 1] = City.citybuildA(city[i].cities[l].X + n, 125);
+                            buildrect[i][l][j + 1] = City.citybuildA(area.cities[i][l].X + n, 125);
                             n += 25;
                         }
                         else if (i == 1)
                         {
-                            buildrect[i][l][j + 1] = City.citybuildB(125, city[i].cities[l].Y + n);
+                            buildrect[i][l][j + 1] = City.citybuildB(125, area.cities[i][l].Y + n);
                             n += 25;
                         }
                         else if (i == 3)
                         {
-                            buildrect[i][l][j + 1] = City.citybuildB(city[i].cities[l].X, city[i].cities[l].Y + n);
+                            buildrect[i][l][j + 1] = City.citybuildB(area.cities[i][l].X, city[i].cities[l].Y + n);
                             n += 25;
                         }
                         //buildrect[i][l][0] = new Rectangle(new Point(1, 1), new Size(1, 0));

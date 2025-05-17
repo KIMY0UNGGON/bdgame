@@ -35,9 +35,17 @@ namespace boardgame
         {
             return new Rectangle(x, y, 25, 25);
         }
+        public static Rectangle citybuildA(Rectangle r)
+        {
+            return new Rectangle(r.X, r.Y, 25, 25);
+        }
         public static Rectangle citybuildB(int x,int y)
         {
             return new Rectangle(x, y, 25, 25);
+        }
+        public static Rectangle citybuildB(Rectangle r)
+        {
+            return new Rectangle(r.X,r.Y, 25, 25);
         }
         public static Rectangle four(int x, int y)
         {
