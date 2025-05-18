@@ -17,7 +17,7 @@ namespace boardgame
         public Point[] C1 = { new Point(500, 300), new Point(400, 200), new Point(200, 400), new Point(300, 500) };
         private Area area = new Area();
 
-        Bitmap bit, map, key, nameBt, Arch;
+        Bitmap bit, map, key, nameBt, DICES;
         Graphics DC, dices, Card, nameGp, Arch_GP;
         //DC : 플레이어, 도시칸
         //dices : 다이스

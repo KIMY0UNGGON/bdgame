@@ -109,7 +109,7 @@ namespace boardgame
             //playerimage();
             image(); //황금 카드의 좌표 및 주사위의 크기 및 좌표
             rectcity(); // 구매하면 건설될 건물들의 크기 및 좌표 지정.
-            Card.DrawImage(cardg, C, CardList[0], GraphicsUnit.Pixel); //카드 이미지 그림.
+            GPs[2].DrawImage(cardg, C, CardList[0], GraphicsUnit.Pixel); //카드 이미지 그림.
             city[3].updateAll(); //모든 말들을 다시 그림.
 
 

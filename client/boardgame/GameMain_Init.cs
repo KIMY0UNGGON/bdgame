@@ -16,18 +16,22 @@ namespace boardgame
         {
             bit = new Bitmap(this.Width, this.Height);
             GPs.Add( Graphics.FromImage(bit)); //DC
-            map = new Bitmap(this.Width, this.Height);
-            
-            GPs.Add(Graphics.FromImage(new Bitmap(210, 100))); //dices
-            
+            //map = new Bitmap(this.Width, this.Height);
+
+
+            //수정점 : 주사위 프린트 수정필요
+            DICES = new Bitmap(210, 100);
+            GPs.Add(Graphics.FromImage(DICES)); //dices
+
             key = new Bitmap(this.Width, this.Height);
-            Card = Graphics.FromImage(key);
+            //Card = Graphics.FromImage(key);
+            //Card
             GPs.Add(Graphics.FromImage(key));
             nameBt = new Bitmap(this.Width, this.Height);
-            nameGp = Graphics.FromImage(nameBt);
+           // nameGp = Graphics.FromImage(nameBt);
             GPs.Add(Graphics.FromImage(nameBt));
-            Arch = new Bitmap(this.Width, this.Height);
-            Arch_GP = Graphics.FromImage(Arch);
+           // Arch = new Bitmap(this.Width, this.Height);
+           // Arch_GP = Graphics.FromImage(Arch);
 
             
         }
@@ -135,7 +139,7 @@ namespace boardgame
             city[1] = new cityArea(1, GPs, area.cities[1], areacard1, social, Players_Token);
             city[2] = new cityArea(2, GPs, area.cities[2], areacard2, social, Players_Token);
             city[3] = new cityArea(3, GPs, area.cities[3], areacard3, social, Players_Token);
-            city[3].play.ForEach(x => x.Activate(3,9));
+            city[3].play.ForEach(x => x.Activate(3,9)); //현재 토큰들 모두 활성화
 
 
 
@@ -229,7 +233,7 @@ namespace boardgame
                 }
               
             }
-            Players_Token.Add(new Player(playerrect, MultyPlayers.First().ToArray()));
+            Players_Token.Add(new Player(playerrect, MultyPlayers.First().ToArray())); //플레이어의 위치가 든 사각형과 플레이어의 bitmap을 전달
         }
     }
 }

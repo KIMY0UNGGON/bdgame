@@ -29,7 +29,8 @@ namespace boardgame
             
 
             e.Graphics.DrawImageUnscaled(nameBt, 0, 0);
-            e.Graphics.DrawImageUnscaled(map, 0, 0);
+            //수정점 주사위 프린트
+            e.Graphics.DrawImageUnscaled(DICES, 600, 700);
             
 
         }

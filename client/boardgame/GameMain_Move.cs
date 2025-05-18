@@ -36,9 +36,8 @@ namespace boardgame
             return price_toll;
 
         }
-        private void button1_Click(object sender, EventArgs e) //주사위를 던지는 버튼을 클릭.
+        private int DrawDice()
         {
-            player_stop = false;
             Random dice = new Random(); //주사위의 수를 표현하기위해 랜덤클래스 사용.
 
             int dicenum1 = dice.Next(1, 7); //첫번째 주사위의 수.
@@ -46,16 +45,38 @@ namespace boardgame
             button1.Text = dicenum1.ToString() + "|" + dicenum2.ToString(); //버튼에 첫번째와 두번째 주사위의 수를 표시.
             int dicenum = dicenum1 + dicenum2; //말이 움직일 수를 표현.
 
-            //600 ~ 810
-            //700~800  
-            Rectangle dicepos = new Rectangle(600, 700, 100, 100); //첫번째 주사위의 위치. 그림으로 표현되는 주사위.
-            Rectangle dicepos1 = new Rectangle(710, 700, 100, 100); //두번째 주사위의 위치.
+            Rectangle dicepos = new Rectangle(0, 0, 100, 100); //첫번째 주사위의 위치. 그림으로 표현되는 주사위.
+            Rectangle dicepos1 = new Rectangle(110, 0, 100, 100); //두번째 주사위의 위치.
             Point x = dicepos.Location;
+            //수정점. 주사위 프린트를 바꿔야함
             GPs[1].DrawImage(dice1, dicepos, Dicelist[dicenum1 - 1], GraphicsUnit.Pixel); //주사위를 그림. 아래코드도 마찬가지.
             GPs[1].DrawImage(dice1, dicepos1, Dicelist[dicenum2 - 1], GraphicsUnit.Pixel);
-            button1.Enabled = false; //주사위가 굴러갈때 주사위를 한번더 굴리는 걸 방지.
-           // skip = 0;
 
+            return dicenum;
+        }
+        private void button1_Click(object sender, EventArgs e) //주사위를 던지는 버튼을 클릭.
+        {
+            player_stop = false;
+            //Random dice = new Random(); //주사위의 수를 표현하기위해 랜덤클래스 사용.
+
+            //int dicenum1 = dice.Next(1, 7); //첫번째 주사위의 수.
+            //int dicenum2 = dice.Next(1, 7); //두번째 주사위의 수.
+            //button1.Text = dicenum1.ToString() + "|" + dicenum2.ToString(); //버튼에 첫번째와 두번째 주사위의 수를 표시.
+            //int dicenum = dicenum1 + dicenum2; //말이 움직일 수를 표현.
+
+            ////600 ~ 810
+            ////700~800  
+            //Rectangle dicepos = new Rectangle(0, 0, 100, 100); //첫번째 주사위의 위치. 그림으로 표현되는 주사위.
+            //Rectangle dicepos1 = new Rectangle(110, 0, 100, 100); //두번째 주사위의 위치.
+            //Point x = dicepos.Location;
+            ////수정점. 주사위 프린트를 바꿔야함
+            //GPs[1].DrawImage(dice1, dicepos, Dicelist[dicenum1 - 1], GraphicsUnit.Pixel); //주사위를 그림. 아래코드도 마찬가지.
+            //GPs[1].DrawImage(dice1, dicepos1, Dicelist[dicenum2 - 1], GraphicsUnit.Pixel);
+            int dicenum = DrawDice();
+            button1.Enabled = false; //주사위가 굴러갈때 주사위를 한번더 굴리는 걸 방지.
+                                     // skip = 0;
+
+            Invalidate();
             if (nowcity == 9 && nowblock == 2) //우주여행 칸일 때 버튼들을 생성해 움직일 수 있게 함.
             {
                 SpaceTrip();

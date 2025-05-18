@@ -27,15 +27,8 @@ namespace boardgame
 
         
         Rectangle areacolor;
-        //Graphics g_Test[0];
-        //Bitmap bt;
-       // bool buy;
-       // List<Bitmap>[] Players_Token;
         int count;
-        //Graphics GP;
 
-        //Graphics namegp;
-        //Bitmap namebt;
         public static int down = (1016);//    1016
         public static int side = (993);//     993
         Bitmap img2;
@@ -43,16 +36,15 @@ namespace boardgame
         Bitmap img3;
         List<string> name = new List<string>();
         public List<string> name_str = new List<string>();
-
         public List<double>[] price = new List<double>[8];
         int Area;
-        //int Client_num;
+
+
         List<Graphics> g_Test;
-        Graphics Arch_GP;
         public cityArea(int Area, List<Graphics> g_Test, Rectangle[] cities, Bitmap img,Bitmap img2, List<Player> play)
         {
 
-            int count = 10; //현재 구역의 칸 수.
+            count = 10; //현재 구역의 칸 수.
             
             
             cityRect = new List<Rectangle>[count];
@@ -69,9 +61,7 @@ namespace boardgame
 
             for (int i = 0; i <= 7; i++)
                 price[i] = new List<double>();
-            this.g_Test = g_Test;
-     
-            this.count = count;          
+            this.g_Test = g_Test;      
             this.img = img;
             this.img2 = img2;
             this.Area = Area;
